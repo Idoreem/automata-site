@@ -214,14 +214,14 @@ img,svg{display:block;max-width:100%}
 .pi--bin .toss{transform-origin:33px 22px}
 .js .in .pi--bin .toss{animation:pi-toss 2.8s ease-in infinite}
 .js .in .pi--bin .t2{animation-delay:1.4s}
-/* המסלול: יוצא מימין־למעלה, מגיע לשיא, ונופל לתוך הפח */
+/* המסלול: יוצא מימין־למעלה, מגיע לשיא, ונבלע מאחורי המכסה */
 @keyframes pi-toss{
-  0%   {transform:translate(22px,-2px) rotate(-22deg);opacity:0}
+  0%   {transform:translate(22px,4px) rotate(-22deg);opacity:0}
   12%  {opacity:1}
-  32%  {transform:translate(13px,-11px) rotate(-6deg)}
-  62%  {transform:translate(5px,-4px) rotate(10deg)}
-  84%  {transform:translate(0,8px) rotate(18deg);opacity:1}
-  100% {transform:translate(0,17px) rotate(24deg);opacity:0}
+  32%  {transform:translate(13px,-5px) rotate(-6deg)}
+  62%  {transform:translate(5px,2px) rotate(10deg)}
+  84%  {transform:translate(0,10px) rotate(18deg);opacity:1}
+  100% {transform:translate(0,16px) rotate(24deg);opacity:0}
 }
 
 /* --- 2. המחוג לא עוצר. סיבוב אחרי סיבוב, וזה כל היום שלך. --- */
