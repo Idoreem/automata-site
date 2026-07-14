@@ -348,14 +348,70 @@ img,svg{display:block;max-width:100%}
 .fit .close a:hover{color:var(--signal);text-decoration-color:currentColor}
 
 /* ---------- how (רצף אמיתי — לכן ממוספר) ----------
-   ארבעת האייקונים הם סיפור אחד, לפי הסדר:
-   הפער נמצא → נמדד → מגושר → זורם ונמדד. */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-.step{border-block-start:2px solid var(--rule-strong);padding-block-start:18px;transition:border-color .3s}
-.step:hover{border-block-start-color:var(--signal)}
-.step .num{font-family:var(--mono);font-size:.82rem;letter-spacing:.14em;color:var(--signal);direction:ltr;text-align:right}
-.step h3{font-size:1.14rem;color:var(--ink);margin-block:10px 7px}
+   מסילה אחת שעוברת דרך ארבעה שלבים. הקו העליון של הכרטיס הוא המסילה,
+   החרוז הכהה הממוספר יושב עליה בדיוק על הקצה, והמקטע המקווקו בין הכרטיסים
+   ממשיך אותה עם חץ. ה-.step-link הוא גם הרווח בגריד - אין gap.
+
+   הפעימה: כשהסקשן נכנס לפריים, כל מקטע נצבע בכתום לפי הסדר (ימין→שמאל)
+   והחץ שלו נדלק. פעם אחת, לא בלולאה. */
+.steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:0;align-items:stretch}
+
+.step{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--rule);
+  border-radius:var(--r-lg);
+  padding:34px 22px 24px;
+  transition:border-color .25s,box-shadow .25s;
+}
+.step:hover{border-color:var(--rule-strong);box-shadow:var(--shadow)}
+
+/* החרוז: יושב על קצה הכרטיס, חציו בפנים וחציו מעל הקו */
+.step .num{
+  position:absolute;inset-block-start:-21px;inset-inline-start:20px;
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--console);color:var(--signal);
+  font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;direction:ltr;
+  box-shadow:0 0 0 5px var(--paper);
+  transition:background .25s,color .25s;
+}
+.step:hover .num{background:var(--signal);color:#200C02}
+.step h3{font-size:1.14rem;color:var(--ink);margin-block:0 7px}
 .step p{color:var(--ink-mute);font-size:.97rem;line-height:1.65}
+
+/* המקטע שבין שלב לשלב: הרווח, הקו והחץ - אותו אלמנט */
+.step-link{
+  position:relative;width:clamp(38px,4vw,64px);
+  display:flex;align-items:flex-start;justify-content:center;
+}
+/* הקו המקווקו — ממשיך את קצה הכרטיס דרך הרווח */
+.step-link::before,
+.step-link::after{
+  content:"";position:absolute;inset-block-start:0;inset-inline:-1px;height:2px;
+}
+.step-link::before{
+  background-image:linear-gradient(90deg,var(--rule-strong) 55%,transparent 55%);
+  background-size:8px 2px;
+}
+/* השכבה הכתומה שנצבעת בזמן הפעימה. RTL: הזרימה מימין לשמאל, לכן המקור ימני. */
+.step-link::after{background:var(--signal);transform:scaleX(0);transform-origin:right}
+.step-link .chev{
+  width:20px;height:20px;margin-block-start:-9px;
+  color:var(--rule-strong);background:var(--paper);
+  transition:color .3s;
+}
+/* הפעימה עצמה — רק כש-JS חי ורק אחרי שהמסילה נכנסה לפריים */
+.js .steps.in .step-link::after{transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.js .steps.in .step-link:nth-child(2)::after{transform:scaleX(1);transition-delay:.35s}
+.js .steps.in .step-link:nth-child(4)::after{transform:scaleX(1);transition-delay:.75s}
+.js .steps.in .step-link:nth-child(6)::after{transform:scaleX(1);transition-delay:1.15s}
+.js .steps.in .step-link:nth-child(2) .chev{color:var(--signal);transition-delay:.6s}
+.js .steps.in .step-link:nth-child(4) .chev{color:var(--signal);transition-delay:1s}
+.js .steps.in .step-link:nth-child(6) .chev{color:var(--signal);transition-delay:1.4s}
+/* בלי JS אין פעימה — המסילה פשוט כתומה מלכתחילה */
+html:not(.js) .step-link::after{transform:scaleX(1)}
+html:not(.js) .step-link .chev{color:var(--signal)}
 
 
 
@@ -618,7 +674,18 @@ img,svg{display:block;max-width:100%}
   /* במובייל הקונסולה יורדת מתחת לכותרת — קודם ההבטחה, אחר כך ההוכחה */
   .hero-in{grid-template-columns:1fr}
   .pains{grid-template-columns:repeat(2,1fr)}
-  .steps{grid-template-columns:repeat(2,1fr);gap:28px}
+  /* המסילה נעמדת: אותו קו, אותם חרוזים, החץ מסתובב מטה. */
+  .steps{grid-template-columns:1fr;max-width:560px;margin-inline:auto}
+  .step-link{width:auto;height:52px;justify-content:flex-start;align-items:center}
+  .step-link::before,
+  .step-link::after{inset-block:-1px;inset-inline:40px auto;width:2px;height:auto}
+  .step-link::after{transform:scaleY(0);transform-origin:top}
+  .js .steps.in .step-link:nth-child(2)::after,
+  .js .steps.in .step-link:nth-child(4)::after,
+  .js .steps.in .step-link:nth-child(6)::after{transform:scaleY(1)}
+  html:not(.js) .step-link::after{transform:scaleY(1)}
+  .step-link::before{background-image:linear-gradient(180deg,var(--rule-strong) 55%,transparent 55%);background-size:2px 8px}
+  .step-link .chev{margin-block-start:0;margin-inline-start:31px;transform:rotate(-90deg)}
   .sol{grid-template-columns:1fr}
   .sol--flip .sol-visual{order:0}
   .sol-visual{order:-1}
