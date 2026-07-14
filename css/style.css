@@ -369,60 +369,56 @@ img,svg{display:block;max-width:100%}
 
 /* =========================================================
    RELATE — "מזדהה עם אחד מהמשפטים האלו?"
-   ארבע עמודות. שוב חתיכות ממשק אמיתיות, לא אייקונים מופשטים:
-   משימה שלא זזה, פיד שממשיך לרוץ, צ׳אט שנסגר, מדריכים שלא נגמרים.
-   הגובה של .ra קבוע, אחרת המשפטים שמתחתיו קופצים משורה לשורה.
+   ארבעה אייקוני SVG מצוירים, כל אחד קשור ישירות למשפט שמתחתיו:
+   שבב שמרחף מעל העסק ולא נכנס, ניצוץ שנראה מעבר לסבך, בועה שפועמת
+   מול גלגל שלא זז, וחול שנגמר. ציור, לא קופסאות טקסט.
    ========================================================= */
 .rels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.rel{background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg);padding:22px 20px;transition:border-color .25s,transform .25s,box-shadow .25s}
+.rel{background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg);padding:26px 22px;transition:border-color .25s,transform .25s,box-shadow .25s}
 .rel:hover{border-color:var(--rule-strong);transform:translateY(-3px);box-shadow:var(--shadow)}
 .rel > p{font-size:1rem;color:var(--ink-soft);line-height:1.6}
-.ra{background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-md);padding:12px 13px;margin-block-end:18px;height:126px;display:flex;flex-direction:column;justify-content:center;gap:7px;overflow:hidden}
 
-/* 1. המשימה שלא זזה */
-.ra--todo .todo{display:flex;align-items:center;gap:8px;font-size:.85rem}
-.ra--todo .cb{width:14px;height:14px;flex:none;border:1.5px solid var(--rule-strong);border-radius:3px;position:relative}
-.ra--todo .tx{color:var(--ink-mute)}
-.ra--todo .done .tx,.ra--todo .tx.done{color:var(--ink-faint);text-decoration:line-through}
-.ra--todo .cb.done{background:var(--rule-strong);border-color:var(--rule-strong)}
-.ra--todo .cb.done::after{content:"";position:absolute;inset-inline-start:4px;inset-block-start:1px;width:3px;height:7px;border:solid var(--card);border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
-.ra--todo .open .tx{color:var(--ink)}
-.ra--todo .open .cb{border-color:var(--signal)}
-.js .in .ra--todo .open .cb{animation:rel-pulse 1.9s ease-in-out infinite}
-@keyframes rel-pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,53,.35)}50%{box-shadow:0 0 0 4px rgba(255,107,53,0)}}
+.ri{width:98px;height:98px;margin-block-end:22px}
+.ri .base,.ri .hot,.ri .dim{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ri .base{stroke:var(--ink-soft)}
+.ri .hot{stroke:var(--signal)}
+.ri .dim{stroke:var(--ink-faint)}
+.ri .fill{fill:var(--signal);stroke:none}
 
-/* 2. הפיד שלא נגמר. הז׳רגון בסוף הוא הדלת שנסגרת. */
-.ra--feed{padding:0}
-.ra--feed .feed{position:relative;height:100%;overflow:hidden;padding-inline:13px;
-  -webkit-mask-image:linear-gradient(180deg,transparent,#000 22%,#000 78%,transparent);
-          mask-image:linear-gradient(180deg,transparent,#000 22%,#000 78%,transparent)}
-/* margin ולא gap: הלולאה מזיזה 50%, וזה שווה לרצף אחד בדיוק רק אם לכל פוסט
-   יש מרווח משלו. עם gap, המרווח בין שני החצאים חסר - והלולאה קופצת. */
-.ra--feed .reel{display:flex;flex-direction:column}
-.js .in .ra--feed .reel{animation:rel-scroll 15s linear infinite}
-.ra--feed .post{margin-block-end:7px;background:var(--card);border:1px solid var(--rule);border-radius:var(--r-sm);padding:6px 9px;font-size:.78rem;color:var(--ink-mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ra--feed .post.jar{color:var(--signal-ink);border-color:var(--signal);direction:ltr;font-family:var(--mono);font-size:.68rem}
-@keyframes rel-scroll{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+/* 1. התקע ביד. השקע בקיר, ריק. הוא מתקרב ונרתע - עוד לא חיברת. */
+.ri--plug .slot{stroke-linecap:round}
+.js .in .ri--plug .plug{animation:ri-reach 2.8s ease-in-out infinite}
+.js .in .ri--plug .slot{animation:ri-wait 2.8s ease-in-out infinite}
+@keyframes ri-reach{0%,100%{transform:translateX(0)}45%{transform:translateX(4px)}}
+@keyframes ri-wait{0%,100%{opacity:.4}45%{opacity:1}}
 
-/* 3. תשובה מצוינת - ואז הטאב נסגר ולא נשאר ממנה כלום. הדעיכה היא הפואנטה. */
-.ra--chat .loop{display:flex;flex-direction:column;gap:7px;align-items:flex-start}
-.ra--chat .ask{background:var(--card);border:1px solid var(--rule);border-radius:10px;border-end-start-radius:3px;padding:7px 10px;font-size:.8rem;color:var(--ink-soft)}
-.ra--chat .ans{align-self:flex-end;max-width:88%;background:var(--ink);color:var(--paper);border-radius:10px;border-end-end-radius:3px;padding:8px 10px;font-size:.78rem;line-height:1.5}
-/* שתי שורות הטיוטה שהוא כתב לך. יפות. ולא עשית איתן כלום. */
-.ra--chat .ans i{display:block;height:4px;border-radius:99px;background:rgba(251,247,236,.34);margin-block-start:5px}
-.ra--chat .ans i:last-child{width:62%}
-.js .in .ra--chat .loop{animation:rel-fade 4.4s ease-in-out infinite}
-@keyframes rel-fade{0%,52%{opacity:1}72%,100%{opacity:.1}}
+/* 2. אתה בצד אחד, הניצוץ בצד השני, והגשר נעצר באוויר. */
+.ri--gap .bridge{stroke-dasharray:16 84;stroke-dashoffset:100}
+.js .in .ri--gap .bridge{animation:ri-halt 3.6s ease-out infinite}
+.js .in .ri--gap .spark{animation:ri-glow 2.6s ease-in-out infinite;transform-origin:51px 24px}
+@keyframes ri-halt{0%{stroke-dashoffset:100;opacity:0}14%{opacity:1}58%{stroke-dashoffset:54;opacity:1}76%,100%{stroke-dashoffset:48;opacity:0}}
+@keyframes ri-glow{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.1)}}
 
-/* 4. שלושה מדריכים פתוחים. הפס מתחיל, נתקע, ומתאפס. */
-.ra--tabs .tabs{display:flex;flex-wrap:wrap;gap:5px}
-.ra--tabs .tab{background:var(--card);border:1px solid var(--rule);border-radius:var(--r-sm);padding:4px 8px;font-size:.72rem;color:var(--ink-mute);white-space:nowrap}
-/* flex:none חובה. הטאבים נשברים לשתי שורות, התוכן גולש ב-6 פיקסלים בדיוק,
-   והפס - שגובהו 6 - מתכווץ לאפס ונעלם. */
-.ra--tabs .bar{flex:none;height:6px;border-radius:99px;background:var(--rule-strong);overflow:hidden;margin-block-start:2px}
-.ra--tabs .bar i{display:block;height:100%;width:6%;border-radius:99px;background:var(--signal)}
-.js .in .ra--tabs .bar i{animation:rel-stall 6s ease-in-out infinite}
-@keyframes rel-stall{0%{width:2%}45%,70%{width:9%}72%,100%{width:2%}}
+/* 3. הבועה מדברת. החיווט מנסה. הגלגל לא זז - וזו הפואנטה. */
+.ri--stall .wire{stroke-dasharray:3 4}
+.js .in .ri--stall .talk{animation:ri-talk 3.2s ease-in-out infinite;transform-origin:24px 21px}
+.js .in .ri--stall .wire{animation:ri-try 3.2s linear infinite}
+@keyframes ri-talk{0%,100%{transform:scale(1)}18%{transform:scale(1.06)}36%{transform:scale(1)}}
+/* הקווקווים נוסעים לכיוון הגלגל ומתים לפני שהם מגיעים */
+@keyframes ri-try{0%{stroke-dashoffset:14;opacity:0}20%{opacity:1}70%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:0;opacity:0}}
+
+/* 4. החול נגמר. ואז מתהפך, ומתחיל מהתחלה. */
+.ri--sand .top{transform-origin:32px 11px}
+.ri--sand .bot{transform-origin:32px 53px}
+.ri--sand .grain{opacity:0}
+.js .in .ri--sand .top{animation:ri-empty 5s ease-in-out infinite}
+.js .in .ri--sand .bot{animation:ri-fill 5s ease-in-out infinite}
+.js .in .ri--sand .grain{animation:ri-grain .9s linear infinite}
+.js .in .ri--sand .glass{animation:ri-flip 5s ease-in-out infinite;transform-origin:32px 32px}
+@keyframes ri-empty{0%{transform:scaleY(1)}70%,100%{transform:scaleY(.08)}}
+@keyframes ri-fill{0%{transform:scaleY(.08)}70%,100%{transform:scaleY(1)}}
+@keyframes ri-grain{0%{opacity:0;transform:translateY(0)}20%{opacity:1}100%{opacity:0;transform:translateY(7px)}}
+@keyframes ri-flip{0%,88%{transform:rotate(0)}100%{transform:rotate(180deg)}}
 
 /* הסגירה */
 .rel-cta{margin-block-start:44px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center}
@@ -670,13 +666,10 @@ img,svg{display:block;max-width:100%}
   .js .rig-list{display:grid}
   .rig-dots{display:none}
   .rig-link i{animation:none}
-  /* כרטיסי ה-relate קופאים במצב הסופי, לא במסך ריק. */
-  .js .in .ra--todo .open .cb,
-  .js .in .ra--feed .reel,
-  .js .in .ra--chat .loop,
-  .js .in .ra--tabs .bar i{animation:none}
-  .ra--chat .loop{opacity:1}
-  .ra--tabs .bar i{width:6%}
+  /* אייקוני ה-relate קופאים במצב הסופי, לא במסך ריק. */
+  .js .in .ri *{animation:none!important}
+  .ri--sand .top{transform:scaleY(.08)}
+  .ri--sand .grain{opacity:0}
   /* חתיכות הממשק קופאות במצב הסופי, לא במסך ריק */
   .js .in .art--repeat .box,
   .js .in .art--repeat .box::after,
