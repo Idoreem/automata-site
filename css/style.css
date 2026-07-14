@@ -441,30 +441,35 @@ html:not(.js) .step-link .chev{color:var(--signal)}
 .ri .dim{stroke:var(--ink-faint)}
 .ri .fill{fill:var(--signal);stroke:none}
 
-/* 1. רובוט AI מחייך. האנטנה פועמת, העיניים ממצמצות. */
+/* 1. רובוט ערמומי. גבה מורמת, חיוך עקום, וקריצה כל כמה שניות
+   עם נענוע ראש קטן. הקריצה = החלפה בין העין הפקוחה לעפעף הסגור. */
 .ri .ink{fill:var(--ink-soft);stroke:none}
+.ri--bot .lid-shut{opacity:0}
 .js .in .ri--bot .ant{animation:ri-blip 2.2s ease-in-out infinite;transform-origin:32px 5px}
-.js .in .ri--bot .eyes{animation:ri-blink 4.2s ease-in-out infinite;transform-origin:32px 27px}
+.js .in .ri--bot .head{animation:ri-cheek 4s ease-in-out infinite;transform-origin:32px 48px}
+.js .in .ri--bot .lid-open{animation:ri-eye-off 4s ease-in-out infinite}
+.js .in .ri--bot .lid-shut{animation:ri-eye-on 4s ease-in-out infinite}
+.js .in .ri--bot .brow{animation:ri-brow 4s ease-in-out infinite;transform-origin:23px 21px}
 @keyframes ri-blip{0%,100%{opacity:.55;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
-@keyframes ri-blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes ri-cheek{0%,55%,100%{transform:rotate(0)}65%,80%{transform:rotate(-4deg)}}
+@keyframes ri-eye-off{0%,58%,100%{opacity:1}64%,80%{opacity:0}}
+@keyframes ri-eye-on{0%,58%,100%{opacity:0}64%,80%{opacity:1}}
+@keyframes ri-brow{0%,55%,100%{transform:translateY(0)}65%,80%{transform:translateY(-2px)}}
 
-/* 2. הפסגה הזהובה גבוהה ורחוקה. הוא מטפס, נאבק, ומזיע. */
-.js .in .ri--peak .cap{animation:ri-glow 2.6s ease-in-out infinite;transform-origin:28px 16px}
-.js .in .ri--peak .man{animation:ri-heave 1.9s ease-in-out infinite;transform-origin:48px 44px}
-.js .in .ri--peak .drop{animation:ri-sweat 1.9s ease-in-out infinite}
-.js .in .ri--peak .drop:nth-child(2){animation-delay:.5s}
-@keyframes ri-glow{0%,100%{opacity:.6;transform:scale(.96)}50%{opacity:1;transform:scale(1.05)}}
-/* מאמץ: הוא נדחף מעלה וצונח חזרה. לא מתקדם. */
-@keyframes ri-heave{0%,100%{transform:translate(0,0)}40%{transform:translate(-1.5px,-2.5px)}}
-@keyframes ri-sweat{0%{opacity:0;transform:translate(0,0)}30%{opacity:.9}100%{opacity:0;transform:translate(4px,5px)}}
+/* 2. דיברת עם GPT. הקו בעסק שטוח לגמרי, והנקודה עוברת עליו
+   בלי לקפוץ אף פעם. זו כל הפואנטה. */
+.ri--flat .trail,.ri--flat .hot{stroke-width:2.4}
+.js .in .ri--flat .bub{animation:ri-talk 3.4s ease-in-out infinite;transform-origin:40px 19px}
+.js .in .ri--flat .pip{animation:ri-crawl 3.4s linear infinite}
+@keyframes ri-talk{0%,100%{transform:scale(1)}16%{transform:scale(1.06)}34%{transform:scale(1)}}
+@keyframes ri-crawl{0%{transform:translateX(0);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translateX(40px);opacity:0}}
 
-/* 3. הבועה מדברת. החיווט מנסה. הגלגל לא זז - וזו הפואנטה. */
-.ri--stall .wire{stroke-dasharray:3 4}
-.js .in .ri--stall .talk{animation:ri-talk 3.2s ease-in-out infinite;transform-origin:24px 21px}
-.js .in .ri--stall .wire{animation:ri-try 3.2s linear infinite}
-@keyframes ri-talk{0%,100%{transform:scale(1)}18%{transform:scale(1.06)}36%{transform:scale(1)}}
-/* הקווקווים נוסעים לכיוון הגלגל ומתים לפני שהם מגיעים */
-@keyframes ri-try{0%{stroke-dashoffset:14;opacity:0}20%{opacity:1}70%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:0;opacity:0}}
+/* 3. הפסגה הזהובה למעלה. השביל מתפתל ולא נגמר. אתה בתחתית. */
+.ri--peak .trail{stroke-dasharray:4 3.5}
+.js .in .ri--peak .trail{animation:ri-wind 2.6s linear infinite}
+.js .in .ri--peak .cap{animation:ri-glow 2.6s ease-in-out infinite;transform-origin:32px 15px}
+@keyframes ri-wind{to{stroke-dashoffset:-15}}
+@keyframes ri-glow{0%,100%{opacity:.6;transform:scale(.96)}50%{opacity:1;transform:scale(1.06)}}
 
 /* 4. החול נגמר. ואז מתהפך, ומתחיל מהתחלה. */
 .ri--sand .top{transform-origin:32px 11px}
