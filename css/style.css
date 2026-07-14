@@ -378,25 +378,29 @@ img,svg{display:block;max-width:100%}
 .rel:hover{border-color:var(--rule-strong);transform:translateY(-3px);box-shadow:var(--shadow)}
 .rel > p{font-size:1rem;color:var(--ink-soft);line-height:1.6}
 
-.ri{width:98px;height:98px;margin-block-end:22px}
+.ri{width:98px;height:98px;margin-block-end:22px;margin-inline:auto}
 .ri .base,.ri .hot,.ri .dim{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .ri .base{stroke:var(--ink-soft)}
 .ri .hot{stroke:var(--signal)}
 .ri .dim{stroke:var(--ink-faint)}
 .ri .fill{fill:var(--signal);stroke:none}
 
-/* 1. התקע ביד. השקע בקיר, ריק. הוא מתקרב ונרתע - עוד לא חיברת. */
-.ri--plug .slot{stroke-linecap:round}
-.js .in .ri--plug .plug{animation:ri-reach 2.8s ease-in-out infinite}
-.js .in .ri--plug .slot{animation:ri-wait 2.8s ease-in-out infinite}
-@keyframes ri-reach{0%,100%{transform:translateX(0)}45%{transform:translateX(4px)}}
-@keyframes ri-wait{0%,100%{opacity:.4}45%{opacity:1}}
+/* 1. רובוט AI מחייך. האנטנה פועמת, העיניים ממצמצות. */
+.ri .ink{fill:var(--ink-soft);stroke:none}
+.js .in .ri--bot .ant{animation:ri-blip 2.2s ease-in-out infinite;transform-origin:32px 5px}
+.js .in .ri--bot .eyes{animation:ri-blink 4.2s ease-in-out infinite;transform-origin:32px 27px}
+@keyframes ri-blip{0%,100%{opacity:.55;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes ri-blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
 
-/* 2. הניצוץ בראש המדרגות. אתה מנסה מדרגה אחת, ומחליק חזרה. */
-.js .in .ri--climb .me{animation:ri-slip 3.2s cubic-bezier(.5,0,.6,1) infinite}
-.js .in .ri--climb .spark{animation:ri-glow 2.6s ease-in-out infinite;transform-origin:52px 13px}
-@keyframes ri-slip{0%,8%{transform:translate(0,0)}38%{transform:translate(12px,-12px)}62%,100%{transform:translate(0,0)}}
-@keyframes ri-glow{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.1)}}
+/* 2. הפסגה הזהובה גבוהה ורחוקה. הוא מטפס, נאבק, ומזיע. */
+.js .in .ri--peak .cap{animation:ri-glow 2.6s ease-in-out infinite;transform-origin:28px 16px}
+.js .in .ri--peak .man{animation:ri-heave 1.9s ease-in-out infinite;transform-origin:48px 44px}
+.js .in .ri--peak .drop{animation:ri-sweat 1.9s ease-in-out infinite}
+.js .in .ri--peak .drop:nth-child(2){animation-delay:.5s}
+@keyframes ri-glow{0%,100%{opacity:.6;transform:scale(.96)}50%{opacity:1;transform:scale(1.05)}}
+/* מאמץ: הוא נדחף מעלה וצונח חזרה. לא מתקדם. */
+@keyframes ri-heave{0%,100%{transform:translate(0,0)}40%{transform:translate(-1.5px,-2.5px)}}
+@keyframes ri-sweat{0%{opacity:0;transform:translate(0,0)}30%{opacity:.9}100%{opacity:0;transform:translate(4px,5px)}}
 
 /* 3. הבועה מדברת. החיווט מנסה. הגלגל לא זז - וזו הפואנטה. */
 .ri--stall .wire{stroke-dasharray:3 4}
