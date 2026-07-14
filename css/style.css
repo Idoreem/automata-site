@@ -180,94 +180,70 @@ img,svg{display:block;max-width:100%}
 .console-ft b{font-family:var(--mono);font-size:.95rem;color:var(--live);direction:ltr}
 
 /* =========================================================
-   כרטיסי הכאב — חתיכות ממשק אמיתיות, לא אייקונים
+   כרטיסי הכאב — ארבעה ציורים, לא ארבעה סמלים
 
-   ניסיון קודם היה דיאגרמות מופשטות (node/rail/pulse). הן נכשלו:
-   אייקון שצריך הסבר הוא לא אייקון. בעל עסק ראה קווים כתומים.
+   הכלל: האייקון הוא הכאב עצמו, לא מטאפורה מופשטת שלו. מי שמסתכל
+   שנייה אחת צריך לראות מה קורה, בלי לקרוא את הכותרת.
 
-   מה שכן עובד באתר הזה זו הקונסולה — כי היא מראה דברים אמיתיים:
-   הודעה, שעה, סטטוס. אז כל כרטיס כאב מקבל חתיכת ממשק אמיתית
-   מהעולם של הלקוח, לא ציור שלה:
+     .pi--drop  פנייה נופלת דרך סדק במדף. שתיים נשארו, אחת הלכה.
+     .pi--hand  שעון שמחוג הדקות שלו עיפרון — השעות נכתבות ביד.
+     .pi--neck  משפך, משימות תקועות, ובצוואר — אתה.
+     .pi--burn  שטר שנשרף. במקום התוצאה, סימן שאלה.
 
-     .art--wait    הודעת וואטסאפ שלא נענתה, וטיימר שמטפס.
-     .art--repeat  רשימת משימות שמסמנת את עצמה — וחוזרת מההתחלה.
-     .art--queue   תור אישורים שנערם עליך.
-     .art--burn    תקציב שמתרוקן, ובמקום התוצאה — סימן שאלה.
-   ========================================================= */
+   הכתום מסמן תמיד את מה שכואב, ורק אותו: הפנייה שנפלה, חוד העיפרון,
+   הפקק, האש. כל השאר בדיו. */
 /* גובה קבוע לכל ארבעתם — אחרת הכותרות שמתחתיהם קופצות משורה לשורה */
 .art{
   background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-md);
-  padding:13px 14px;margin-block-end:20px;height:134px;
-  display:flex;flex-direction:column;justify-content:center;gap:9px;
+  padding:13px 14px;margin-block-end:20px;height:142px;
+  display:flex;align-items:center;justify-content:center;
 }
-.art-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.8rem;color:var(--ink-faint)}
-.art-meta b{font-family:var(--mono);font-size:.9rem;color:var(--signal-ink);direction:ltr;font-variant-numeric:tabular-nums}
+.pi{width:116px;height:116px}
+.pi .base,.pi .hot,.pi .dim{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pi .base{stroke:var(--ink-soft)}
+.pi .hot{stroke:var(--signal)}
+.pi .dim{stroke:var(--rule-strong)}
+.pi .fill{fill:var(--signal);stroke:none}
+.pi .dim-fill{fill:var(--rule-strong);stroke:none}
+.pi .ink{fill:var(--ink-soft);stroke:none}
 
-/* --- 1. ההודעה שאף אחד לא ענה עליה --- */
-.art--wait .bubble{
-  align-self:flex-start;max-width:92%;
-  background:var(--card);border:1px solid var(--rule-strong);
-  border-radius:12px;border-end-start-radius:var(--r-sm);
-  padding:8px 11px;font-size:.86rem;color:var(--ink-soft);line-height:1.4;
-}
-.art--wait .bubble em{display:block;font-style:normal;font-family:var(--mono);font-size:.66rem;color:var(--ink-faint);margin-block-start:3px;direction:ltr}
-.art--wait .waited{color:var(--signal);animation:blink 1.6s steps(1) infinite}
-@keyframes blink{0%,60%{opacity:1}61%,100%{opacity:.45}}
-
-/* --- 2. הרשימה שמסמנת את עצמה, וחוזרת מההתחלה --- */
-.art--repeat .task{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--ink-mute)}
-.art--repeat .box{
-  width:14px;height:14px;flex:none;border-radius:3px;
-  border:1.5px solid var(--rule-strong);background:var(--card);position:relative;
-}
-.art--repeat .box::after{
-  content:"";position:absolute;inset-block-start:2px;inset-inline-start:3px;
-  width:5px;height:8px;border:solid var(--card);border-width:0 1.6px 1.6px 0;
-  transform:rotate(45deg) scale(0);transform-origin:center;
-}
-/* המשימות מסומנות אחת-אחת, ואז הכול נמחק וחוזר. לנצח. */
-.js .in .art--repeat .task .box{animation:check 5.4s infinite}
-.js .in .art--repeat .task:nth-child(2) .box{animation-delay:.9s}
-.js .in .art--repeat .task:nth-child(3) .box{animation-delay:1.8s}
-@keyframes check{
-  0%,12%   {background:var(--card);border-color:var(--rule-strong)}
-  18%,74%  {background:var(--signal);border-color:var(--signal)}
-  80%,100% {background:var(--card);border-color:var(--rule-strong)}
-}
-.js .in .art--repeat .task .box::after{animation:check-mark 5.4s infinite}
-.js .in .art--repeat .task:nth-child(2) .box::after{animation-delay:.9s}
-.js .in .art--repeat .task:nth-child(3) .box::after{animation-delay:1.8s}
-@keyframes check-mark{
-  0%,14%   {transform:rotate(45deg) scale(0)}
-  20%,74%  {transform:rotate(45deg) scale(1)}
-  80%,100% {transform:rotate(45deg) scale(0)}
+/* --- 1. הפנייה שנופלת דרך הסדק. יוצאת מהפריים ולא חוזרת. --- */
+.js .in .pi--drop .fall{animation:pi-fall 3.4s cubic-bezier(.5,0,.75,0) infinite}
+@keyframes pi-fall{
+  0%      {transform:translateY(-3px);opacity:0}
+  14%     {transform:translateY(-3px);opacity:1}
+  100%    {transform:translateY(11px);opacity:0}
 }
 
-/* --- 3. התור שנערם עליך --- */
-.art--queue .stack{display:grid;gap:4px}
-.art--queue .item{
-  display:flex;align-items:center;justify-content:space-between;gap:8px;
-  background:var(--card);border:1px solid var(--rule);border-radius:6px;
-  padding:4px 9px;font-size:.77rem;color:var(--ink-mute);line-height:1.5;
-}
-.art--queue .item span{font-family:var(--mono);font-size:.66rem;color:var(--ink-faint);direction:ltr}
-.js .art--queue .item{opacity:0;transform:translateY(-6px)}
-.js .in .art--queue .item{animation:stack-in .5s cubic-bezier(.22,1,.36,1) forwards}
-.js .in .art--queue .item:nth-child(1){animation-delay:.3s}
-.js .in .art--queue .item:nth-child(2){animation-delay:.9s}
-.js .in .art--queue .item:nth-child(3){animation-delay:1.5s}
-@keyframes stack-in{to{opacity:1;transform:none}}
-.art--queue .waiting{color:var(--signal-ink)}
+/* --- 2. העיפרון מקיף את השעון. שעה שלמה, ביד, כל 7 שניות. --- */
+.pi--hand .pencil{transform-origin:32px 34px}
+.js .in .pi--hand .pencil{animation:pi-sweep 7s linear infinite}
+@keyframes pi-sweep{to{transform:rotate(360deg)}}
 
-/* --- 4. התקציב שנשרף, והתוצאה שאף אחד לא רואה --- */
-.art--burn .bar{height:7px;border-radius:99px;background:var(--rule);overflow:hidden}
-.art--burn .bar i{display:block;height:100%;width:100%;border-radius:99px;background:var(--signal)}
-.js .in .art--burn .bar i{animation:drain 4.5s cubic-bezier(.4,0,.6,1) infinite}
-@keyframes drain{0%,6%{width:100%}80%,100%{width:4%}}
-.art--burn .q{
-  font-size:1.05rem;color:var(--signal);
-  animation:blink 1.4s steps(1) infinite;
+/* --- 3. הערימה לוחצת על הצוואר, ומלמטה יוצאת טיפה אחת. --- */
+.pi--neck .jam{transform-origin:32px 24px}
+.js .in .pi--neck .jam{animation:pi-press 2.4s ease-in-out infinite}
+.js .in .pi--neck .drip{animation:pi-drip 2.4s ease-in infinite}
+@keyframes pi-press{0%,100%{transform:translateY(0)}50%{transform:translateY(1.2px)}}
+@keyframes pi-drip{
+  0%,55%  {transform:translateY(-4px);opacity:0}
+  70%     {opacity:1}
+  100%    {transform:translateY(5px);opacity:0}
 }
+
+/* --- 4. האש חיה, סימן השאלה לא נענה. --- */
+/* סימן השאלה כהה מהקווים העדינים — הוא השאלה, לא רעש רקע */
+.pi--burn .q path{stroke:var(--ink-faint)}
+.pi--burn .q circle{fill:var(--ink-faint)}
+.pi--burn .flame{transform-origin:32px 36px}
+.js .in .pi--burn .flame{animation:pi-flicker 1.7s ease-in-out infinite}
+.js .in .pi--burn .q{animation:pi-ask 2.6s steps(1) infinite}
+@keyframes pi-flicker{
+  0%,100% {transform:scale(1) rotate(0)}
+  30%     {transform:scale(1.06,1.1) rotate(-2deg)}
+  65%     {transform:scale(.96,.94) rotate(2deg)}
+}
+@keyframes pi-ask{0%,55%{opacity:1}56%,100%{opacity:.35}}
 /* ---------- pains ---------- */
 .pains{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .pain{background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg);padding:26px 24px;transition:border-color .25s,transform .25s,box-shadow .25s}
@@ -723,10 +699,8 @@ html:not(.js) .step-link .chev{color:var(--signal)}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .js .reveal,
-  .js .console .row,
   .js .phone .bub,
-  .js .chips .chip,
-  .js .art--queue .item{opacity:1;transform:none;animation:none}
+  .js .chips .chip{opacity:1;transform:none;animation:none}
   .js .tick path{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
   /* המסילה: צבועה עד הסוף, בלי הפעימה שנוסעת. */
   .js .steps.in .step-link::after{transition:none}
@@ -750,14 +724,9 @@ html:not(.js) .step-link .chev{color:var(--signal)}
   .js .in .ri *{animation:none!important}
   .ri--sand .top{transform:scaleY(.08)}
   .ri--sand .grain{opacity:0}
-  /* חתיכות הממשק קופאות במצב הסופי, לא במסך ריק */
-  .js .in .art--repeat .box,
-  .js .in .art--repeat .box::after,
-  .js .in .art--burn .bar i,
-  .art--wait .waited,
-  .art--burn .q{animation:none}
-  .art--burn .bar i{width:16%}
-  .spine::after{display:none}
+  /* אייקוני הכאב קופאים על התמונה עצמה: הפנייה תלויה מתחת לסדק,
+     הטיפה על השפה, האש דולקת. הסיפור נשאר, התנועה לא. */
+  .js .in .pi *{animation:none!important}
   .scrollrail{display:none}
   .btn:hover,.pain:hover,.chip:hover{transform:none}
 }

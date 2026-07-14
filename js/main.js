@@ -210,28 +210,4 @@
     });
   }
 
-  /* כרטיס הכאב הראשון: הטיימר שמטפס על הודעה שאף אחד לא ענה עליה.
-     מתחיל לרוץ רק כשהכרטיס נכנס לפריים. */
-  var waited = document.getElementById('waited');
-  if (waited && !reduce) {
-    var pad = function (n) { return n < 10 ? '0' + n : String(n); };
-    var seconds = 9 * 3600 + 47 * 60 + 12;
-    var started = false;
-    var waitObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting || started) return;
-        started = true;
-        waitObserver.disconnect();
-        setInterval(function () {
-          seconds++;
-          waited.textContent =
-            pad(Math.floor(seconds / 3600)) + ':' +
-            pad(Math.floor(seconds / 60) % 60) + ':' +
-            pad(seconds % 60);
-        }, 1000);
-      });
-    }, { threshold: 0.4 });
-    waitObserver.observe(waited);
-  }
-
 })();
