@@ -207,6 +207,8 @@ img,svg{display:block;max-width:100%}
 .pi .dim{stroke:var(--rule-strong)}
 .pi .fill{fill:var(--signal);stroke:none}
 .pi .ink{fill:var(--ink-soft);stroke:none}
+/* נקודה דהויה (סימן השאלה באייקון הבערה) - תואמת ל-.dim, אחרת ברירת המחדל של SVG שחורה */
+.pi .dim-fill{fill:var(--rule-strong);stroke:none}
 /* מנקב חור ברקע כדי שהשעון ישב מעל הדף ולא ייבלע בו */
 .pi .cut{fill:var(--paper-2);stroke:none}
 .pi .money{fill:var(--ink-soft);font-size:14px;text-anchor:middle;font-family:inherit}

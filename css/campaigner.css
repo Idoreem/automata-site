@@ -78,14 +78,78 @@
 .cg-col--them li b{color:var(--console-fg);font-weight:inherit}
 .cg-end{margin-block-start:22px;padding-block-start:18px;border-block-start:1px solid var(--rule);color:var(--ink-faint);font-size:.98rem}
 
-/* ---------- הצינור. רצף אמיתי, ולכן ממוספר. ---------- */
-/* עמודת קריאה, לא רוחב מלא: ב-1200 פיקסלים הפסקאות נצמדות לימין
-   וחצי השורה נשאר ריק. */
-.cg-pipe{display:grid;gap:0;max-width:780px;margin:40px auto 0;border-block-start:1px solid var(--rule)}
-.cg-step{display:grid;grid-template-columns:auto 1fr;gap:22px;padding:26px 0;border-block-end:1px solid var(--rule);align-items:start}
-.cg-step .k{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;color:var(--signal);direction:ltr;padding-block-start:5px;min-width:34px}
-.cg-step h3{font-size:1.2rem;color:var(--ink)}
-.cg-step p{color:var(--ink-mute);margin-block-start:8px;line-height:1.65}
+/* ---------- הצינור: טיימליין עם מסילה. רצף אמיתי, ולכן ממוספר. ----------
+   --fp = הריווח האנכי בכל שלב (למעלה ולמטה). המסילה שמחברת נקודה לבאה
+   אחריה מתחילה במרכז הנקודה הנוכחית (--fp + 23 מראש השלב) ונמשכת בדיוק
+   100% מגובה השלב - וכך נוגעת במרכז הנקודה הבאה, כי הריווח בכל שלב זהה.
+   בזכות זה אין "זנב" שמשתלשל מתחת לנקודה האחרונה.
+
+   ברירת המחדל (בלי JS) היא המצב המוגמר: מסילה כתומה מלאה ונקודות דלוקות.
+   .js מאפס למצב הפתיחה, ו-.in מריץ את הגל מלמעלה למטה. */
+.cg-flow{--fp:clamp(20px,2.6vw,30px);max-width:720px;margin:clamp(26px,4vw,46px) auto 0;padding:0;list-style:none}
+.cg-fstep{position:relative;display:grid;grid-template-columns:46px 1fr;gap:clamp(16px,2.5vw,26px);padding-block:var(--fp)}
+
+/* המסילה: קו בסיס דהוי (::before) + קו כתום שנצבע (::after). שניהם מהנקודה לבאה. */
+.cg-fstep:not(:last-child)::before,
+.cg-fstep:not(:last-child)::after{
+  content:"";position:absolute;inset-inline-start:22px;width:2px;border-radius:2px;
+  inset-block-start:calc(var(--fp) + 23px);height:100%;
+}
+.cg-fstep:not(:last-child)::before{background:var(--rule-strong)}
+.cg-fstep:not(:last-child)::after{background:var(--signal);transform:scaleY(1);transform-origin:top}
+.js .cg-fstep:not(:last-child)::after{transform:scaleY(0)}
+.js .cg-flow.in .cg-fstep:not(:last-child)::after{animation:cg-fill .24s linear forwards}
+
+/* הנקודה הממוספרת. z-index כדי שתשב מעל קצות המסילה - חרוזים על חוט. */
+.cg-fnum{position:relative;z-index:1;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:var(--signal-wash);border:2px solid var(--signal);color:var(--signal-ink);
+  font-family:var(--mono);font-size:.8rem;direction:ltr}
+.js .cg-fnum{background:var(--card);border-color:var(--rule-strong);color:var(--ink-mute);transition:border-color .45s ease,color .45s ease,background .45s ease}
+.js .cg-flow.in .cg-fnum{background:var(--signal-wash);border-color:var(--signal);color:var(--signal-ink)}
+
+.cg-ftext{padding-block-start:9px}
+.cg-ftext h3{font-size:clamp(1.12rem,1.7vw,1.28rem);color:var(--ink)}
+.cg-ftext p{color:var(--ink-mute);margin-block-start:7px;line-height:1.68;max-width:58ch}
+
+@keyframes cg-fill{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+
+/* הגל: כל נקודה נדלקת כשהצבע מגיע אליה */
+.js .cg-flow.in .cg-fstep:nth-child(1) .cg-fnum{transition-delay:.10s}
+.js .cg-flow.in .cg-fstep:nth-child(2) .cg-fnum{transition-delay:.34s}
+.js .cg-flow.in .cg-fstep:nth-child(3) .cg-fnum{transition-delay:.58s}
+.js .cg-flow.in .cg-fstep:nth-child(4) .cg-fnum{transition-delay:.82s}
+.js .cg-flow.in .cg-fstep:nth-child(5) .cg-fnum{transition-delay:1.06s}
+.js .cg-flow.in .cg-fstep:nth-child(6) .cg-fnum{transition-delay:1.30s}
+.js .cg-flow.in .cg-fstep:nth-child(7) .cg-fnum{transition-delay:1.54s}
+.js .cg-flow.in .cg-fstep:nth-child(1)::after{animation-delay:.10s}
+.js .cg-flow.in .cg-fstep:nth-child(2)::after{animation-delay:.34s}
+.js .cg-flow.in .cg-fstep:nth-child(3)::after{animation-delay:.58s}
+.js .cg-flow.in .cg-fstep:nth-child(4)::after{animation-delay:.82s}
+.js .cg-flow.in .cg-fstep:nth-child(5)::after{animation-delay:1.06s}
+.js .cg-flow.in .cg-fstep:nth-child(6)::after{animation-delay:1.30s}
+
+/* ---------- טבלת השוואה ----------
+   עמודת Campaigner היא העמודה השנייה במקור (label, us, agency, diy),
+   ולכן מודגשת דרך :nth-child(2). הטבלה גוללת לצדדים במסך צר. */
+.cmp-wrap{max-width:880px;margin-inline:auto;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cmp{width:100%;min-width:600px;border-collapse:collapse}
+.cmp th,.cmp td{padding:15px 18px;text-align:start;vertical-align:middle;font-size:.98rem}
+.cmp thead th{font-family:'Assistant',sans-serif;font-weight:700;color:var(--ink);font-size:1.02rem;border-block-end:2px solid var(--rule-strong)}
+.cmp tbody th{color:var(--ink);font-family:'Assistant',sans-serif;font-weight:700;font-size:.95rem;white-space:nowrap}
+.cmp tbody td{color:var(--ink-mute)}
+.cmp tbody tr{border-block-end:1px solid var(--rule)}
+.cmp tbody tr:last-child{border-block-end:none}
+.cmp-corner{border:none}
+/* העמודה המודגשת */
+.cmp th:nth-child(2),.cmp td:nth-child(2){background:var(--signal-wash);border-inline:1px solid rgba(255,107,53,.2)}
+.cmp thead th:nth-child(2){color:var(--signal-ink);border-block-start:3px solid var(--signal);border-block-end-color:var(--signal)}
+.cmp tbody td:nth-child(2){color:var(--ink);font-family:'Assistant',sans-serif;font-weight:600}
+.cmp tbody tr:last-child td:nth-child(2){border-block-end:1px solid rgba(255,107,53,.2)}
+.cmp-usmark{display:inline-flex;vertical-align:-3px;margin-inline-end:7px;color:var(--signal)}
+.cmp-usmark svg{width:17px;height:17px}
+.cmp-ck{width:15px;height:15px;color:var(--signal);margin-inline-end:7px;vertical-align:-2px}
+.cmp-cost .cmp-uscell{color:var(--signal-ink);font-weight:700}
+.cmp-foot{max-width:620px;margin:clamp(24px,3vw,32px) auto 0;text-align:center;color:var(--ink-faint);font-size:.96rem;line-height:1.65}
 
 /* ---------- מה אתה בעצם שולח ---------- */
 .cg-says{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-block-start:34px}
@@ -99,14 +163,24 @@
 @media (max-width:620px){
   .cg-body{height:390px}
   .cg-m{max-width:88%}
-  .cg-step{grid-template-columns:1fr;gap:6px}
-  .cg-step .k{padding-block-start:0}
+  .cg-flow{--fp:20px}
+  .cg-fstep{grid-template-columns:40px 1fr;gap:15px}
+  .cg-fnum{width:40px;height:40px;font-size:.74rem}
+  .cg-fstep:not(:last-child)::before,.cg-fstep:not(:last-child)::after{inset-inline-start:19px;inset-block-start:calc(var(--fp) + 20px)}
+  .cmp th,.cmp td{padding:12px 13px;font-size:.9rem}
+  .cmp thead th{font-size:.94rem}
 }
 
-/* מי שביקש פחות תנועה מקבל שיחה מלאה, לא מסך ריק. */
+/* מי שביקש פחות תנועה מקבל שיחה מלאה וטיימליין צבוע - לא מסך ריק. */
 @media (prefers-reduced-motion:reduce){
   .js .cg-body > *{opacity:1;transform:none;transition:none}
   .js .cg-typing,.js .cg-typing.show{display:none}
   .cg-typing i{animation:none}
   .cg-replay{display:none}
+  /* הטיימליין קופא במצב המוגמר: מסילה מלאה, נקודות דלוקות, בלי גל.
+     חייבים להתאים ל-4 המחלקות (.js .cg-flow.in ...) כי media query
+     לא מוסיף specificity והכלל שמריץ את הגל היה גובר אחרת. */
+  .js .cg-flow .cg-fnum{background:var(--signal-wash);border-color:var(--signal);color:var(--signal-ink);transition:none}
+  .js .cg-flow .cg-fstep:not(:last-child)::after,
+  .js .cg-flow.in .cg-fstep:not(:last-child)::after{animation:none;transform:scaleY(1)}
 }
