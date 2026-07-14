@@ -52,4 +52,6 @@ python3 -m http.server 4321
 
 ## דיפלוי
 
-Push ל-`main` ← Vercel בונה ומעלה אוטומטית. זהו.
+הריפו מחובר ישירות ל-Vercel (Project Settings → Git).
+Push ל-`main` ← Vercel פורסת אוטומטית. אין GitHub Action, אין טוקנים,
+אין secrets שיפוגו. כל PR מקבל preview deploy משלו.
