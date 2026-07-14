@@ -250,7 +250,7 @@ img,svg{display:block;max-width:100%}
 @keyframes pi-trickle{to{stroke-dashoffset:-13}}
 
 /* --- 4. האש אוכלת את השטר. הניצוצות עולים ונגמרים. --- */
-.pi--burn .flame{transform-origin:32px 34px}
+.pi--burn .flame{transform-origin:32px 37px}
 .js .in .pi--burn .flame{animation:pi-flicker 1.7s ease-in-out infinite}
 .js .in .pi--burn .spark{animation:pi-spark 2.4s ease-out infinite}
 .js .in .pi--burn .s2{animation-delay:.8s}
