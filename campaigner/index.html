@@ -112,10 +112,88 @@
     </div>
   </header>
 
+  <!-- ================= הכאב =================
+       לפני הפתרון - המציאות של הקורא. שימוש חוזר ברכיב .pain ובאייקוני
+       .pi של האתר הראשי (אותה שפה ויזואלית), עם קופי ספציפי לפרסום ממומן:
+       השטר בלהבה = ריטיינר ותקציב שנשרפים, השעון = ההמתנה, המשפך = הסינון הידני. -->
+  <section class="section section--alt" id="pain">
+    <div class="wrap">
+      <div class="shead shead--center reveal">
+        <h2 class="h">פרסום ממומן היום גוזל יותר מהתקציב.</h2>
+        <p class="lead">רוב מה שמעייף בפרסום ממומן הוא לא הכסף על המדיה - אלא הריטיינר, ההמתנה לכל שינוי, והלידים שמתבררים כלא רלוונטיים אחרי שכבר בזבזת עליהם שיחה.</p>
+      </div>
+      <div class="pains">
+
+        <!-- השטר נשרף. במקום התוצאה, סימן שאלה. -->
+        <div class="pain reveal d1">
+          <div class="art" aria-hidden="true">
+            <svg class="pi pi--burn" viewBox="0 0 64 64">
+              <rect class="base" x="11" y="38" width="42" height="17" rx="3"/>
+              <circle class="dim" cx="32" cy="46.5" r="4.6"/>
+              <path class="dim" d="M17 43v7M47 43v7"/>
+              <g class="flame">
+                <path class="hot" d="M32 16c3.5 5.5 7.5 7 7.5 12.5a7.5 7.5 0 0 1-15 0c0-3 1.8-4.5 2.8-7 1 1.8 1.8 2.6 2.7 2.6 1-1.8 1-5.4 2-8.1z"/>
+                <path class="fill" d="M32 26.5c1.8 2 2.8 3 2.8 4.6a2.8 2.8 0 0 1-5.6 0c0-1.4 1.3-2.4 2.8-4.6z"/>
+              </g>
+              <g class="q">
+                <path class="dim" d="M46.5 15a4 4 0 0 1 8 0c0 3-4 3.2-4 6.2"/>
+                <circle class="dim-fill" cx="50.5" cy="26" r="1.4"/>
+              </g>
+            </svg>
+          </div>
+          <h3 class="h3">כסף שנשרף בלי שליטה</h3>
+          <p>ריטיינר חודשי יקר, ועל זה תקציב מדיה שרץ - בלי שאתה באמת יודע מה מביא תוצאה ומה סתם בוער.</p>
+        </div>
+
+        <!-- השעון פשוט מסתובב. המחוג הכתום לא עוצר, והחץ סביבו אומר: עוד סיבוב. -->
+        <div class="pain reveal d2">
+          <div class="art" aria-hidden="true">
+            <svg class="pi pi--clock" viewBox="0 0 64 64">
+              <path class="dim orbit" d="M14.3 14.3A25 25 0 0 1 49.7 14.3"/>
+              <path class="dim orbit" d="M49.7 14.3L49.3 9M49.7 14.3L44.4 13.9"/>
+              <circle class="base" cx="32" cy="32" r="20"/>
+              <path class="dim" d="M32 15v3.5M49 32h-3.5M32 49v-3.5M15 32h3.5"/>
+              <g class="hour"><path class="base" d="M32 32V23"/></g>
+              <g class="minute"><path class="hot" d="M32 33V15"/></g>
+              <circle class="ink" cx="32" cy="32" r="2.2"/>
+            </svg>
+          </div>
+          <h3 class="h3">כל שינוי לוקח ימים</h3>
+          <p>בריף, סבב תיקונים, ומחכה שיחזרו אליך. עד שמשהו זז בקמפיין, ההזדמנות כבר קרה.</p>
+        </div>
+
+        <!-- הכל מתכנס אליך. ומה שיוצא מהצד השני - קו מקווקו דק אחד. -->
+        <div class="pain reveal d3">
+          <div class="art" aria-hidden="true">
+            <svg class="pi pi--hub" viewBox="0 0 64 64">
+              <g class="feed">
+                <path class="base" d="M6 9l11 8"/>
+                <path class="base" d="M17 17l-5.6-.5M17 17l-.5-5.6"/>
+                <path class="base" d="M32 4v13"/>
+                <path class="base" d="M32 17l-4-4M32 17l4-4"/>
+                <path class="base" d="M58 9l-11 8"/>
+                <path class="base" d="M47 17l5.6-.5M47 17l.5-5.6"/>
+              </g>
+              <g class="you">
+                <circle class="hot" cx="32" cy="30" r="5.5"/>
+                <path class="hot" d="M21 47a11 11 0 0 1 22 0"/>
+              </g>
+              <path class="dim trickle" d="M32 50v9"/>
+              <path class="dim" d="M32 59l-3-3M32 59l3-3"/>
+            </svg>
+          </div>
+          <h3 class="h3">אתה מסנן לידים ידנית</h3>
+          <p>כל פנייה נוחתת עליך גולמית. אתה מבזבז שיחות על סקרנים רק כדי לגלות מי מתוכם באמת רלוונטי.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ================= מה נשאר עליך =================
        המסגרת הכי כנה של המוצר: לא "אנחנו טובים מקמפיינר", אלא
        "זה מה שנשאר עליך, וזה כל השאר". -->
-  <section class="section section--alt" id="split">
+  <section class="section" id="split">
     <div class="wrap">
       <div class="shead shead--center reveal">
         <h2 class="h">רשימת המשימות שלך מתקצרת לשלוש שורות.</h2>
@@ -154,7 +232,7 @@
 
   <!-- ================= איך זה עובד =================
        רצף אמיתי מקצה לקצה, ולכן ממוספר. -->
-  <section class="section" id="how">
+  <section class="section section--alt" id="how">
     <div class="wrap">
       <div class="shead shead--center reveal">
         <span class="eyebrow" style="justify-content:center">מקצה לקצה</span>
@@ -162,63 +240,60 @@
         <p class="lead">שבעה שלבים שהיום דורשים אדם, ממשק וזמן. כאן הם קורים ברצף אחד, מתוך הצ׳אט.</p>
       </div>
 
-      <div class="cg-pipe">
-        <div class="cg-step reveal">
-          <span class="k">01</span>
-          <div>
+      <!-- טיימליין עם מסילה: רצף אמיתי, ולכן ממוספר. המסילה נצבעת בכתום
+           מלמעלה למטה כשהסקשן נחשף, וכל נקודה נדלקת כשהצבע מגיע אליה.
+           בלי JS ובלי תנועה - הכל פשוט צבוע ודלוק. -->
+      <ol class="cg-flow reveal">
+        <li class="cg-fstep">
+          <span class="cg-fnum">01</span>
+          <div class="cg-ftext">
             <h3>מתרגם כוונה לאסטרטגיה</h3>
             <p>"רוצה עוד לידים השבוע, תקציב 80 ₪ ליום" הוא לא בריף - זו משאלה. Campaigner הופך אותה להחלטות: איזה סוג קמפיין, איזה קהל, איזה טווח גילאים, איזה אזור, איך לחלק את התקציב. ההחלטות האלה הן בדיוק מה שאתה משלם עליו היום לקמפיינר.</p>
           </div>
-        </div>
-
-        <div class="cg-step reveal">
-          <span class="k">02</span>
-          <div>
+        </li>
+        <li class="cg-fstep">
+          <span class="cg-fnum">02</span>
+          <div class="cg-ftext">
             <h3>כותב את הקופי</h3>
             <p>לא נוסח אחד - כמה וריאציות, כדי שיהיה מה להשוות. בשפה של העסק שלך ושל הקהל שלך, לא בתרגום מכונה מאנגלית. אתה רואה את כולן בצ׳אט לפני שמשהו עולה.</p>
           </div>
-        </div>
-
-        <div class="cg-step reveal">
-          <span class="k">03</span>
-          <div>
+        </li>
+        <li class="cg-fstep">
+          <span class="cg-fnum">03</span>
+          <div class="cg-ftext">
             <h3>מייצר את הקריאייטיב</h3>
             <p>הוויזואל של המודעה נוצר אצלו. אתה לא צריך מעצב, לא צריך בנק תמונות ולא צריך לחכות שלושה ימים לסבב תיקונים. אם משהו לא מוצא חן בעיניך - אתה אומר, והוא מייצר מחדש.</p>
           </div>
-        </div>
-
-        <div class="cg-step reveal">
-          <span class="k">04</span>
-          <div>
+        </li>
+        <li class="cg-fstep">
+          <span class="cg-fnum">04</span>
+          <div class="cg-ftext">
             <h3>בונה ומעלה למטא</h3>
             <p>הוא נכנס לחשבון המודעות שלך ובונה שם את הקמפיין: מבנה, קהלים, תקציב, מודעות. אתה לא פותח את Ads Manager. אבל <b>כלום לא עולה לאוויר בלי שאתה מאשר בצ׳אט</b> - האישור הוא שלך תמיד.</p>
           </div>
-        </div>
-
-        <div class="cg-step reveal">
-          <span class="k">05</span>
-          <div>
+        </li>
+        <li class="cg-fstep">
+          <span class="cg-fnum">05</span>
+          <div class="cg-ftext">
             <h3>מסנן את הפונים</h3>
             <p>כאן נגמר הכאב האמיתי של פרסום ממומן. כל מי שמשאיר פרטים עובר שאלון קצר - תקציב, לו״ז, אזור, כל מה שרלוונטי אצלך. מי שלא רציני נעצר שם. אתה לא מבזבז שיחה עליו.</p>
           </div>
-        </div>
-
-        <div class="cg-step reveal">
-          <span class="k">06</span>
-          <div>
+        </li>
+        <li class="cg-fstep">
+          <span class="cg-fnum">06</span>
+          <div class="cg-ftext">
             <h3>מעביר את הליד ל-CRM</h3>
             <p>מי שעבר את הסינון נוחת אצלך במערכת כליד מוכן - עם התשובות שלו, בזמן אמת. לא רשימה שתעבור עליה בערב, לא אקסל. ליד שאפשר להרים אליו טלפון עכשיו ולדעת מראש מה הוא צריך.</p>
           </div>
-        </div>
-
-        <div class="cg-step reveal">
-          <span class="k">07</span>
-          <div>
+        </li>
+        <li class="cg-fstep">
+          <span class="cg-fnum">07</span>
+          <div class="cg-ftext">
             <h3>עוקב, מדווח, משנה</h3>
             <p>הקמפיין ממשיך לרוץ והוא ממשיך להסתכל. הדיווח מגיע לצ׳אט שאתה כבר פתוח בו, לא לדשבורד שלא תיכנס אליו. רוצה לעצור קמפיין, להעלות תקציב או לנסות זווית אחרת? תכתוב לו.</p>
           </div>
-        </div>
-      </div>
+        </li>
+      </ol>
     </div>
   </section>
 
