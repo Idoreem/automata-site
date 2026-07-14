@@ -74,7 +74,7 @@
 
   /* חשיפה בגלילה.
      .sol ו-.steps מקבלים 'in' בעצמם כי הרצפים הפנימיים שלהם
-     (בועות הצ׳אט, הפעימה שנוסעת במסילה) תלויים בו. */
+     (הפעימה שנוסעת במסילה) תלויים בו. */
   var revealed = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) return;

@@ -288,16 +288,6 @@ img,svg{display:block;max-width:100%}
 .sol li svg{width:18px;height:18px;color:var(--signal);flex:none;margin-block-start:5px}
 
 /* טלפון הטלגרם */
-.phone{width:min(310px,92%);margin-inline:auto;background:var(--console);border-radius:22px;box-shadow:var(--shadow-dark);padding:10px 10px 16px;overflow:hidden}
-.tg-hd{display:flex;align-items:center;gap:10px;padding:12px 8px;border-block-end:1px solid var(--console-line)}
-.tg-av{width:36px;height:36px;border-radius:99px;background:var(--signal);display:grid;place-items:center;color:#200C02;flex:none}
-.tg-av svg{width:18px;height:18px}
-.tg-hd b{display:block;font-size:.94rem;color:var(--console-fg);line-height:1.25}
-.tg-hd i{display:block;font-style:normal;font-family:var(--mono);font-size:.7rem;color:var(--live);direction:ltr}
-.tg-body{padding:16px 6px 2px;display:flex;flex-direction:column;gap:9px;min-height:224px}
-.bub{max-width:84%;padding:10px 13px;border-radius:14px;font-size:.88rem;line-height:1.55}
-.bub-out{align-self:flex-start;background:var(--console-2);color:var(--console-fg);border-end-start-radius:var(--r-sm)}
-.bub-in{align-self:flex-end;background:var(--signal);color:#200C02;border-end-end-radius:var(--r-sm)}
 
 /* דיאגרמת הזרימה */
 /* ---------- ה-rig: אותו שלד, התהליך שלך ----------
@@ -512,12 +502,6 @@ html:not(.js) .step-link .chev{color:var(--signal)}
 @keyframes row-in{to{opacity:1;transform:none}}
 
 /* ---------- הטלפון: הבועות נכנסות ברצף ---------- */
-.js .phone .bub{opacity:0;transform:translateY(7px)}
-.js .sol.in .phone .bub{animation:row-in .45s cubic-bezier(.22,1,.36,1) forwards}
-.js .sol.in .phone .bub:nth-child(1){animation-delay:.3s}
-.js .sol.in .phone .bub:nth-child(2){animation-delay:.9s}
-.js .sol.in .phone .bub:nth-child(3){animation-delay:1.5s}
-.js .sol.in .phone .bub:nth-child(4){animation-delay:2.1s}
 
 /* ---------- צ׳יפים: נפתחים ברצף ---------- */
 .js .chips .chip{opacity:0;transform:translateY(8px) scale(.97)}
@@ -720,7 +704,6 @@ html:not(.js) .step-link .chev{color:var(--signal)}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .js .reveal,
-  .js .phone .bub,
   .js .chips .chip{opacity:1;transform:none;animation:none}
   .js .tick path{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
   /* המסילה: צבועה עד הסוף, בלי הפעימה שנוסעת. */
