@@ -403,6 +403,93 @@ img,svg{display:block;max-width:100%}
 .section--dark .eyebrow{color:var(--signal)}
 .section--dark .eyebrow::before{background:var(--signal)}
 
+/* =========================================================
+   המלצות — הודעות וואטסאפ אמיתיות
+
+   ההודעות משוחזרות כבועות צ׳אט ולא מוגשות כצילומי מסך גולמיים:
+   הצילומים הם ארבעה יחסי-רוחב שונים, עם רקעים שונים וטקסט בתוך
+   תמונה — כלומר לא נגישים, לא אינדקסביליים ולא רספונסיביים.
+   צילום המקור נשאר במרחק קליק (.t-src -> <dialog>), כך שההוכחה
+   הגולמית זמינה בלי לשלם עליה בעיצוב.
+   ========================================================= */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.t{
+  background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg);
+  padding:22px;display:flex;flex-direction:column;gap:14px;
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+}
+.t:hover{border-color:var(--rule-strong);transform:translateY(-3px);box-shadow:var(--shadow)}
+.t--feature{
+  grid-column:1/-1;display:grid;grid-template-columns:.75fr 1.25fr;
+  gap:clamp(24px,4vw,52px);align-items:center;padding:clamp(26px,3.4vw,40px);
+}
+
+/* המספר. התוצאה העסקית היחידה באתר שנמדדה בידי לקוח, לא בידינו. */
+.t-stat b{
+  display:block;font-family:'Assistant',sans-serif;font-weight:700;
+  font-size:clamp(3.6rem,7.5vw,5.6rem);line-height:.88;letter-spacing:-.035em;
+  color:var(--signal);direction:ltr;text-align:right;font-variant-numeric:tabular-nums;
+}
+.t-stat span{display:block;font-size:1.1rem;color:var(--ink);margin-block-start:10px}
+.t-stat p{margin-block-start:8px;font-size:.93rem;color:var(--ink-mute);line-height:1.6}
+
+/* הבועה. הודעות נכנסות בלבד — לכן אין וי כפול, בדיוק כמו במקור. */
+.wa{
+  background:var(--console-2);color:var(--console-fg);
+  border-radius:14px;border-start-end-radius:var(--r-sm);
+  padding:14px 16px;font-size:.98rem;line-height:1.65;
+}
+.wa + .wa{margin-block-start:8px}
+.wa mark{background:rgba(255,107,53,.22);color:#FFC9AE;padding:1px 4px;border-radius:3px}
+.wa time{
+  display:block;text-align:left;direction:ltr;
+  font-family:var(--mono);font-size:.68rem;color:var(--console-dim);margin-block-start:7px;
+}
+.t--feature .wa{font-size:1.06rem;line-height:1.7}
+
+/* margin-block-start:auto — הפוטרים מתיישרים לתחתית הכרטיס
+   גם כשהציטוטים באורכים שונים */
+.t-by{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-block-start:auto}
+.t--feature .t-by{margin-block-start:14px}
+.t-who{display:flex;align-items:center;gap:10px;min-width:0}
+.t-av{
+  width:34px;height:34px;border-radius:99px;flex:none;display:grid;place-items:center;
+  background:var(--signal-wash);color:var(--signal-ink);font-size:.9rem;
+}
+.t-who b{display:block;font-size:.95rem;color:var(--ink);line-height:1.3}
+.t-who i{display:block;font-style:normal;font-size:.83rem;color:var(--ink-faint)}
+/* ממתין לשם אמיתי — ראה README. שמות לא מומצאים. */
+.t-who.todo b,.t-who.todo i{color:var(--ink-faint);border-block-end:1px dashed var(--rule-strong)}
+
+.t-src{
+  font-family:inherit;font-size:.82rem;color:var(--signal-ink);
+  background:none;border:1px solid var(--rule);border-radius:99px;
+  padding:5px 12px;cursor:pointer;flex:none;
+  transition:border-color .2s,background .2s;
+}
+.t-src:hover{border-color:var(--signal);background:var(--signal-wash)}
+
+/* צילום המקור.
+   margin:auto חייב להיות מפורש — הכלל `.page *{margin:0}` דורס את
+   ה-margin:auto שהדפדפן נותן ל-dialog מודאלי, וה-dialog נדבק לפינה. */
+.shot{
+  margin:auto;
+  border:0;padding:0;background:transparent;max-width:min(560px,92vw);
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-dark);
+}
+.shot::backdrop{background:rgba(21,17,24,.72);backdrop-filter:blur(3px)}
+.shot img{width:100%;height:auto;display:block}
+.shot-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px 14px;background:var(--console);color:var(--console-dim);font-size:.85rem;
+}
+.shot-bar button{
+  font-family:inherit;font-size:.85rem;color:var(--console-fg);
+  background:none;border:1px solid var(--console-line);border-radius:var(--r-sm);
+  padding:5px 12px;cursor:pointer;
+}
+.shot-bar button:hover{border-color:var(--console-dim)}
+
 /* ---------- tools ---------- */
 .tools{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-block-start:32px}
 .tool{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--rule);border-radius:var(--r-md);padding:10px 17px;color:var(--ink);font-family:'Assistant',sans-serif;font-weight:600;direction:ltr}
@@ -453,6 +540,8 @@ img,svg{display:block;max-width:100%}
   .hero-in{grid-template-columns:1fr}
   .pains{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:repeat(2,1fr);gap:28px}
+  .tgrid{grid-template-columns:repeat(2,1fr)}
+  .t--feature{grid-template-columns:1fr;gap:24px}
   .sol,.proof{grid-template-columns:1fr}
   .sol--flip .sol-visual{order:0}
   .sol-visual{order:-1}
@@ -467,7 +556,7 @@ img,svg{display:block;max-width:100%}
 }
 @media (max-width:620px){
   .page{font-size:16px}
-  .pains,.steps{grid-template-columns:1fr}
+  .pains,.steps,.tgrid{grid-template-columns:1fr}
   .fcols{gap:30px}
   .hero-ctas .btn{flex:1 1 auto}
 }

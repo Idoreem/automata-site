@@ -110,6 +110,37 @@
     waitObserver.observe(waited);
   }
 
+  /* צילום המקור של ההמלצות.
+     <dialog> נייטיבי: Escape וניהול פוקוס מגיעים מהדפדפן בחינם. */
+  var shot = document.getElementById('shot');
+  var shotImg = document.getElementById('shotImg');
+  if (shot && shotImg && typeof shot.showModal === 'function') {
+    document.querySelectorAll('.t-src').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        shotImg.src = btn.dataset.shot;
+        shotImg.alt = btn.dataset.alt || '';
+        shot.showModal();
+      });
+    });
+    var closeShot = function () { shot.close(); };
+    document.getElementById('shotClose').addEventListener('click', closeShot);
+    /* לחיצה על ה-backdrop (מחוץ לתיבה) סוגרת */
+    shot.addEventListener('click', function (e) {
+      var box = shot.getBoundingClientRect();
+      var outside =
+        e.clientX < box.left || e.clientX > box.right ||
+        e.clientY < box.top || e.clientY > box.bottom;
+      if (outside) closeShot();
+    });
+  } else {
+    /* בלי תמיכה ב-<dialog>: הכפתור פשוט פותח את התמונה בלשונית חדשה */
+    document.querySelectorAll('.t-src').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        window.open(btn.dataset.shot, '_blank', 'noopener');
+      });
+    });
+  }
+
   /* ספירה עולה למספר ההוכחה */
   var stat = document.getElementById('statNum');
   if (stat && !reduce) {
