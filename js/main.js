@@ -86,6 +86,79 @@
     revealed.observe(el);
   });
 
+  /* ============ היומן החי (Cal.com) ============
+     ה-embed הוא כ-80 בקשות. לכן הוא לא נטען עם העמוד אלא רק כשסקשן היומן
+     מתקרב לפריים (או כשלוחצים על כפתור יומן) — מי שלא מגיע לתחתית לא משלם.
+
+     ה-href החיצוני נשאר על כל הכפתורים ולא נמחק. הוא ה-fallback: בלי JS,
+     בלחיצה אמצעית, או אם app.cal.com לא עונה — הכפתור עדיין קובע שיחה. */
+  var calBox = document.getElementById('calInline');
+  var book = document.getElementById('book');
+  if (calBox && book) {
+    var calLoaded = false;
+
+    var loadCal = function () {
+      if (calLoaded) return;
+      calLoaded = true;
+
+      /* ה-loader הרשמי של Cal */
+      (function (C, A, L) {
+        var p = function (a, ar) { a.q.push(ar); };
+        var d = C.document;
+        C.Cal = C.Cal || function () {
+          var cal = C.Cal, ar = arguments;
+          if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement('script')).src = A; cal.loaded = true; }
+          if (ar[0] === L) {
+            var api = function () { p(api, arguments); };
+            var ns = ar[1];
+            api.q = api.q || [];
+            if (typeof ns === 'string') { cal.ns[ns] = cal.ns[ns] || api; p(cal.ns[ns], ar); p(cal, ['initNamespace', ns]); }
+            else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+      })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+      Cal('init', 'book', { origin: 'https://app.cal.com' });
+      Cal.ns.book('inline', {
+        elementOrSelector: '#calInline',
+        calLink: 'ido-reem/שיחת-אפיון-לעסק-שלך',
+        config: { layout: 'month_view' }
+      });
+      /* היומן יושב על משטח הקונסולה, אז הוא לובש את אותם צבעים */
+      Cal.ns.book('ui', {
+        theme: 'dark',
+        cssVarsPerTheme: { dark: { 'cal-brand': '#FF6B35' } },
+        hideEventTypeDetails: false,
+        layout: 'month_view'
+      });
+      /* הכפתור מפנה את מקומו רק כשהיומן באמת על המסך */
+      Cal.ns.book('on', {
+        action: 'linkReady',
+        callback: function () { document.querySelector('.cal').classList.add('cal-ready'); }
+      });
+    };
+
+    var calObs = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      calObs.disconnect();
+      loadCal();
+    }, { rootMargin: '400px' });
+    calObs.observe(calBox);
+
+    /* כפתורי היומן בעמוד גוללים ליומן במקום להעיף את המשתמש לאתר אחר.
+       פותחים בטאב חדש רק אם המשתמש ביקש זאת במפורש (Cmd/Ctrl/גלגלת). */
+    document.querySelectorAll('[data-cal]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
+        loadCal();
+        book.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      });
+    });
+  }
+
   /* כרטיס הכאב הראשון: הטיימר שמטפס על הודעה שאף אחד לא ענה עליה.
      מתחיל לרוץ רק כשהכרטיס נכנס לפריים. */
   var waited = document.getElementById('waited');

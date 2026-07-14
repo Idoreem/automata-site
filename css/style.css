@@ -489,6 +489,20 @@ img,svg{display:block;max-width:100%}
 .final p{color:var(--console-dim);font-size:1.12rem;margin-block-start:16px}
 .final .hero-ctas{justify-content:center;margin-block-start:32px}
 
+/* ---------- היומן החי (Cal.com) ----------
+   ה-fallback הוא כפתור אמיתי עם href חיצוני. הוא נראה כברירת מחדל ונעלם רק
+   כש-Cal מדווח שהיומן עלה. כך שגם בלי JS, וגם אם app.cal.com נופל, אפשר
+   עדיין לקבוע שיחה. .cal-ready מגיע מ-js/main.js. */
+.cal{max-width:1040px;margin:0 auto}
+.cal-inline{width:100%}
+.cal-ready .cal-fallback{display:none}
+.cal-ready .cal-inline{margin-block-start:34px;min-height:560px;border:1px solid var(--console-line);border-radius:var(--r-lg);background:var(--console-2);overflow:hidden}
+/* הכל בכלל אחד: .final p הוא (0,1,1) וגובר על .cal-alt שהוא (0,1,0),
+   אז margin שיושב לבד פשוט נבלע. */
+.final .cal-alt{margin-block-start:26px;color:var(--console-dim);font-size:1rem}
+.cal-alt a{color:var(--console-fg);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:5px;text-decoration-color:var(--console-line);transition:text-decoration-color .2s}
+.cal-alt a:hover{text-decoration-color:currentColor}
+
 /* ---------- footer ---------- */
 .footer{background:var(--console);color:var(--console-dim);padding-block:52px 30px;border-block-start:1px solid var(--console-line)}
 .footer a{transition:color .2s}

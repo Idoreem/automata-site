@@ -594,21 +594,31 @@
     </div>
   </section>
 
-  <!-- ================= FINAL CTA ================= -->
-  <section class="section section--dark final on-dark">
-    <div class="wrap final-in">
-      <h2 class="h reveal">בוא נראה כמה זמן וכסף אפשר להחזיר לעסק שלך.</h2>
-      <p class="reveal d1">שיחת אפיון אחת. בלי התחייבות. עם תמונה ברורה של מה אפשר לבנות - וכמה זה שווה.</p>
-      <div class="hero-ctas reveal d2">
-        <a class="btn btn-primary btn-lg" data-cal href="https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
-          קביעת שיחת אפיון
-        </a>
-        <a class="btn btn-ghost btn-lg" data-wa href="https://wa.me/972544354411?text=%D7%94%D7%99%D7%99%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%A4%D7%AA%D7%A8%D7%95%D7%A0%D7%95%D7%AA%20AI%20%D7%95%D7%90%D7%95%D7%98%D7%95%D7%9E%D7%A6%D7%99%D7%94%20%D7%9C%D7%A2%D7%A1%D7%A7%20%D7%A9%D7%9C%D7%99" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/></svg>
-          וואטסאפ
-        </a>
+  <!-- ================= FINAL CTA / היומן =================
+       העמוד נגמר ביומן חי, לא בכפתור שמעיף החוצה.
+       שתי הערות למי שנוגע כאן:
+       1. ה-embed של Cal הוא 79 בקשות. הוא נטען עצלנית מ-js/main.js רק כשהסקשן
+          מתקרב לפריים - מי שלא מגיע לתחתית לא משלם עליו כלום.
+       2. הכפתור למטה הוא ה-fallback האמיתי, עם href חיצוני שעובד בלי JS.
+          הוא נעלם רק אחרי ש-Cal מדווח שהיומן עלה (.cal-ready). אל תמחק אותו. -->
+  <section class="section section--dark final on-dark" id="book">
+    <div class="wrap">
+      <div class="final-in">
+        <h2 class="h reveal">בוא נראה כמה זמן וכסף אפשר להחזיר לעסק שלך.</h2>
+        <p class="reveal d1">שיחת אפיון אחת. בלי התחייבות. עם תמונה ברורה של מה אפשר לבנות - וכמה זה שווה.</p>
       </div>
+
+      <div class="cal reveal d2">
+        <div class="hero-ctas cal-fallback">
+          <a class="btn btn-primary btn-lg" data-cal-out href="https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+            קביעת שיחת אפיון
+          </a>
+        </div>
+        <div class="cal-inline" id="calInline"></div>
+      </div>
+
+      <p class="cal-alt reveal d3">מעדיף לכתוב? <a data-wa href="https://wa.me/972544354411?text=%D7%94%D7%99%D7%99%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%A4%D7%AA%D7%A8%D7%95%D7%A0%D7%95%D7%AA%20AI%20%D7%95%D7%90%D7%95%D7%98%D7%95%D7%9E%D7%A6%D7%99%D7%94%20%D7%9C%D7%A2%D7%A1%D7%A7%20%D7%A9%D7%9C%D7%99" target="_blank" rel="noopener">אפשר גם בוואטסאפ</a></p>
     </div>
   </section>
 
