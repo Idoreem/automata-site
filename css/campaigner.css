@@ -1,0 +1,112 @@
+/* Campaigner — עמוד המוצר.
+   יושב על המערכת העיצובית של האתר (css/style.css): אותם טוקנים, אותו ניווט,
+   אותם כפתורים. כאן רק מה שייחודי לעמוד הזה.
+
+   החתימה: הצ׳אט שמשחק את עצמו. המוצר *הוא* שיחה - משפט אחד והקמפיין באוויר -
+   אז ה-hero לא מתאר את זה, הוא מבצע את זה. */
+
+/* ---------- hero ----------
+   הכותרת כאן ארוכה מזו שבבית ("משפט אחד בטלגרם." לעומת "העסק שלך עובד"),
+   אז העמודה מתרחבת והגופן קטן - אחרת היא נשברת לשלוש שורות. */
+.cg-hero .hero-in{align-items:center;grid-template-columns:1.15fr 1fr}
+.cg-hero .display{font-size:clamp(2.2rem,4.4vw,3.6rem)}
+.cg-tagline{color:var(--signal-ink);font-size:1.18rem;margin-block-start:14px}
+
+/* ---------- הצ׳אט ----------
+   גובה קבוע + גלילה פנימית: ההודעות נערמות בלי להזיז את העמוד מתחת לאצבע. */
+.cg-chat{background:var(--console);border:1px solid var(--console-line);border-radius:20px;box-shadow:var(--shadow-dark);overflow:hidden;display:flex;flex-direction:column}
+.cg-hd{display:flex;align-items:center;gap:11px;padding:14px 16px;border-block-end:1px solid var(--console-line);background:var(--console-2)}
+.cg-av{width:38px;height:38px;flex:none;border-radius:99px;background:var(--signal);display:grid;place-items:center;color:#fff}
+.cg-av svg{width:20px;height:20px}
+.cg-who{display:flex;flex-direction:column;line-height:1.35;min-width:0}
+.cg-who b{color:var(--console-fg);font-family:'Assistant',sans-serif;font-weight:700;font-size:.98rem}
+.cg-who i{font-style:normal;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--live);direction:ltr}
+.cg-tg{margin-inline-start:auto;color:var(--console-dim);width:20px;height:20px;flex:none}
+.cg-tg svg{width:100%;height:100%}
+
+/* position:relative — כדי ש-offsetTop של ההודעות יימדד ביחס לגוף הצ׳אט.
+   js/campaigner.js מסתמך על זה כדי לגלול אל ההודעה האחרונה שהוצגה. */
+.cg-body{position:relative;height:430px;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin}
+.cg-body::-webkit-scrollbar{width:5px}
+.cg-body::-webkit-scrollbar-thumb{background:var(--console-line);border-radius:99px}
+
+.cg-m{max-width:82%;padding:11px 14px;border-radius:16px;font-size:.97rem;line-height:1.55}
+.cg-m.out{align-self:flex-start;background:var(--console-2);color:var(--console-fg);border-end-start-radius:5px}
+.cg-m.in{align-self:flex-end;background:var(--signal);color:#fff;border-end-end-radius:5px}
+.cg-m.sys{align-self:center;max-width:100%;background:none;color:var(--console-dim);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;direction:ltr;padding:2px}
+
+/* הכרטיס שהסוכן שולח. לא תמונה מזויפת של מודעה - נתונים מובנים,
+   כמו שסוכן אמיתי היה שולח. */
+.cg-card{align-self:flex-end;max-width:88%;background:var(--console-2);border:1px solid var(--console-line);border-radius:16px;border-end-end-radius:5px;padding:14px 16px;width:100%}
+.cg-card h4{color:var(--console-fg);font-family:'Assistant',sans-serif;font-weight:700;font-size:.9rem;margin-block-end:11px;display:flex;align-items:center;gap:7px}
+.cg-card h4::before{content:'';width:6px;height:6px;border-radius:99px;background:var(--live);flex:none}
+.cg-card dl{display:grid;grid-template-columns:auto 1fr;gap:7px 14px;margin:0}
+.cg-card dt{color:var(--console-dim);font-size:.85rem}
+.cg-card dd{color:var(--console-fg);font-size:.85rem;margin:0}
+
+/* מחוון ההקלדה */
+.cg-typing{align-self:flex-end;background:var(--console-2);border-radius:16px;border-end-end-radius:5px;padding:14px 16px;display:flex;gap:4px}
+.cg-typing i{width:6px;height:6px;border-radius:99px;background:var(--console-dim);animation:cg-blink 1.3s ease-in-out infinite}
+.cg-typing i:nth-child(2){animation-delay:.18s}
+.cg-typing i:nth-child(3){animation-delay:.36s}
+@keyframes cg-blink{0%,60%,100%{opacity:.28;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+
+.cg-ft{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;border-block-start:1px solid var(--console-line);background:var(--console-2)}
+.cg-ft span{color:var(--console-dim);font-size:.82rem}
+.cg-replay{background:none;border:1px solid var(--console-line);color:var(--console-dim);font:inherit;font-size:.82rem;padding:5px 12px;border-radius:99px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:color .2s,border-color .2s}
+.cg-replay:hover{color:var(--console-fg);border-color:var(--console-dim)}
+.cg-replay svg{width:13px;height:13px}
+
+/* הצ׳אט מתנגן: כל שורה נכנסת כשתורה מגיע. בלי JS - הכל פשוט שם. */
+.js .cg-body > *{opacity:0;transform:translateY(9px)}
+.js .cg-body > .show{opacity:1;transform:none;transition:opacity .32s ease,transform .32s cubic-bezier(.22,1,.36,1)}
+.js .cg-typing{display:none}
+.js .cg-typing.show{display:flex}
+
+/* ---------- מה נשאר עליך / מה הוא עושה ---------- */
+.cg-split{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-block-start:38px}
+.cg-col{border:1px solid var(--rule);border-radius:var(--r-lg);padding:26px 24px;background:var(--card)}
+.cg-col--them{background:var(--console);border-color:var(--console-line);box-shadow:var(--shadow-dark)}
+.cg-col h3{font-size:1.22rem;color:var(--ink)}
+.cg-col--them h3{color:var(--console-fg)}
+.cg-col .n{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;color:var(--ink-faint);margin-block-end:9px;direction:ltr}
+.cg-col--them .n{color:var(--signal)}
+.cg-col ul{list-style:none;margin-block-start:18px;display:flex;flex-direction:column;gap:11px}
+.cg-col li{display:flex;gap:10px;align-items:flex-start;color:var(--ink-soft);line-height:1.55}
+.cg-col--them li{color:var(--console-dim)}
+.cg-col li svg{width:19px;height:19px;flex:none;margin-block-start:3px;color:var(--signal)}
+.cg-col--them li b{color:var(--console-fg);font-weight:inherit}
+.cg-end{margin-block-start:22px;padding-block-start:18px;border-block-start:1px solid var(--rule);color:var(--ink-faint);font-size:.98rem}
+
+/* ---------- הצינור. רצף אמיתי, ולכן ממוספר. ---------- */
+/* עמודת קריאה, לא רוחב מלא: ב-1200 פיקסלים הפסקאות נצמדות לימין
+   וחצי השורה נשאר ריק. */
+.cg-pipe{display:grid;gap:0;max-width:780px;margin:40px auto 0;border-block-start:1px solid var(--rule)}
+.cg-step{display:grid;grid-template-columns:auto 1fr;gap:22px;padding:26px 0;border-block-end:1px solid var(--rule);align-items:start}
+.cg-step .k{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;color:var(--signal);direction:ltr;padding-block-start:5px;min-width:34px}
+.cg-step h3{font-size:1.2rem;color:var(--ink)}
+.cg-step p{color:var(--ink-mute);margin-block-start:8px;line-height:1.65}
+
+/* ---------- מה אתה בעצם שולח ---------- */
+.cg-says{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-block-start:34px}
+.cg-say{background:var(--console);color:var(--console-fg);border-radius:16px;border-end-start-radius:5px;padding:12px 17px;font-size:.98rem;box-shadow:var(--shadow-dark)}
+
+/* ---------- רספונסיבי ---------- */
+@media (max-width:980px){
+  .cg-split{grid-template-columns:1fr}
+  .cg-hero .hero-in{gap:34px}
+}
+@media (max-width:620px){
+  .cg-body{height:390px}
+  .cg-m{max-width:88%}
+  .cg-step{grid-template-columns:1fr;gap:6px}
+  .cg-step .k{padding-block-start:0}
+}
+
+/* מי שביקש פחות תנועה מקבל שיחה מלאה, לא מסך ריק. */
+@media (prefers-reduced-motion:reduce){
+  .js .cg-body > *{opacity:1;transform:none;transition:none}
+  .js .cg-typing,.js .cg-typing.show{display:none}
+  .cg-typing i{animation:none}
+  .cg-replay{display:none}
+}
