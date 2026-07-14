@@ -172,19 +172,31 @@
         <div class="pain reveal d1">
           <div class="art" aria-hidden="true">
             <svg class="pi pi--leak" viewBox="0 0 64 64">
-              <path class="dim" d="M16 13a16 16 0 0 1 32 0"/>
-              <path class="base" d="M9 13h46"/>
-              <path class="base" d="M14 13l3.5 28a5 5 0 0 0 5 4.4h19a5 5 0 0 0 5-4.4L50 13"/>
-              <rect class="dim" x="25" y="19" width="14" height="8" rx="2.5"/>
-              <circle class="ink" cx="25" cy="37" r="2.6"/>
-              <circle class="ink" cx="39" cy="40" r="2.2"/>
+              <!-- ליד נוחת לתוך הדלי -->
+              <g class="into">
+                <circle class="base" cx="32" cy="6" r="2.6"/>
+                <path class="base" d="M27.5 15a4.5 4.5 0 0 1 9 0"/>
+              </g>
+              <!-- הדלי. התחתית קרועה בשני מקומות. -->
+              <path class="base" d="M11 21h42"/>
+              <path class="base" d="M16 21l2.6 24"/>
+              <path class="base" d="M48 21l-2.6 24"/>
+              <path class="base" d="M18.6 45h3M27 45h8M42 45h3.4"/>
+              <!-- מי שעוד בפנים -->
+              <g class="held">
+                <circle class="dim" cx="25" cy="30" r="2.4"/>
+                <path class="dim" d="M21 38a4 4 0 0 1 8 0"/>
+                <circle class="dim" cx="39" cy="30" r="2.4"/>
+                <path class="dim" d="M35 38a4 4 0 0 1 8 0"/>
+              </g>
+              <!-- ומי שכבר בחוץ: דרך החורים, אחד אחרי השני -->
               <g class="leak leak1">
-                <rect class="hot" x="15" y="48" width="14" height="9" rx="3"/>
-                <path class="hot" d="M18 57v3.5l3.5-3.5"/>
+                <circle class="hot" cx="23.5" cy="51" r="2.6"/>
+                <path class="hot" d="M19 60a4.5 4.5 0 0 1 9 0"/>
               </g>
               <g class="leak leak2">
-                <rect class="hot" x="35" y="50" width="12" height="8" rx="2.5"/>
-                <path class="hot" d="M38 58v3l3-3"/>
+                <circle class="hot" cx="39" cy="53" r="2.4"/>
+                <path class="hot" d="M35 61a4 4 0 0 1 8 0"/>
               </g>
             </svg>
           </div>
