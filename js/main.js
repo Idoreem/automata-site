@@ -65,8 +65,8 @@
     drawRail();
   }
 
-  /* מדרגת ההשהיה של הצ׳יפים והכלים — נקבעת מהמיקום, לא מוקשחת ב-CSS */
-  document.querySelectorAll('.chips, .tools').forEach(function (group) {
+  /* מדרגת ההשהיה של הצ׳יפים — נקבעת מהמיקום, לא מוקשחת ב-CSS */
+  document.querySelectorAll('.chips').forEach(function (group) {
     Array.prototype.forEach.call(group.children, function (child, i) {
       child.style.setProperty('--i', i);
     });
