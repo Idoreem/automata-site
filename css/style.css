@@ -435,8 +435,10 @@ html:not(.js) .step-link .chev{color:var(--signal)}
   color:var(--console-dim);letter-spacing:-.01em;
 }
 .ido-body .eyebrow{color:var(--signal)}
-.ido-name{font-size:clamp(1.5rem,2.6vw,2rem);color:#fff;margin-block:12px 10px;letter-spacing:-.01em}
-.ido-role{color:var(--console-dim);font-size:1.06rem;line-height:1.7;max-width:52ch;margin-block-end:24px}
+.ido-name{font-size:clamp(1.5rem,2.6vw,2rem);color:#fff;margin-block:12px 12px;letter-spacing:-.01em}
+.ido-role{color:var(--console-dim);font-size:.96rem;line-height:1.65;max-width:56ch}
+.ido-role + .ido-role{margin-block-start:10px}
+.ido-body .btn{margin-block-start:22px}
 .ido-body .btn svg{width:16px;height:16px}
 
 /* ---------- החלון (:target) ---------- */
