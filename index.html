@@ -90,7 +90,6 @@
               <circle class="fill ant" cx="32" cy="5" r="3.2"/>
               <rect class="base" x="11" y="13" width="42" height="35" rx="10"/>
               <path class="base" d="M11 24H6v12h5M53 24h5v12h-5"/>
-              <path class="base brow" d="M18.5 20.5 27 22.5"/>
               <circle class="ink" cx="23" cy="28" r="3.4"/>
               <circle class="ink lid-open" cx="41" cy="28" r="3.4"/>
               <path class="base lid-shut" d="M37 29.5c2-3 6-3 8 0"/>
@@ -103,12 +102,12 @@
 
         <!-- 2. הניצוץ נראה מכאן. הסבך בדרך אליו לא נגמר. -->
         <div class="rel reveal d2">
-          <svg class="ri ri--peak" viewBox="0 0 64 64" aria-hidden="true">
-            <path class="base" d="M4 56 32 8l28 48z"/>
-            <path class="fill cap" d="M32 8l8 14H24z"/>
-            <path class="hot trail" d="M16 52l18-6-14-8 16-6-10-6 6-4"/>
-            <circle class="ink" cx="16" cy="52" r="2.8"/>
-            <path class="base" d="M2 56h60"/>
+          <svg class="ri ri--maze" viewBox="0 0 64 64" aria-hidden="true">
+            <path class="base wall" d="M8 24V8h48v48H8V32M16 48V16h32v12M48 36v12H16M24 40V24h16v16h-8M32 8v8M16 32h8M40 48v-8"/>
+            <g class="spark">
+              <path class="fill" d="M33 25l2.2 5.8 5.8 2.2-5.8 2.2L33 41l-2.2-5.8L25 33l5.8-2.2z"/>
+            </g>
+            <path class="hot lost" pathLength="100" d="M2 28h10V12h40v20h-8v12H28v-8"/>
           </svg>
           <p>שמעת על הדברים המטורפים ש-AI יודע לעשות, אבל זה נשמע רחוק ומורכב.</p>
         </div>

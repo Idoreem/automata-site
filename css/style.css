@@ -441,20 +441,18 @@ html:not(.js) .step-link .chev{color:var(--signal)}
 .ri .dim{stroke:var(--ink-faint)}
 .ri .fill{fill:var(--signal);stroke:none}
 
-/* 1. רובוט ערמומי. גבה מורמת, חיוך עקום, וקריצה כל כמה שניות
-   עם נענוע ראש קטן. הקריצה = החלפה בין העין הפקוחה לעפעף הסגור. */
+/* 1. רובוט ערמומי. חיוך עקום, ראש שנוטה, וקריצה כל 4 שניות.
+   הקריצה = החלפה בין העין הפקוחה לעפעף הסגור. בלי גבה. */
 .ri .ink{fill:var(--ink-soft);stroke:none}
 .ri--bot .lid-shut{opacity:0}
 .js .in .ri--bot .ant{animation:ri-blip 2.2s ease-in-out infinite;transform-origin:32px 5px}
 .js .in .ri--bot .head{animation:ri-cheek 4s ease-in-out infinite;transform-origin:32px 48px}
 .js .in .ri--bot .lid-open{animation:ri-eye-off 4s ease-in-out infinite}
 .js .in .ri--bot .lid-shut{animation:ri-eye-on 4s ease-in-out infinite}
-.js .in .ri--bot .brow{animation:ri-brow 4s ease-in-out infinite;transform-origin:23px 21px}
 @keyframes ri-blip{0%,100%{opacity:.55;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
 @keyframes ri-cheek{0%,55%,100%{transform:rotate(0)}65%,80%{transform:rotate(-4deg)}}
 @keyframes ri-eye-off{0%,58%,100%{opacity:1}64%,80%{opacity:0}}
 @keyframes ri-eye-on{0%,58%,100%{opacity:0}64%,80%{opacity:1}}
-@keyframes ri-brow{0%,55%,100%{transform:translateY(0)}65%,80%{transform:translateY(-2px)}}
 
 /* 2. דיברת עם GPT. הקו בעסק שטוח לגמרי, והנקודה עוברת עליו
    בלי לקפוץ אף פעם. זו כל הפואנטה. */
@@ -464,12 +462,16 @@ html:not(.js) .step-link .chev{color:var(--signal)}
 @keyframes ri-talk{0%,100%{transform:scale(1)}16%{transform:scale(1.06)}34%{transform:scale(1)}}
 @keyframes ri-crawl{0%{transform:translateX(0);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translateX(40px);opacity:0}}
 
-/* 3. הפסגה הזהובה למעלה. השביל מתפתל ולא נגמר. אתה בתחתית. */
-.ri--peak .trail{stroke-dasharray:4 3.5}
-.js .in .ri--peak .trail{animation:ri-wind 2.6s linear infinite}
-.js .in .ri--peak .cap{animation:ri-glow 2.6s ease-in-out infinite;transform-origin:32px 15px}
-@keyframes ri-wind{to{stroke-dashoffset:-15}}
-@keyframes ri-glow{0%,100%{opacity:.6;transform:scale(.96)}50%{opacity:1;transform:scale(1.06)}}
+/* 3. מבוך סבוך. הניצוץ במרכז, ואור שמחפש את הדרך אליו.
+   ה-.lost הוא המסלול האמיתי דרך המסדרונות (לא הקיר) - הוא נכנס
+   מהפתח משמאל, מקיף, ומת בערך ב-2/3 מהדרך. לא מגיע. */
+.ri--maze .wall{stroke-linejoin:miter}
+.ri--maze .lost{stroke-dasharray:12 88;stroke-dashoffset:0;opacity:0;stroke-width:2.4;
+  filter:drop-shadow(0 0 3px rgba(255,107,53,.75))}
+.js .in .ri--maze .lost{animation:ri-lost 4.4s ease-in-out infinite}
+.js .in .ri--maze .spark{animation:ri-glow 2.6s ease-in-out infinite;transform-origin:33px 33px}
+@keyframes ri-lost{0%{stroke-dashoffset:0;opacity:0}10%{opacity:1}70%{stroke-dashoffset:-62;opacity:1}86%,100%{stroke-dashoffset:-68;opacity:0}}
+@keyframes ri-glow{0%,100%{opacity:.6;transform:scale(.92)}50%{opacity:1;transform:scale(1.08)}}
 
 /* 4. החול נגמר. ואז מתהפך, ומתחיל מהתחלה. */
 .ri--sand .top{transform-origin:32px 11px}
