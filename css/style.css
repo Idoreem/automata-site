@@ -209,36 +209,21 @@ img,svg{display:block;max-width:100%}
 .pi .cut{fill:var(--paper-2);stroke:none}
 .pi .money{fill:var(--ink-soft);font-size:14px;text-anchor:middle;font-family:inherit}
 
-/* --- 1. הפנייה נופלת דרך המגש. הבאה כבר בתור, ואז שוב. --- */
-.js .in .pi--drop .fall{animation:pi-fall 3s cubic-bezier(.5,0,.75,0) infinite}
-.js .in .pi--drop .next{animation:pi-queue 3s ease-in-out infinite}
-@keyframes pi-fall{
-  0%      {transform:translateY(-6px);opacity:0}
-  16%     {transform:translateY(-6px);opacity:1}
-  100%    {transform:translateY(10px);opacity:0}
-}
-/* הבאה בתור מחליקה לעבר החור בדיוק כשהקודמת נעלמת */
-@keyframes pi-queue{
-  0%,20%  {transform:translateY(-3px);opacity:.5}
-  70%,100%{transform:translateY(0);opacity:1}
+/* --- 1. הפניות בורחות דרך החורים בדלי. אחת, ואז השנייה, ושוב. --- */
+.js .in .pi--leak .leak{animation:pi-escape 3.2s cubic-bezier(.45,0,.75,.3) infinite}
+.js .in .pi--leak .leak2{animation-delay:1.6s}
+@keyframes pi-escape{
+  0%      {transform:translate(0,-7px);opacity:0}
+  18%     {transform:translate(0,-7px);opacity:1}
+  100%    {transform:translate(-2px,7px);opacity:0}
 }
 
-/* --- 2. הסימונים נעשים ביד, אחד-אחד. השעון מסתובב בינתיים. --- */
-.pi--manual .tick1,.pi--manual .tick2{stroke-dasharray:9;stroke-dashoffset:9}
-.js .in .pi--manual .tick1{animation:pi-mark 4.4s ease-in-out infinite}
-.js .in .pi--manual .tick2{animation:pi-mark 4.4s ease-in-out infinite;animation-delay:.9s}
-.js .in .pi--manual .pen{animation:pi-write 4.4s ease-in-out infinite}
-@keyframes pi-mark{
-  0%,10%   {stroke-dashoffset:9}
-  22%,86%  {stroke-dashoffset:0}
-  96%,100% {stroke-dashoffset:9}
-}
-@keyframes pi-write{
-  0%,100% {transform:translate(0,0)}
-  20%     {transform:translate(-1.5px,1.5px)}
-  45%     {transform:translate(-1px,-9px)}
-  60%     {transform:translate(-2.5px,-10.5px)}
-}
+/* --- 2. המחוג לא עוצר. סיבוב אחרי סיבוב, וזה כל היום שלך. --- */
+.pi--clock .minute,.pi--clock .hour,.pi--clock .orbit{transform-origin:32px 32px}
+.js .in .pi--clock .minute{animation:pi-spin 2.4s linear infinite}
+.js .in .pi--clock .hour{animation:pi-spin 14s linear infinite}
+.js .in .pi--clock .orbit{animation:pi-spin 9s linear infinite}
+@keyframes pi-spin{to{transform:rotate(360deg)}}
 
 /* --- 3. הכל נכנס אליך; החוצה יוצא קו מקווקו דק. --- */
 .pi--hub .trickle{stroke-dasharray:3 3.5}
