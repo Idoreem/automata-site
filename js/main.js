@@ -86,6 +86,57 @@
     revealed.observe(el);
   });
 
+  /* ============ ה-rig: אותו שלד, התהליך שלך ============
+     שלושה תאים קבועים שהתוכן שלהם מתחלף בין חמישה תהליכים מעולמות שונים.
+     המקור היחיד לאמת הוא ה-<ol class="rig-list"> שב-HTML - בלי JS היא פשוט
+     רשימה קריאה, ואין כאן שום תוכן שנולד ב-JS. */
+  var rig = document.getElementById('rig');
+  if (rig) {
+    var slots = rig.querySelectorAll('.rig-slot');
+    var dots = rig.querySelector('.rig-dots');
+    var recipes = Array.prototype.map.call(rig.querySelectorAll('.rig-list li'), function (li) {
+      return Array.prototype.map.call(li.children, function (s) { return s.textContent; });
+    });
+
+    if (recipes.length && slots.length === 3) {
+      var paint = function (n) {
+        slots.forEach(function (slot, k) {
+          slot.querySelector('.rig-v').textContent = recipes[n][k];
+        });
+        Array.prototype.forEach.call(dots.children, function (dot, k) {
+          dot.classList.toggle('on', k === n);
+        });
+      };
+
+      recipes.forEach(function () { dots.appendChild(document.createElement('i')); });
+      paint(0);
+
+      /* מי שביקש פחות תנועה מקבל את הרשימה המלאה, לא קרוסלה שרצה */
+      if (!reduce) {
+        var at = 0;
+        var cycle = function () {
+          at = (at + 1) % recipes.length;
+          /* התאים מתחלפים במדרגות, כך שנראה כאילו הנתונים זורמים דרכם */
+          slots.forEach(function (slot, k) {
+            setTimeout(function () { slot.classList.add('swap'); }, k * 90);
+          });
+          setTimeout(function () {
+            paint(at);
+            slots.forEach(function (slot) { slot.classList.remove('swap'); });
+          }, 340);
+        };
+
+        /* מתחיל רק כשהכרטיס מול העיניים */
+        var rigSeen = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting) return;
+          rigSeen.disconnect();
+          setInterval(cycle, 2900);
+        }, { threshold: 0.4 });
+        rigSeen.observe(rig);
+      }
+    }
+  }
+
   /* ============ היומן החי (Cal.com) ============
      ה-embed הוא כ-80 בקשות. לכן הוא לא נטען עם העמוד אלא רק כשסקשן היומן
      מתקרב לפריים (או כשלוחצים על כפתור יומן) — מי שלא מגיע לתחתית לא משלם.

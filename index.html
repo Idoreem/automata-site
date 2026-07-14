@@ -208,7 +208,7 @@
         </div>
       </div>
 
-      <div class="sol sol--flip reveal">
+      <div class="sol reveal">
         <div class="sol-content">
           <span class="tag">
             <!-- שלושה מסופים מחווטים - בדיוק הצורה של סימן המותג -->
@@ -227,32 +227,37 @@
           </ul>
         </div>
         <div class="sol-visual">
-          <div class="flow">
-            <!-- שלושה מקורות מתכנסים למסוף אחד -->
-            <div class="flow-row">
-              <span class="flow-ic">
-                <svg class="gi" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.5 9.5 0 0 1-2.8-.4L4 21l1.4-4a8.2 8.2 0 0 1-1.4-4.6A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg>
-              </span>
-              <span class="flow-tx"><b>פנייה נכנסת</b><span>וואטסאפ · טופס · שיחה</span></span>
+          <!-- לא משפך אחד. משפך אחד סותר את הכותרת: הוא אומר "אוטומציה אחת"
+               בזמן שהכותרת אומרת "בתפירה אישית", והוא מקבע את הקורא לטיפול בלידים.
+               כאן: שלד קבוע (טריגר -> לוגיקה -> פעולה) שמתחלף בין חמישה תהליכים
+               מעולמות שונים - מכירות, כספים, שימור, תפעול, דיווח.
+               השלד לא זז. מה שרץ בו - כן. זה מה ש"תפירה אישית" אומר. -->
+          <div class="rig" id="rig">
+            <div class="rig-hd">
+              <b>התהליך שלך</b>
+              <span class="rig-dots" aria-hidden="true"></span>
             </div>
-            <div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 4v16M7 15l5 5 5-5"/></svg></div>
 
-            <!-- שער סינון: מה שעובר ממשיך, מה שלא - נושר החוצה -->
-            <div class="flow-row">
-              <span class="flow-ic">
-                <svg class="gi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18l-7 8v7l-4 2v-9L3 4z"/></svg>
-              </span>
-              <span class="flow-tx"><b>מענה + סינון אוטומטי</b><span>תוך שניות, בכל שעה</span></span>
+            <!-- התאים. נבנים מ-js/main.js מתוך הרשימה שלמטה. -->
+            <div class="rig-slots" aria-hidden="true">
+              <div class="rig-slot"><span class="rig-k">טריגר</span><span class="rig-v"></span></div>
+              <span class="rig-link"><i></i></span>
+              <div class="rig-slot"><span class="rig-k">לוגיקה</span><span class="rig-v"></span></div>
+              <span class="rig-link"><i></i></span>
+              <div class="rig-slot"><span class="rig-k">פעולה</span><span class="rig-v"></span></div>
             </div>
-            <div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 4v16M7 15l5 5 5-5"/></svg></div>
 
-            <!-- אחד נכנס, שניים יוצאים: רשומה ב-CRM ומשימה לצוות -->
-            <div class="flow-row">
-              <span class="flow-ic">
-                <svg class="gi" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3M4 12v6c0 1.7 3.6 3 8 3M20 6v5"/><path d="M15.5 18.5 17.5 20.5 21.5 16.5"/></svg>
-              </span>
-              <span class="flow-tx"><b>עדכון CRM + משימה לצוות</b><span>בלי הקלדה ידנית</span></span>
-            </div>
+            <!-- מקור האמת. בלי JS זו פשוט רשימה קריאה של חמש דוגמאות,
+                 וזה בסדר גמור - היא מסבירה את המוצר לבד. -->
+            <ol class="rig-list">
+              <li><span>פנייה חדשה בוואטסאפ</span><span>סינון לפי תקציב, אזור ולו״ז</span><span>ליד מוכן ב-CRM + התראה לנציג</span></li>
+              <li><span>חשבונית שנחתה במייל</span><span>חילוץ נתונים והצלבה מול ההזמנה</span><span>רישום בהנהלת חשבונות</span></li>
+              <li><span>לקוח שלא קיבל מענה יומיים</span><span>תיעדוף וניסוח פנייה מחדש</span><span>הודעת מעקב + משימה לצוות</span></li>
+              <li><span>הזמנה חדשה באתר</span><span>בדיקת מלאי ותיעדוף משלוח</span><span>אישור ללקוח + ליקוט למחסן</span></li>
+              <li><span>סוף שבוע</span><span>איסוף נתונים מכל המערכות</span><span>דוח מנהלים בוואטסאפ</span></li>
+            </ol>
+
+            <p class="rig-ft">הרכיבים קבועים. התהליך - שלך.</p>
           </div>
         </div>
       </div>

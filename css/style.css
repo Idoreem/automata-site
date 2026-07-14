@@ -303,14 +303,40 @@ img,svg{display:block;max-width:100%}
 .bub-in{align-self:flex-end;background:var(--signal);color:#200C02;border-end-end-radius:var(--r-sm)}
 
 /* דיאגרמת הזרימה */
-.flow{width:min(370px,100%);margin-inline:auto;display:grid;gap:8px}
-.flow-row{display:flex;align-items:center;gap:12px;padding:14px 15px;background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-md)}
-/* רחב ולא ריבועי — לדיאגרמה צריך מקום לזרום, לא קופסה להצטופף בה */
-.flow-ic{width:66px;height:42px;padding:3px;border-radius:var(--r-sm);background:var(--card);border:1px solid var(--rule);flex:none}
-.flow-tx b{display:block;font-size:.95rem;color:var(--ink);line-height:1.35}
-.flow-tx span{display:block;font-size:.83rem;color:var(--ink-mute)}
-.flow-arrow{display:grid;place-items:center;color:var(--signal);height:14px}
-.flow-arrow svg{width:16px;height:16px}
+/* ---------- ה-rig: אותו שלד, התהליך שלך ----------
+   שלושה תאים קבועים שהתוכן שלהם מתחלף בין חמישה תהליכים מעולמות שונים.
+   בלי JS זו רשימה קריאה של חמש דוגמאות - ראה .rig-list. */
+.rig{width:min(390px,100%);margin-inline:auto;background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-lg);padding:18px}
+.rig-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block-end:14px;border-block-end:1px solid var(--rule)}
+.rig-hd b{font-size:.95rem;color:var(--ink)}
+.rig-dots{display:flex;gap:5px}
+.rig-dots i{width:5px;height:5px;border-radius:99px;background:var(--rule-strong);transition:background .3s,transform .3s}
+.rig-dots i.on{background:var(--signal);transform:scale(1.25)}
+
+.rig-slots{display:none;margin-block-start:14px}
+.js .rig-slots{display:grid}
+.rig-slot{background:var(--card);border:1px solid var(--rule);border-radius:var(--r-md);padding:12px 14px;min-height:76px}
+.rig-k{display:block;font-size:.78rem;color:var(--ink-faint)}
+.rig-v{display:block;margin-block-start:5px;font-size:.98rem;color:var(--ink);line-height:1.4}
+/* התוכן מתחלף, לא הקופסה: רק ה-.rig-v זז, אז השלד נשאר יציב מול העין. */
+.rig-v{transition:opacity .3s ease,transform .3s cubic-bezier(.22,1,.36,1)}
+.rig-slot.swap .rig-v{opacity:0;transform:translateY(-6px)}
+
+/* המסילה שמחברת את התאים. יושבת ב-inline-start כמו עמוד השדרה של הקונסולה. */
+.rig-link{display:block;height:22px;margin-inline-start:22px;border-inline-start:2px solid var(--rule-strong);position:relative}
+.rig-link i{position:absolute;inset-inline-start:-4px;inset-block-start:0;width:6px;height:6px;border-radius:99px;background:var(--signal)}
+.js .rig-link i{animation:rig-drop 2.9s cubic-bezier(.5,0,.5,1) infinite}
+/* שני ה-link הם ה-span-ים היחידים שהם ילדים ישירים של .rig-slots,
+   ולכן הם ה-1 וה-2 מסוגם. nth-of-type(4) פשוט לא היה תופס כלום. */
+.js .rig-link:nth-of-type(2) i{animation-delay:.4s}
+@keyframes rig-drop{0%{transform:translateY(0);opacity:0}18%{opacity:1}55%{transform:translateY(17px);opacity:0}100%{transform:translateY(17px);opacity:0}}
+
+/* בלי JS - הרשימה היא התוכן. עם JS היא רק מקור הנתונים. */
+.rig-list{margin-block-start:14px;padding:0;list-style:none;display:grid;gap:9px;counter-reset:r}
+.js .rig-list{display:none}
+.rig-list li{counter-increment:r;background:var(--card);border:1px solid var(--rule);border-radius:var(--r-md);padding:11px 13px;font-size:.9rem;color:var(--ink-soft);line-height:1.5}
+.rig-list li span + span::before{content:" \2190 ";color:var(--signal)}
+.rig-ft{margin-block-start:14px;font-size:.86rem;color:var(--ink-faint);text-align:center}
 
 /* ---------- fit ---------- */
 .fit{text-align:center;max-width:800px;margin-inline:auto}
@@ -342,7 +368,7 @@ img,svg{display:block;max-width:100%}
 .js .in .tick path{animation:draw-tick .5s cubic-bezier(.65,0,.35,1) forwards}
 @keyframes draw-tick{to{stroke-dashoffset:0}}
 
-/* ---------- אייקוני ה-flow: צורות מוכרות. המטרה כאן היא בהירות, לא מקוריות. ---------- */
+/* ---------- אייקון קווי כללי (משמש בתגיות של .sol). בהירות לפני מקוריות. ---------- */
 .gi{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 /* ---------- פס ההתקדמות — הסיגנל שיורד עם הגלילה ---------- */
@@ -576,6 +602,11 @@ img,svg{display:block;max-width:100%}
   .js .mesh-wrap .mesh-fire path,
   .js .mesh-wrap.in .mesh-fire path{opacity:1;stroke-dashoffset:55;animation:none}
   .mesh-core .ring{display:none}
+  /* ה-rig לא מסתובב. במקום קרוסלה מקוצצת - כל חמשת התהליכים, קריאים. */
+  .js .rig-slots{display:none}
+  .js .rig-list{display:grid}
+  .rig-dots{display:none}
+  .rig-link i{animation:none}
   /* חתיכות הממשק קופאות במצב הסופי, לא במסך ריק */
   .js .in .art--repeat .box,
   .js .in .art--repeat .box::after,
