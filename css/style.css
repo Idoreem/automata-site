@@ -209,20 +209,19 @@ img,svg{display:block;max-width:100%}
 .pi .cut{fill:var(--paper-2);stroke:none}
 .pi .money{fill:var(--ink-soft);font-size:14px;text-anchor:middle;font-family:inherit}
 
-/* --- 1. ליד נוחת לדלי, וליד מחליק החוצה דרך החור. באותו קצב, בלי סוף. --- */
-.js .in .pi--leak .into{animation:pi-into 3.2s cubic-bezier(.4,0,.7,.2) infinite}
-.js .in .pi--leak .leak{animation:pi-escape 3.2s cubic-bezier(.45,0,.75,.3) infinite}
-.js .in .pi--leak .leak2{animation-delay:1.6s}
-@keyframes pi-into{
-  0%      {transform:translateY(-7px);opacity:0}
-  25%     {opacity:1}
-  75%,100%{transform:translateY(9px);opacity:0}
-}
-/* יוצא מהחור עצמו: מתחיל בתוך התחתית, ומחליק החוצה */
-@keyframes pi-escape{
-  0%      {transform:translateY(-9px);opacity:0}
-  30%     {transform:translateY(-5px);opacity:1}
-  100%    {transform:translateY(5px);opacity:0}
+/* --- 1. הליד נזרק לפח בקשת, ומיד אחריו הבא. כמו נייר מקומט. --- */
+.pi--bin .arc{stroke-dasharray:3 4;opacity:.75}
+.pi--bin .toss{transform-origin:33px 22px}
+.js .in .pi--bin .toss{animation:pi-toss 2.8s ease-in infinite}
+.js .in .pi--bin .t2{animation-delay:1.4s}
+/* המסלול: יוצא מימין־למעלה, מגיע לשיא, ונופל לתוך הפח */
+@keyframes pi-toss{
+  0%   {transform:translate(22px,-2px) rotate(-22deg);opacity:0}
+  12%  {opacity:1}
+  32%  {transform:translate(13px,-11px) rotate(-6deg)}
+  62%  {transform:translate(5px,-4px) rotate(10deg)}
+  84%  {transform:translate(0,8px) rotate(18deg);opacity:1}
+  100% {transform:translate(0,17px) rotate(24deg);opacity:0}
 }
 
 /* --- 2. המחוג לא עוצר. סיבוב אחרי סיבוב, וזה כל היום שלך. --- */
@@ -301,9 +300,13 @@ img,svg{display:block;max-width:100%}
 .rig-v{transition:opacity .3s ease,transform .3s cubic-bezier(.22,1,.36,1)}
 .rig-slot.swap .rig-v{opacity:0;transform:translateY(-6px)}
 
-/* המסילה שמחברת את התאים. יושבת ב-inline-start כמו עמוד השדרה של הקונסולה. */
-.rig-link{display:block;height:22px;margin-inline-start:22px;border-inline-start:2px solid var(--rule-strong);position:relative}
-.rig-link i{position:absolute;inset-inline-start:-4px;inset-block-start:0;width:6px;height:6px;border-radius:99px;background:var(--signal)}
+/* המסילה שמחברת את התאים - ממורכזת בין הכרטיסים.
+   הנקודה ממורכזת דרך inset-inline:0 + margin-inline:auto ולא דרך
+   translateX(-50%), כי ה-transform שמור לאנימציית הנפילה - כל
+   translateX בכלל היה נדרס על ידי ה-keyframes. */
+.rig-link{position:relative;display:grid;place-items:center;height:22px}
+.rig-link::before{content:"";width:2px;height:100%;background:var(--rule-strong);border-radius:2px}
+.rig-link i{position:absolute;inset-inline:0;inset-block-start:0;margin-inline:auto;width:6px;height:6px;border-radius:99px;background:var(--signal)}
 .js .rig-link i{animation:rig-drop 2.9s cubic-bezier(.5,0,.5,1) infinite}
 /* שני ה-link הם ה-span-ים היחידים שהם ילדים ישירים של .rig-slots,
    ולכן הם ה-1 וה-2 מסוגם. nth-of-type(4) פשוט לא היה תופס כלום. */
