@@ -73,8 +73,8 @@
   });
 
   /* חשיפה בגלילה.
-     .console ו-.sol מקבלים 'in' בעצמם כי הרצפים הפנימיים שלהם
-     (שורות הקונסולה, בועות הצ׳אט) תלויים בו. */
+     .sol ו-.steps מקבלים 'in' בעצמם כי הרצפים הפנימיים שלהם
+     (בועות הצ׳אט, הפעימה שנוסעת במסילה) תלויים בו. */
   var revealed = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) return;
@@ -82,7 +82,7 @@
       revealed.unobserve(entry.target);
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-  document.querySelectorAll('.reveal, .console, .sol').forEach(function (el) {
+  document.querySelectorAll('.reveal, .sol, .steps').forEach(function (el) {
     revealed.observe(el);
   });
 

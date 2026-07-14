@@ -721,6 +721,9 @@ html:not(.js) .step-link .chev{color:var(--signal)}
   .js .chips .chip,
   .js .art--queue .item{opacity:1;transform:none;animation:none}
   .js .tick path{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
+  /* המסילה: צבועה עד הסוף, בלי הפעימה שנוסעת. */
+  .js .steps.in .step-link::after{transition:none}
+  .js .steps.in .step-link .chev{transition:none}
   /* הרשת: מצוירת במלואה, עם פעימה קפואה על כל קו. מעגל חי בלי תנועה.
      ה-.in חייב להופיע כאן: media query לא מוסיף specificity, ובלעדיו
      .js .mesh-wrap.in .mesh-fire path (4 מחלקות) גובר והפעימות ממשיכות לרוץ. */
