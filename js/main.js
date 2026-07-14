@@ -210,4 +210,21 @@
     });
   }
 
+  /* חלון "מי אני" הוא :target טהור — נפתח ונסגר בלי JS.
+     ה-JS רק משדרג: נועל את גלילת הרקע כשהוא פתוח, וסוגר ב-Esc. */
+  var bio = document.getElementById('ido-bio');
+  if (bio) {
+    var syncBio = function () {
+      var open = location.hash === '#ido-bio';
+      document.documentElement.classList.toggle('bio-open', open);
+    };
+    window.addEventListener('hashchange', syncBio);
+    syncBio();
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && location.hash === '#ido-bio') {
+        location.hash = 'about';
+      }
+    });
+  }
+
 })();

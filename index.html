@@ -369,6 +369,52 @@
   </section>
 
 
+  <!-- ================= מי אני =================
+       כרטיס כהה - אותה חתימה של הקונסולה/CTA. תמונה בצד, כותרת קצרה,
+       וכפתור שפותח את הביוגרפיה המלאה בחלון (modal). הכרטיס נשאר קומפקטי,
+       והחלון הוא :target טהור - נפתח גם בלי JS. -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="ido reveal">
+        <div class="ido-photo">
+          <!-- כשמגיעה התמונה: /img/ido.jpg. עד אז, ה-placeholder למטה מוצג. -->
+          <img src="/img/ido.jpg" alt="עידו ראם, מייסד ושותף באוטומטה" onerror="this.remove()">
+          <span class="ido-ph" aria-hidden="true">עידו<br>ראם</span>
+        </div>
+        <div class="ido-body">
+          <span class="eyebrow">מי אני</span>
+          <h2 class="ido-name">אני עידו ראם</h2>
+          <p class="ido-role">מייסד ושותף באוטומטה, ומי שמוביל את האסטרטגיה, אפיון התהליכים והעבודה מול הלקוחות.</p>
+          <a class="btn btn-primary" href="#ido-bio">
+            קרא עוד
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- הביוגרפיה המלאה. position:fixed, נפתח רק כשה-hash הוא #ido-bio. -->
+    <div class="bio" id="ido-bio" role="dialog" aria-modal="true" aria-labelledby="bioName">
+      <a class="bio-scrim" href="#about" tabindex="-1" aria-label="סגירת החלון"></a>
+      <div class="bio-card">
+        <a class="bio-x" href="#about" aria-label="סגירת החלון">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </a>
+        <span class="eyebrow">מי אני</span>
+        <h2 class="bio-name" id="bioName">אני עידו ראם</h2>
+        <div class="bio-text">
+          <p>מייסד ושותף באוטומטה, ומי שמוביל את האסטרטגיה, אפיון התהליכים והעבודה מול הלקוחות.</p>
+          <p>לא הגעתי לעולם ה-AI בגלל ההייפ. הגעתי אליו אחרי שנים בתוך עסקים, מכירות, שיווק ותפעול, שבהן ראיתי מקרוב כמה זמן ואנרגיה נשרפים על עבודה שאפשר לעשות הרבה יותר חכם.</p>
+          <p>התחלתי כעורך וידאו, עבדתי במכללת הווידאו, המשכתי למכירות ולניהול מכירות, ובהמשך לעולמות השיווק, הקהילות והפיתוח העסקי.</p>
+          <p>ב-nCode ליוויתי יזמי SaaS בדרך מרעיון ומוצר להכנסות ולקוחות. ברי/מקס הרצליה הובלתי מהלכים בתחומי השיווק, הקמפיינים, הלידים וה-AI.</p>
+          <p>כל התחנות האלה חידדו אצלי יכולת אחת מרכזית - להיכנס לעסק, להבין מהר איפה הוא תקוע ולבנות תהליך שעובד טוב יותר.</p>
+          <p>באוטומטה אנחנו מחברים בין חשיבה עסקית, טכנולוגיה וביצוע. לא כדי להעמיס על העסק עוד כלים, אלא כדי לבנות מערכות שמורידות עבודה, מזיזות דברים קדימה ומאפשרות לעסק לגדול בלי שבעל העסק יצטרך להחזיק הכול על הגב.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <!-- ================= המלצות =================
        צילומי המסך המקוריים, כמו שהתקבלו. בלי שמות, בלי מסגור, בלי עריכה.
        הטקסט המלא של כל הודעה יושב ב-alt - כדי שגם קורא-מסך וגם גוגל
