@@ -414,7 +414,8 @@ html:not(.js) .step-link .chev{color:var(--signal)}
    הביוגרפיה המלאה. הכל קומפקטי - הסיפור הארוך יושב בחלון.
    ========================================================= */
 .ido{
-  display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,48px);align-items:center;
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(24px,4vw,52px);align-items:center;
+  max-width:940px;margin-inline:auto;
   background:var(--console);color:var(--console-fg);
   border-radius:var(--r-lg);box-shadow:var(--shadow-dark);
   padding:clamp(26px,3.4vw,44px);
