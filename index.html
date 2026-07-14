@@ -183,9 +183,11 @@
                 <circle class="hot" cx="33" cy="8" r="3.2"/>
                 <path class="hot" d="M27.6 18a5.4 5.4 0 0 1 10.8 0"/>
               </g>
-              <!-- פח. הידית והמכסה הם מה שמבדילים אותו מדלי. -->
-              <path class="base" d="M23.6 24.5V20a4.4 4.4 0 0 1 4.4-4.4h8.8a4.4 4.4 0 0 1 4.4 4.4v4.5"/>
-              <path class="base" d="M12 24.5h40"/>
+              <!-- פח. המכסה נפתח לקראת הזריקה ונסגר אחריה - הציר בקצה הימני. -->
+              <g class="lid">
+                <path class="base" d="M23.6 24.5V20a4.4 4.4 0 0 1 4.4-4.4h8.8a4.4 4.4 0 0 1 4.4 4.4v4.5"/>
+                <path class="base" d="M12 24.5h40"/>
+              </g>
               <path class="base" d="M46.6 24.5l-2 28a4.4 4.4 0 0 1-4.4 4.1H23.8a4.4 4.4 0 0 1-4.4-4.1l-2-28"/>
               <path class="dim" d="M27.5 33v15M32 33v15M36.5 33v15"/>
               <!-- נייר מקומט שכבר על הרצפה -->
@@ -235,28 +237,6 @@
           </div>
           <h3 class="h3">אתה צוואר הבקבוק</h3>
           <p>הכול עובר דרכך. ברגע שאתה לא זמין - העסק מאט, וכלום לא מתקדם בלעדיך.</p>
-        </div>
-
-        <!-- שטר, ובתוך הלהבה. הניצוצות עולים. זה כל הסיפור. -->
-        <div class="pain reveal d4">
-          <div class="art" aria-hidden="true">
-            <svg class="pi pi--burn" viewBox="0 0 64 64">
-              <g transform="rotate(-5 32 46)">
-                <rect class="base" x="9" y="37" width="46" height="20" rx="3"/>
-                <path class="dim" d="M15 41v12M49 41v12"/>
-                <text class="money" x="32" y="52">₪</text>
-              </g>
-              <g class="flame">
-                <path class="hot" d="M32 8c5 8.5 11 10.5 11 18a11 11 0 0 1-22 0c0-4 2.4-6.2 4-9.6 1.4 2.6 2.6 3.6 3.8 3.6 1.4-2.6 1.4-7.6 3.2-12z"/>
-                <path class="fill" d="M32 22c2.6 2.9 4 4.3 4 6.5a4 4 0 0 1-8 0c0-2.2 1.6-3.5 4-6.5z"/>
-              </g>
-              <circle class="fill spark s1" cx="16" cy="20" r="1.5"/>
-              <circle class="fill spark s2" cx="48" cy="14" r="1.8"/>
-              <circle class="fill spark s3" cx="45" cy="28" r="1.2"/>
-            </svg>
-          </div>
-          <h3 class="h3">פרסום בלי שליטה</h3>
-          <p>תקציב מדיה שנשרף וריטיינר יקר לקמפיינר - בלי שאתה באמת יודע מה עובד.</p>
         </div>
 
       </div>
