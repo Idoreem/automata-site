@@ -85,15 +85,17 @@
         <!-- 1. השבב מרחף מעל העסק. החריץ בפנים ריק. הוא עוד לא נכנס. -->
         <div class="rel reveal d1">
           <svg class="ri ri--bot" viewBox="0 0 64 64" aria-hidden="true">
-            <path class="base" d="M32 7v6"/>
-            <circle class="fill ant" cx="32" cy="5" r="3.2"/>
-            <rect class="base" x="11" y="13" width="42" height="35" rx="10"/>
-            <path class="base" d="M11 24H6v12h5M53 24h5v12h-5"/>
-            <g class="eyes">
-              <circle class="ink" cx="23" cy="27" r="3.4"/>
-              <circle class="ink" cx="41" cy="27" r="3.4"/>
+            <g class="head">
+              <path class="base" d="M32 7v6"/>
+              <circle class="fill ant" cx="32" cy="5" r="3.2"/>
+              <rect class="base" x="11" y="13" width="42" height="35" rx="10"/>
+              <path class="base" d="M11 24H6v12h5M53 24h5v12h-5"/>
+              <path class="base brow" d="M18.5 20.5 27 22.5"/>
+              <circle class="ink" cx="23" cy="28" r="3.4"/>
+              <circle class="ink lid-open" cx="41" cy="28" r="3.4"/>
+              <path class="base lid-shut" d="M37 29.5c2-3 6-3 8 0"/>
+              <path class="hot" d="M22 37c4 5.5 13 6 19-1.5"/>
             </g>
-            <path class="hot" d="M23 36c3.5 5 14.5 5 18 0"/>
             <path class="base" d="M24 48v4M40 48v4M18 56h28"/>
           </svg>
           <p>אתה יודע שצריך להכניס AI לעסק.</p>
@@ -102,35 +104,26 @@
         <!-- 2. הניצוץ נראה מכאן. הסבך בדרך אליו לא נגמר. -->
         <div class="rel reveal d2">
           <svg class="ri ri--peak" viewBox="0 0 64 64" aria-hidden="true">
-            <path class="base" d="M3 58 30 5l27 53"/>
-            <path class="fill cap" d="M30 5l7.5 15h-15z"/>
-            <path class="dim cloud" d="M8 46h9M43 25h9"/>
-            <path class="base" d="M2 58h60"/>
-            <g class="man">
-              <circle class="base" cx="46" cy="38" r="3.3"/>
-              <path class="base" d="M46.5 41.5 49 48M47 43l-6-4M47.5 44l4.5 2M49 48l-3 6M49 48l4 4"/>
-            </g>
-            <g class="sweat">
-              <circle class="dim drop" cx="52" cy="34" r="1.6"/>
-              <circle class="dim drop" cx="54" cy="39" r="1.3"/>
-            </g>
+            <path class="base" d="M4 56 32 8l28 48z"/>
+            <path class="fill cap" d="M32 8l8 14H24z"/>
+            <path class="hot trail" d="M16 52l18-6-14-8 16-6-10-6 6-4"/>
+            <circle class="ink" cx="16" cy="52" r="2.8"/>
+            <path class="base" d="M2 56h60"/>
           </svg>
           <p>שמעת על הדברים המטורפים ש-AI יודע לעשות, אבל זה נשמע רחוק ומורכב.</p>
         </div>
 
         <!-- 3. הבועה פועמת. הגלגל לא זז. שום דבר בעסק לא השתנה. -->
         <div class="rel reveal d3">
-          <svg class="ri ri--stall" viewBox="0 0 64 64" aria-hidden="true">
-            <g class="talk">
-              <path class="hot" d="M12 10h24a5 5 0 0 1 5 5v12a5 5 0 0 1-5 5H23l-8 7v-7h-3a5 5 0 0 1-5-5V15a5 5 0 0 1 5-5z"/>
-              <path class="fill" d="M24 14l1.9 4.1L30 20l-4.1 1.9L24 26l-1.9-4.1L18 20l4.1-1.9z"/>
+          <svg class="ri ri--flat" viewBox="0 0 64 64" aria-hidden="true">
+            <path class="base" d="M8 6v46h48"/>
+            <g class="bub">
+              <rect class="base" x="26" y="9" width="28" height="19" rx="5"/>
+              <path class="base" d="M33 28l-1 6 7-6"/>
+              <path class="fill" d="M40 13.5l1.8 4.7 4.7 1.8-4.7 1.8L40 26.5l-1.8-4.7-4.7-1.8 4.7-1.8z"/>
             </g>
-            <path class="hot wire" d="M42 30c6 3 8 6 9 9"/>
-            <g class="cog">
-              <circle class="dim" cx="50" cy="46" r="8"/>
-              <circle class="dim" cx="50" cy="46" r="3"/>
-              <path class="dim" d="M50 34v4M50 54v4M38 46h4M58 46h4M41.5 37.5l2.8 2.8M55.7 51.7l2.8 2.8M58.5 37.5l-2.8 2.8M44.3 51.7l-2.8 2.8"/>
-            </g>
+            <path class="hot" d="M12 42h40"/>
+            <circle class="fill pip" cx="12" cy="42" r="2.8"/>
           </svg>
           <p>כבר התחלת לשחק עם GPT, אבל בפועל הכל נשאר אותו דבר בעסק.</p>
         </div>
