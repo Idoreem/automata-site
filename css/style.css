@@ -336,7 +336,6 @@ img,svg{display:block;max-width:100%}
 .js .rig-list{display:none}
 .rig-list li{counter-increment:r;background:var(--card);border:1px solid var(--rule);border-radius:var(--r-md);padding:11px 13px;font-size:.9rem;color:var(--ink-soft);line-height:1.5}
 .rig-list li span + span::before{content:" \2190 ";color:var(--signal)}
-.rig-ft{margin-block-start:14px;font-size:.86rem;color:var(--ink-faint);text-align:center}
 
 /* ---------- fit ---------- */
 .fit{text-align:center;max-width:800px;margin-inline:auto}
@@ -367,6 +366,70 @@ img,svg{display:block;max-width:100%}
 .js .tick path{stroke-dasharray:1;stroke-dashoffset:1}
 .js .in .tick path{animation:draw-tick .5s cubic-bezier(.65,0,.35,1) forwards}
 @keyframes draw-tick{to{stroke-dashoffset:0}}
+
+/* =========================================================
+   RELATE — "מזדהה עם אחד מהמשפטים האלו?"
+   ארבע עמודות. שוב חתיכות ממשק אמיתיות, לא אייקונים מופשטים:
+   משימה שלא זזה, פיד שממשיך לרוץ, צ׳אט שנסגר, מדריכים שלא נגמרים.
+   הגובה של .ra קבוע, אחרת המשפטים שמתחתיו קופצים משורה לשורה.
+   ========================================================= */
+.rels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.rel{background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg);padding:22px 20px;transition:border-color .25s,transform .25s,box-shadow .25s}
+.rel:hover{border-color:var(--rule-strong);transform:translateY(-3px);box-shadow:var(--shadow)}
+.rel > p{font-size:1rem;color:var(--ink-soft);line-height:1.6}
+.ra{background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-md);padding:12px 13px;margin-block-end:18px;height:126px;display:flex;flex-direction:column;justify-content:center;gap:7px;overflow:hidden}
+
+/* 1. המשימה שלא זזה */
+.ra--todo .todo{display:flex;align-items:center;gap:8px;font-size:.85rem}
+.ra--todo .cb{width:14px;height:14px;flex:none;border:1.5px solid var(--rule-strong);border-radius:3px;position:relative}
+.ra--todo .tx{color:var(--ink-mute)}
+.ra--todo .done .tx,.ra--todo .tx.done{color:var(--ink-faint);text-decoration:line-through}
+.ra--todo .cb.done{background:var(--rule-strong);border-color:var(--rule-strong)}
+.ra--todo .cb.done::after{content:"";position:absolute;inset-inline-start:4px;inset-block-start:1px;width:3px;height:7px;border:solid var(--card);border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+.ra--todo .open .tx{color:var(--ink)}
+.ra--todo .open .cb{border-color:var(--signal)}
+.js .in .ra--todo .open .cb{animation:rel-pulse 1.9s ease-in-out infinite}
+@keyframes rel-pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,53,.35)}50%{box-shadow:0 0 0 4px rgba(255,107,53,0)}}
+
+/* 2. הפיד שלא נגמר. הז׳רגון בסוף הוא הדלת שנסגרת. */
+.ra--feed{padding:0}
+.ra--feed .feed{position:relative;height:100%;overflow:hidden;padding-inline:13px;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 22%,#000 78%,transparent);
+          mask-image:linear-gradient(180deg,transparent,#000 22%,#000 78%,transparent)}
+/* margin ולא gap: הלולאה מזיזה 50%, וזה שווה לרצף אחד בדיוק רק אם לכל פוסט
+   יש מרווח משלו. עם gap, המרווח בין שני החצאים חסר - והלולאה קופצת. */
+.ra--feed .reel{display:flex;flex-direction:column}
+.js .in .ra--feed .reel{animation:rel-scroll 15s linear infinite}
+.ra--feed .post{margin-block-end:7px;background:var(--card);border:1px solid var(--rule);border-radius:var(--r-sm);padding:6px 9px;font-size:.78rem;color:var(--ink-mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ra--feed .post.jar{color:var(--signal-ink);border-color:var(--signal);direction:ltr;font-family:var(--mono);font-size:.68rem}
+@keyframes rel-scroll{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+
+/* 3. תשובה מצוינת - ואז הטאב נסגר ולא נשאר ממנה כלום. הדעיכה היא הפואנטה. */
+.ra--chat .loop{display:flex;flex-direction:column;gap:7px;align-items:flex-start}
+.ra--chat .ask{background:var(--card);border:1px solid var(--rule);border-radius:10px;border-end-start-radius:3px;padding:7px 10px;font-size:.8rem;color:var(--ink-soft)}
+.ra--chat .ans{align-self:flex-end;max-width:88%;background:var(--ink);color:var(--paper);border-radius:10px;border-end-end-radius:3px;padding:8px 10px;font-size:.78rem;line-height:1.5}
+/* שתי שורות הטיוטה שהוא כתב לך. יפות. ולא עשית איתן כלום. */
+.ra--chat .ans i{display:block;height:4px;border-radius:99px;background:rgba(251,247,236,.34);margin-block-start:5px}
+.ra--chat .ans i:last-child{width:62%}
+.js .in .ra--chat .loop{animation:rel-fade 4.4s ease-in-out infinite}
+@keyframes rel-fade{0%,52%{opacity:1}72%,100%{opacity:.1}}
+
+/* 4. שלושה מדריכים פתוחים. הפס מתחיל, נתקע, ומתאפס. */
+.ra--tabs .tabs{display:flex;flex-wrap:wrap;gap:5px}
+.ra--tabs .tab{background:var(--card);border:1px solid var(--rule);border-radius:var(--r-sm);padding:4px 8px;font-size:.72rem;color:var(--ink-mute);white-space:nowrap}
+/* flex:none חובה. הטאבים נשברים לשתי שורות, התוכן גולש ב-6 פיקסלים בדיוק,
+   והפס - שגובהו 6 - מתכווץ לאפס ונעלם. */
+.ra--tabs .bar{flex:none;height:6px;border-radius:99px;background:var(--rule-strong);overflow:hidden;margin-block-start:2px}
+.ra--tabs .bar i{display:block;height:100%;width:6%;border-radius:99px;background:var(--signal)}
+.js .in .ra--tabs .bar i{animation:rel-stall 6s ease-in-out infinite}
+@keyframes rel-stall{0%{width:2%}45%,70%{width:9%}72%,100%{width:2%}}
+
+/* הסגירה */
+.rel-cta{margin-block-start:44px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center}
+.rel-cta p{font-size:clamp(1.1rem,1.7vw,1.32rem);color:var(--ink);max-width:46ch;text-wrap:balance}
+
+@media (max-width:980px){.rels{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.rels{grid-template-columns:1fr}}
 
 /* ---------- אייקון קווי כללי (משמש בתגיות של .sol). בהירות לפני מקוריות. ---------- */
 .gi{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -607,6 +670,13 @@ img,svg{display:block;max-width:100%}
   .js .rig-list{display:grid}
   .rig-dots{display:none}
   .rig-link i{animation:none}
+  /* כרטיסי ה-relate קופאים במצב הסופי, לא במסך ריק. */
+  .js .in .ra--todo .open .cb,
+  .js .in .ra--feed .reel,
+  .js .in .ra--chat .loop,
+  .js .in .ra--tabs .bar i{animation:none}
+  .ra--chat .loop{opacity:1}
+  .ra--tabs .bar i{width:6%}
   /* חתיכות הממשק קופאות במצב הסופי, לא במסך ריק */
   .js .in .art--repeat .box,
   .js .in .art--repeat .box::after,
