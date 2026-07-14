@@ -386,6 +386,24 @@ img,svg{display:block;max-width:100%}
 .chip{transition:transform .25s,border-color .25s}
 .chip:hover{transform:translateY(-2px);border-color:var(--signal)}
 
+/* =========================================================
+   המלצות — צילומי המסך המקוריים
+
+   הצילומים מוגשים כמו שהם: בלי שמות, בלי מסגור, בלי עריכה.
+   הם בגבהים שונים מאוד (202px עד 901px), ולכן פריסת עמודות
+   (columns) ולא grid — הדפדפן מאזן את הגבהים בעצמו
+   ואף צילום לא נחתך.
+   ========================================================= */
+.tgrid{columns:2;column-gap:16px}
+.t{
+  break-inside:avoid;margin-block-end:16px;
+  background:var(--console);border:1px solid var(--rule);
+  border-radius:var(--r-lg);padding:10px;
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.t:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--rule-strong)}
+.t img{width:100%;height:auto;border-radius:calc(var(--r-lg) - 6px)}
+
 /* ---------- tools ---------- */
 .tools{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-block-start:32px}
 .tool{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--rule);border-radius:var(--r-md);padding:10px 17px;color:var(--ink);font-family:'Assistant',sans-serif;font-weight:600;direction:ltr}
