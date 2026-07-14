@@ -185,12 +185,12 @@ img,svg{display:block;max-width:100%}
    הכלל: האייקון הוא הכאב עצמו, לא מטאפורה מופשטת שלו. מי שמסתכל
    שנייה אחת צריך לראות מה קורה, בלי לקרוא את הכותרת.
 
-     .pi--drop    מגש מחורר. פנייה נופלת דרכו, והבאה כבר בתור — בלולאה.
-     .pi--manual  דף משימות שמסומן ביד, ושעון שנאכל בזמן שזה קורה.
-     .pi--hub     שלושה חצים נכנסים אליך. מלמטה יוצא קו דק אחד.
-     .pi--burn    שטר בתוך הלהבה. ניצוצות עולים.
+     .pi--leak   דלי מחורר. הפניות בורחות דרך החורים, אחת אחרי השנייה.
+     .pi--clock  שעון שמסתובב בלי סוף. המחוג לא עוצר, וגם היום לא.
+     .pi--hub    שלושה חצים נכנסים אליך. מלמטה יוצא קו דק אחד.
+     .pi--burn   שטר בתוך הלהבה. ניצוצות עולים.
 
-   הכתום מסמן תמיד את מה שכואב, ורק אותו: הפנייה שנפלה, השעון,
+   הכתום מסמן תמיד את מה שכואב, ורק אותו: הפניות שבורחות, המחוג,
    אתה שבמרכז, האש. כל השאר בדיו. */
 /* גובה קבוע לכל ארבעתם — אחרת הכותרות שמתחתיהם קופצות משורה לשורה */
 .art{
@@ -441,13 +441,16 @@ html:not(.js) .step-link .chev{color:var(--signal)}
 @keyframes ri-eye-off{0%,58%,100%{opacity:1}64%,80%{opacity:0}}
 @keyframes ri-eye-on{0%,58%,100%{opacity:0}64%,80%{opacity:1}}
 
-/* 2. דיברת עם GPT. הקו בעסק שטוח לגמרי, והנקודה עוברת עליו
-   בלי לקפוץ אף פעם. זו כל הפואנטה. */
-.ri--flat .trail,.ri--flat .hot{stroke-width:2.4}
-.js .in .ri--flat .bub{animation:ri-talk 3.4s ease-in-out infinite;transform-origin:40px 19px}
-.js .in .ri--flat .pip{animation:ri-crawl 3.4s linear infinite}
-@keyframes ri-talk{0%,100%{transform:scale(1)}16%{transform:scale(1.06)}34%{transform:scale(1)}}
-@keyframes ri-crawl{0%{transform:translateX(0);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translateX(40px);opacity:0}}
+/* 2. גלגל אוגר. רץ בכל הכוח, לא זז מילימטר.
+   רק החישורים מסתובבים - עיגול שמסתובב נראה בדיוק כמו עיגול שעומד.
+   הרץ רודף אחרי הניצוץ ולעולם לא מתקרב אליו, והבסיס למטה קפוא. */
+.ri--wheel .rungs{transform-origin:32px 28px}
+.ri--wheel .runner{transform-origin:27px 40px}
+.js .in .ri--wheel .rungs{animation:ri-spin 3s linear infinite}
+.js .in .ri--wheel .runner{animation:ri-pant .34s ease-in-out infinite alternate}
+.js .in .ri--wheel .carrot{animation:ri-glow 2.4s ease-in-out infinite;transform-origin:41px 37px}
+@keyframes ri-spin{to{transform:rotate(360deg)}}
+@keyframes ri-pant{from{transform:translateY(0)}to{transform:translateY(-1.2px)}}
 
 /* 3. מבוך סבוך. הניצוץ במרכז, ואור שמחפש את הדרך אליו.
    ה-.lost הוא המסלול האמיתי דרך המסדרונות (לא הקיר) - הוא נכנס
