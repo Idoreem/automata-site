@@ -147,7 +147,8 @@
 .cmp tbody tr:last-child td:nth-child(2){border-block-end:1px solid rgba(255,107,53,.2)}
 .cmp-usmark{display:inline-flex;vertical-align:-3px;margin-inline-end:7px;color:var(--signal)}
 .cmp-usmark svg{width:17px;height:17px}
-.cmp-ck{width:15px;height:15px;color:var(--signal);margin-inline-end:7px;vertical-align:-2px}
+/* inline-block מבטל את display:block הגלובלי על svg - אחרת הצ'ק תופס שורה משלו */
+.cmp-ck{display:inline-block;width:15px;height:15px;color:var(--signal);margin-inline-end:7px;vertical-align:-2px}
 .cmp-cost .cmp-uscell{color:var(--signal-ink);font-weight:700}
 .cmp-foot{max-width:620px;margin:clamp(24px,3vw,32px) auto 0;text-align:center;color:var(--ink-faint);font-size:.96rem;line-height:1.65}
 
@@ -158,7 +159,10 @@
 /* ---------- רספונסיבי ---------- */
 @media (max-width:980px){
   .cg-split{grid-template-columns:1fr}
-  .cg-hero .hero-in{gap:34px}
+  /* הכרטיס יורד מתחת לטקסט (כמו הקונסולה באתר הראשי) - אחרת הוא נמעך
+     לעמודה צרה. הבסיס .hero-in עובר ל-1fr כאן, אבל .cg-hero .hero-in גובר
+     בספציפיות, אז חייבים לחזור עליו במפורש. */
+  .cg-hero .hero-in{grid-template-columns:1fr;gap:34px}
 }
 @media (max-width:620px){
   .cg-body{height:390px}
@@ -167,8 +171,16 @@
   .cg-fstep{grid-template-columns:40px 1fr;gap:15px}
   .cg-fnum{width:40px;height:40px;font-size:.74rem}
   .cg-fstep:not(:last-child)::before,.cg-fstep:not(:last-child)::after{inset-inline-start:19px;inset-block-start:calc(var(--fp) + 20px)}
-  .cmp th,.cmp td{padding:12px 13px;font-size:.9rem}
-  .cmp thead th{font-size:.94rem}
+  /* במובייל הטבלה נכנסת בלי גלילה אופקית: table-layout:fixed + width:100%
+     מכריחים את כל 4 העמודות לרוחב המסך בדיוק (הטקסט גולש בתוך התא), אחרת
+     ב-RTL עמודת ה-start נחתכת. עמודת התוויות צרה יותר. */
+  .cmp{min-width:0;table-layout:fixed;width:100%}
+  .cmp th:first-child,.cmp td:first-child{width:23%}
+  .cmp th,.cmp td{padding:11px 8px;font-size:.8rem}
+  .cmp thead th{font-size:.82rem}
+  .cmp tbody th{white-space:normal;font-size:.8rem}
+  .cmp-usmark svg{width:14px;height:14px}
+  .cmp-ck{width:12px;height:12px;margin-inline-end:4px}
 }
 
 /* מי שביקש פחות תנועה מקבל שיחה מלאה וטיימליין צבוע - לא מסך ריק. */
