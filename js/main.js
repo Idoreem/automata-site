@@ -1,85 +1,137 @@
-(function(){
-  var CAL="https://cal.com/ido-reem/שיחת-אפיון-לעסק-שלך";
-  var WA="https://wa.me/972544354411?text="+encodeURIComponent("היי, הגעתי דרך האתר ואשמח לשמוע על פתרונות AI ואוטומציה לעסק שלי");
-  document.querySelectorAll("[data-cal]").forEach(function(a){a.href=CAL;a.target="_blank";a.rel="noopener"});
-  document.querySelectorAll("[data-wa]").forEach(function(a){a.href=WA;a.target="_blank";a.rel="noopener"});
-  var y=document.getElementById("yr"); if(y) y.textContent=new Date().getFullYear();
+/* Automata — התנהגות העמוד.
+   שים לב: קישורי היומן והוואטסאפ יושבים ישירות ב-index.html (על תגיות <a>).
+   הם לא מוזרקים מכאן יותר — כדי שכל כפתור בעמוד יעבוד גם אם ה-JS נופל. */
+(function () {
+  'use strict';
 
-  // navbar glass on scroll
-  var nav=document.getElementById("nav");
-  var onScroll=function(){ if(window.scrollY>24) nav.classList.add("scrolled"); else nav.classList.remove("scrolled"); };
-  onScroll(); window.addEventListener("scroll",onScroll,{passive:true});
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // mobile menu → simple anchor reveal
-  var mb=document.getElementById("menuBtn");
-  if(mb){ mb.addEventListener("click",function(){
-    var links=document.querySelector(".nav-links");
-    var open=links.style.display==="flex";
-    links.style.display=open?"":"flex";
-    if(!open){links.style.position="absolute";links.style.flexDirection="column";links.style.insetInlineEnd="20px";links.style.insetBlockStart="64px";links.style.background="var(--glass-bg)";links.style.backdropFilter="blur(16px)";links.style.padding="10px";links.style.borderRadius="14px";links.style.border="1px solid var(--glass-bd)";links.style.boxShadow="var(--shadow-md)";}
-    mb.setAttribute("aria-expanded",String(!open));
-  }); }
+  /* שנה נוכחית בפוטר */
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
 
-  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // reveal on scroll
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}})},{threshold:.16,rootMargin:"0px 0px -8% 0px"});
-  document.querySelectorAll(".reveal").forEach(function(el){io.observe(el)});
-
-  // count-up
-  var sn=document.getElementById("statNum");
-  if(sn){
-    var done=false;
-    var cio=new IntersectionObserver(function(es){es.forEach(function(e){
-      if(e.isIntersecting&&!done){done=true;
-        var t=+sn.dataset.target, d=1400, s=null;
-        if(reduce){sn.textContent=t;return;}
-        function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/d,1);var e=1-Math.pow(1-p,3);sn.textContent=Math.round(e*t);if(p<1)requestAnimationFrame(step);else sn.textContent=t;}
-        requestAnimationFrame(step);
-      }})},{threshold:.5});
-    cio.observe(sn);
+  /* ניווט — רקע כשגוללים */
+  var nav = document.getElementById('nav');
+  if (nav) {
+    var onScroll = function () {
+      nav.classList.toggle('scrolled', window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  // sequenced bubbles / flow rows
-  function sequence(sel,childSel,gap){
-    var host=document.querySelector(sel); if(!host)return;
-    var items=host.querySelectorAll(childSel);
-    var sio=new IntersectionObserver(function(es){es.forEach(function(e){
-      if(e.isIntersecting){ items.forEach(function(it,i){ setTimeout(function(){it.classList.add("show")}, reduce?0:i*gap); }); sio.unobserve(e.target);} })},{threshold:.4});
-    sio.observe(host);
-  }
-  sequence("#tgPhone",".bub",520);
-  sequence("#opsFlow",".flow-row,.flow-arrow",300);
-
-  // hero signal paths — build + animate
-  var svg=document.getElementById("heroPaths");
-  if(svg){
-    var W=1440,H=640;
-    var paths=[
-      "M-40,150 C 300,60 560,300 900,180 S 1360,120 1520,240",
-      "M-40,360 C 320,300 620,470 980,360 S 1380,320 1520,420",
-      "M-40,540 C 360,520 640,600 1020,520 S 1400,540 1520,560"
-    ];
-    var ns="http://www.w3.org/2000/svg";
-    paths.forEach(function(d,i){
-      var p=document.createElementNS(ns,"path");
-      p.setAttribute("d",d); p.setAttribute("class","spath"+(reduce?"":" draw"));
-      p.setAttribute("stroke", i===1?"var(--cyan)":"var(--brand-400)");
-      p.setAttribute("stroke-width", i===1?"2.2":"1.6");
-      p.setAttribute("opacity", i===1?"0.55":"0.32");
-      svg.appendChild(p);
-      var len=p.getTotalLength(); p.style.setProperty("--len",len);
-      if(!reduce){
-        // moving pulse along the path
-        var dot=document.createElementNS(ns,"circle");
-        dot.setAttribute("r", i===1?"4":"3"); dot.setAttribute("class","pulse pulse-move");
-        svg.appendChild(dot);
-        (function(path,circle,dur,delay){
-          var start=null;
-          function move(ts){ if(!start)start=ts+delay; var el=Math.max(0,ts-start); var t=(el%dur)/dur; var pt=path.getPointAtLength(t*len); circle.setAttribute("cx",pt.x); circle.setAttribute("cy",pt.y); circle.setAttribute("opacity", t<0.04||t>0.96?0:0.9); requestAnimationFrame(move); }
-          requestAnimationFrame(move);
-        })(p,dot, 5200+i*1400, i*900);
+  /* תפריט מובייל */
+  var menuBtn = document.getElementById('menuBtn');
+  var navLinks = document.getElementById('navLinks');
+  if (menuBtn && navLinks) {
+    var setMenu = function (open) {
+      navLinks.classList.toggle('open', open);
+      menuBtn.setAttribute('aria-expanded', String(open));
+    };
+    menuBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setMenu(!navLinks.classList.contains('open'));
+    });
+    navLinks.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setMenu(false);
+    });
+    document.addEventListener('click', function (e) {
+      if (!navLinks.contains(e.target) && !menuBtn.contains(e.target)) setMenu(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+        setMenu(false);
+        menuBtn.focus();
       }
     });
+  }
+
+  /* פס הסיגנל שיורד עם הגלילה */
+  var rail = document.getElementById('railFill');
+  if (rail && !reduce) {
+    var ticking = false;
+    var drawRail = function () {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var p = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+      rail.style.height = (p * 100) + 'vh';
+      ticking = false;
+    };
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(drawRail);
+    }, { passive: true });
+    window.addEventListener('resize', drawRail, { passive: true });
+    drawRail();
+  }
+
+  /* מדרגת ההשהיה של הצ׳יפים והכלים — נקבעת מהמיקום, לא מוקשחת ב-CSS */
+  document.querySelectorAll('.chips, .tools').forEach(function (group) {
+    Array.prototype.forEach.call(group.children, function (child, i) {
+      child.style.setProperty('--i', i);
+    });
+  });
+
+  /* חשיפה בגלילה.
+     .console ו-.sol מקבלים 'in' בעצמם כי הרצפים הפנימיים שלהם
+     (שורות הקונסולה, בועות הצ׳אט) תלויים בו. */
+  var revealed = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('in');
+      revealed.unobserve(entry.target);
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal, .console, .sol').forEach(function (el) {
+    revealed.observe(el);
+  });
+
+  /* כרטיס הכאב הראשון: הטיימר שמטפס על הודעה שאף אחד לא ענה עליה.
+     מתחיל לרוץ רק כשהכרטיס נכנס לפריים. */
+  var waited = document.getElementById('waited');
+  if (waited && !reduce) {
+    var pad = function (n) { return n < 10 ? '0' + n : String(n); };
+    var seconds = 9 * 3600 + 47 * 60 + 12;
+    var started = false;
+    var waitObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting || started) return;
+        started = true;
+        waitObserver.disconnect();
+        setInterval(function () {
+          seconds++;
+          waited.textContent =
+            pad(Math.floor(seconds / 3600)) + ':' +
+            pad(Math.floor(seconds / 60) % 60) + ':' +
+            pad(seconds % 60);
+        }, 1000);
+      });
+    }, { threshold: 0.4 });
+    waitObserver.observe(waited);
+  }
+
+  /* ספירה עולה למספר ההוכחה */
+  var stat = document.getElementById('statNum');
+  if (stat && !reduce) {
+    var target = Number(stat.dataset.target);
+    var counted = false;
+    var counter = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting || counted) return;
+        counted = true;
+        var duration = 1400;
+        var start = null;
+        stat.textContent = '0';
+        var step = function (now) {
+          if (!start) start = now;
+          var p = Math.min((now - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          stat.textContent = Math.round(eased * target);
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.5 });
+    counter.observe(stat);
   }
 })();

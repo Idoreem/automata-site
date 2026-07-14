@@ -1,257 +1,496 @@
+/* =========================================================
+   Automata — "מרכז בקרה" על קרם
+   העמוד הוא לוח הבקרה של העסק. קרם, דיו, וכתום־סיגנל אחד.
+   החתימה: הקונסולה הכהה — ליד נכנס, נענה, מסונן, מגיע ל-CRM.
+
+   הערה על טיפוגרפיה: Trashim CLM נטען במשקל אחד בלבד (700).
+   כל העברית באותו משקל — ההיררכיה נבנית מגודל, צבע וריווח,
+   לא ממשקלים. אל תוסיף font-weight לעברית, זה לא יעשה כלום.
+   ========================================================= */
+
 :root{
-  --bg:#ffffff; --bg-subtle:#EFF8FE; --bg-muted:#F5FAFD;
-  --heading:#0B3A5E; --text:#12293E; --muted:#4C647A; --faint:#8AA1B4;
-  --brand:#0EA5E9; --brand-600:#0284C7; --brand-400:#38BDF8; --cyan:#1FC7E6;
-  --border:#E4EDF4; --border-sky:#BFE6FB; --wa:#25D366;
-  --glass-bg:rgba(255,255,255,0.66); --glass-bd:rgba(186,230,253,0.55);
-  --ombre-hero:linear-gradient(180deg,#FFFFFF 0%,#EAF6FE 52%,#D6EEFC 100%);
-  --ombre-cta:linear-gradient(135deg,#0EA5E9 0%,#3CC7ED 100%);
-  --ombre-text:linear-gradient(115deg,#0B3A5E 0%,#0EA5E9 52%,#1FC7E6 100%);
-  --shadow-sm:0 1px 2px rgba(15,23,42,.05);
-  --shadow-md:0 10px 30px rgba(2,132,199,.10);
-  --shadow-lg:0 24px 60px rgba(2,132,199,.16);
-  --shadow-glow:0 0 44px rgba(56,189,248,.30);
-  --maxw:1180px;
+  /* ground */
+  --paper:#FBF7EC;
+  --paper-2:#F4EEDE;
+  --card:#FFFDF8;
+
+  /* ink */
+  --ink:#151419;
+  --ink-soft:#2F2C36;
+  --ink-mute:#635E6E;
+  --ink-faint:#8F8899;
+
+  /* the one bold thing */
+  --signal:#FF6B35;
+  --signal-ink:#B23F14;
+  --signal-wash:#FFF1EA;
+
+  /* the dark instrument */
+  --console:#151118;
+  --console-2:#1D1822;
+  --console-line:#332C3D;
+  --console-fg:#F0EADF;
+  --console-dim:#8D8399;
+  --live:#3DDC91;
+
+  /* structure */
+  --rule:#E5DBC6;
+  --rule-strong:#D3C6AC;
+  --r-sm:4px;
+  --r-md:10px;
+  --r-lg:16px;
+  --shadow:0 24px 50px -24px rgba(21,20,25,.22);
+  --shadow-dark:0 30px 70px -25px rgba(21,17,24,.55);
+  --maxw:1200px;
+
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
 }
 
-*{box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
 .page{
   direction:rtl;
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Heebo','Segoe UI',system-ui,-apple-system,sans-serif;
-  font-size:17px; line-height:1.7; font-weight:400;
-  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  margin:0;
+  background:var(--paper);
+  color:var(--ink-soft);
+  /* Trashim מספק את העברית; Assistant נכנס ללטינית ולספרות */
+  font-family:'Trashim CLM','Assistant',system-ui,-apple-system,sans-serif;
+  font-size:17px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
 .page *{margin:0}
 a{color:inherit;text-decoration:none}
 img,svg{display:block;max-width:100%}
-::selection{background:rgba(56,189,248,.25)}
+::selection{background:rgba(255,107,53,.22)}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:var(--r-sm)}
 
-/* ---- layout ---- */
-.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,5vw,40px)}
-.section{padding-block:clamp(64px,9vw,116px);position:relative}
-.section--subtle{background:var(--bg-subtle)}
-.section--muted{background:var(--bg-muted)}
-.stack{display:flex;flex-direction:column}
+/* ---------- layout ---------- */
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,5vw,44px)}
+.section{padding-block:clamp(66px,9vw,118px);position:relative}
+.section--alt{background:var(--paper-2)}
+.section--dark{background:var(--console);color:var(--console-dim)}
 
-/* ---- type ---- */
-.display{font-weight:800;line-height:1.04;letter-spacing:-.02em;font-size:clamp(2.6rem,6.2vw,4.7rem);color:var(--heading);text-wrap:balance}
-h2.h{font-weight:800;line-height:1.12;letter-spacing:-.015em;font-size:clamp(1.9rem,3.6vw,2.9rem);color:var(--heading);text-wrap:balance}
-h3.h{font-weight:700;font-size:clamp(1.2rem,1.8vw,1.45rem);line-height:1.3;color:var(--heading)}
-.lead{font-size:clamp(1.08rem,1.6vw,1.3rem);line-height:1.65;color:var(--muted);font-weight:400;text-wrap:pretty}
-.eyebrow{font-weight:700;font-size:.76rem;letter-spacing:.2em;color:var(--brand-600);text-transform:uppercase;display:inline-flex;align-items:center;gap:.55em}
-.eyebrow::before{content:"";width:26px;height:1.5px;background:linear-gradient(90deg,var(--brand),transparent);display:inline-block}
-.grad{background:var(--ombre-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-.muted{color:var(--muted)}
+/* ---------- type ----------
+   כל העברית במשקל 700. ההיררכיה מגיעה מגודל וצבע בלבד. */
+.display{font-size:clamp(2.5rem,5.4vw,4.3rem);line-height:1.04;letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.h{font-size:clamp(1.85rem,3.4vw,2.75rem);line-height:1.14;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
+.h3{font-size:clamp(1.15rem,1.7vw,1.35rem);line-height:1.35;color:var(--ink)}
+.lead{font-size:clamp(1.05rem,1.5vw,1.22rem);line-height:1.72;color:var(--ink-mute);text-wrap:pretty}
+.sig{color:var(--signal)}
 
-/* ---- buttons ---- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;font-family:inherit;font-weight:700;font-size:1.02rem;padding:.92em 1.6em;border-radius:999px;cursor:pointer;border:1px solid transparent;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s,background .25s;white-space:nowrap}
-.btn svg{width:19px;height:19px}
-.btn-primary{background:var(--ombre-cta);color:#fff;box-shadow:var(--shadow-md)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-glow)}
-.btn-wa{background:var(--wa);color:#fff}
-.btn-wa:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(37,211,102,.35)}
-.btn-ghost{background:var(--glass-bg);color:var(--heading);border-color:var(--glass-bd);backdrop-filter:blur(10px)}
-.btn-ghost:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
-.btn-lg{font-size:1.08rem;padding:1.02em 1.9em}
+/* עינית.
+   חשוב: letter-spacing ו-uppercase הם כלים לטיניים. על עברית הם שוברים את המילה
+   ("א י ך  ז ה  ע ו ב ד") ולא עושים כלום. המונו והריווח שמורים למחרוזות לטיניות
+   בלבד — .status, .console-hd, .case .k, .fcol h4, .step .num. */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.6em;
+  font-size:.88rem;color:var(--signal-ink);
+}
+.eyebrow::before{content:"";width:20px;height:1px;background:var(--signal);flex:none}
 
-/* ---- navbar ---- */
-.nav{position:fixed;inset-block-start:0;inset-inline:0;z-index:100;transition:background .3s,box-shadow .3s,border-color .3s;border-block-end:1px solid transparent}
-.nav.scrolled{background:var(--glass-bg);backdrop-filter:blur(16px) saturate(1.3);border-block-end-color:var(--glass-bd);box-shadow:var(--shadow-sm)}
-.nav-in{max-width:var(--maxw);margin-inline:auto;padding:14px clamp(20px,5vw,40px);display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:11px}
-.brand .mark{width:38px;height:38px;flex:none}
-.brand .word{font-weight:800;font-size:1.35rem;letter-spacing:-.02em;color:var(--heading)}
-.nav-links{display:flex;align-items:center;gap:6px}
-.nav-links a{padding:8px 14px;border-radius:10px;color:var(--muted);font-weight:500;font-size:.98rem;transition:color .2s,background .2s}
-.nav-links a:hover{color:var(--brand-600);background:rgba(56,189,248,.09)}
-.nav-cta{display:flex;align-items:center;gap:10px}
-.menu-btn{display:none;background:none;border:1px solid var(--border-sky);border-radius:10px;padding:8px;cursor:pointer;color:var(--heading)}
-.menu-btn svg{width:22px;height:22px}
-
-/* ---- hero ---- */
-.hero{position:relative;padding-block:clamp(130px,17vw,190px) clamp(56px,8vw,96px);background:var(--ombre-hero);overflow:hidden}
-.hero-paths{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-.hero-glow{position:absolute;z-index:0;inset-block-start:-10%;inset-inline-start:50%;transform:translateX(50%);width:min(760px,90vw);height:560px;background:radial-gradient(circle,rgba(56,189,248,.22),transparent 68%);pointer-events:none}
-.hero-in{position:relative;z-index:2;max-width:920px}
-.hero .lead{margin-block-start:22px;max-width:60ch}
-.badge{display:inline-flex;align-items:center;gap:9px;background:var(--glass-bg);border:1px solid var(--glass-bd);backdrop-filter:blur(10px);padding:8px 16px;border-radius:999px;font-size:.9rem;font-weight:500;color:var(--brand-600);box-shadow:var(--shadow-sm);margin-block-end:26px}
-.badge .dot{width:8px;height:8px;border-radius:999px;background:var(--brand);box-shadow:0 0 0 4px rgba(56,189,248,.2)}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-block-start:34px}
-.hero-note{margin-block-start:22px;font-size:.98rem;color:var(--muted);max-width:56ch;display:flex;gap:9px;align-items:flex-start}
-.hero-note svg{width:20px;height:20px;color:var(--brand);flex:none;margin-block-start:2px}
-.values{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-block-start:56px;position:relative;z-index:2}
-.value{background:var(--glass-bg);border:1px solid var(--glass-bd);backdrop-filter:blur(8px);border-radius:16px;padding:18px 18px;box-shadow:var(--shadow-sm)}
-.value .vt{font-weight:700;color:var(--heading);font-size:1.02rem;display:flex;align-items:center;gap:9px}
-.value .vt svg{width:20px;height:20px;color:var(--brand);flex:none}
-.value p{margin-block-start:6px;font-size:.92rem;color:var(--muted);line-height:1.55}
-
-/* ---- section header ---- */
-.shead{max-width:720px;margin-block-end:clamp(38px,5vw,60px)}
-.shead .lead{margin-block-start:18px}
+.shead{max-width:740px;margin-block-end:clamp(38px,5vw,62px)}
+.shead .h{margin-block-start:16px}
+.shead .lead{margin-block-start:16px}
 .shead--center{margin-inline:auto;text-align:center}
 .shead--center .eyebrow{justify-content:center}
 
-/* ---- pains ---- */
-.pains{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.pain{background:var(--bg);border:1px solid var(--border);border-radius:18px;padding:26px 24px;box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s,border-color .3s}
-.pain:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--border-sky)}
-.pain .icn{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(140deg,#EAF6FE,#D6EEFC);color:var(--brand-600);margin-block-end:16px}
-.pain .icn svg{width:23px;height:23px}
-.pain h3{font-weight:700;font-size:1.12rem;color:var(--heading);margin-block-end:8px}
-.pain p{font-size:.96rem;color:var(--muted);line-height:1.6}
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.55em;
+  font-family:inherit;font-size:1rem;
+  padding:.86em 1.6em;border-radius:var(--r-md);
+  border:1.5px solid transparent;cursor:pointer;white-space:nowrap;
+  transition:background .2s,border-color .2s,color .2s,transform .2s;
+}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-primary{background:var(--signal);color:#200C02}
+.btn-primary:hover{background:#F1571E;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.btn-ghost:hover{border-color:var(--ink);background:var(--card)}
+.btn-lg{font-size:1.06rem;padding:.98em 1.85em}
+/* על משטח כהה */
+.on-dark .btn-ghost{color:var(--console-fg);border-color:var(--console-line)}
+.on-dark .btn-ghost:hover{border-color:var(--console-dim);background:rgba(255,255,255,.04)}
 
-/* ---- solutions ---- */
-.sol{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center;padding:clamp(28px,3.4vw,48px);background:var(--bg);border:1px solid var(--border);border-radius:26px;box-shadow:var(--shadow-md);position:relative;overflow:hidden}
-.sol + .sol{margin-block-start:30px}
+/* ---------- nav ---------- */
+.nav{position:fixed;inset-block-start:0;inset-inline:0;z-index:100;transition:background .3s,border-color .3s;border-block-end:1px solid transparent}
+.nav.scrolled{background:rgba(251,247,236,.92);backdrop-filter:blur(10px);border-block-end-color:var(--rule)}
+.nav-in{max-width:var(--maxw);margin-inline:auto;padding:15px clamp(20px,5vw,44px);display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;font-size:1.3rem;letter-spacing:-.02em;color:var(--ink)}
+.brand svg{width:25px;height:25px;color:var(--signal);flex:none}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-links a{padding:8px 13px;border-radius:var(--r-md);color:var(--ink-mute);font-size:.97rem;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--ink);background:var(--paper-2)}
+.nav-cta{display:flex;align-items:center;gap:10px}
+.menu-btn{display:none;background:none;border:1.5px solid var(--rule-strong);border-radius:var(--r-md);padding:7px;cursor:pointer;color:var(--ink)}
+.menu-btn svg{width:21px;height:21px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;padding-block:clamp(120px,15vw,168px) clamp(56px,7vw,90px)}
+/* רשת טכנית עדינה — רמז לתשתית, לא טפט */
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(var(--rule) 1px,transparent 1px),linear-gradient(90deg,var(--rule) 1px,transparent 1px);
+  background-size:68px 68px;
+  -webkit-mask-image:radial-gradient(ellipse 80% 65% at 72% 8%,#000,transparent 72%);
+          mask-image:radial-gradient(ellipse 80% 65% at 72% 8%,#000,transparent 72%);
+}
+.hero-in{position:relative;z-index:1;display:grid;grid-template-columns:1.04fr 1fr;gap:clamp(34px,5vw,72px);align-items:center}
+
+.status{
+  display:inline-flex;align-items:center;gap:8px;direction:ltr;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;color:#1B8A5C;
+  border:1px solid rgba(27,138,92,.3);background:rgba(61,220,145,.09);
+  padding:5px 11px;border-radius:999px;
+}
+.status i{width:6px;height:6px;border-radius:99px;background:#1FBF7A;animation:ping 2.2s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(31,191,122,.5)}70%{box-shadow:0 0 0 7px rgba(31,191,122,0)}100%{box-shadow:0 0 0 0 rgba(31,191,122,0)}}
+
+.hero .display{margin-block-start:24px}
+.hero .lead{margin-block-start:22px;max-width:48ch}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-block-start:32px}
+.hero-note{margin-block-start:22px;display:flex;gap:9px;align-items:flex-start;font-size:.94rem;color:var(--ink-faint);max-width:46ch}
+.hero-note svg{width:17px;height:17px;color:var(--signal);flex:none;margin-block-start:5px}
+
+/* ---------- the console — החתימה ---------- */
+.console{
+  background:var(--console);color:var(--console-fg);
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-dark);
+}
+.console-hd{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 18px;border-block-end:1px solid var(--console-line);background:var(--console-2)}
+.console-hd b{font-size:.92rem;color:var(--console-fg)}
+.console-hd span{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--console-dim);direction:ltr}
+.console-body{position:relative;padding:22px 20px}
+/* עמוד השדרה + הפולס שנוסע בו */
+.spine{position:absolute;inset-block:22px;inset-inline-end:32px;width:2px;background:var(--console-line);border-radius:2px;overflow:hidden}
+.spine::after{
+  content:"";position:absolute;inset-inline:0;height:30%;border-radius:9px;
+  background:linear-gradient(180deg,transparent,var(--signal),transparent);
+  animation:flow 3.6s cubic-bezier(.5,0,.5,1) infinite;
+}
+@keyframes flow{0%{top:-30%}100%{top:100%}}
+.rows{position:relative;display:flex;flex-direction:column;gap:14px;padding-inline-end:36px}
+.row{display:flex;align-items:flex-start;gap:12px;position:relative}
+.row::before{
+  content:"";position:absolute;inset-inline-end:-37px;inset-block-start:8px;
+  width:8px;height:8px;border-radius:99px;background:var(--signal);
+  box-shadow:0 0 0 4px rgba(255,107,53,.15);
+}
+.row--done::before{background:var(--live);box-shadow:0 0 0 4px rgba(61,220,145,.15)}
+.row time{font-family:var(--mono);font-size:.75rem;color:var(--console-dim);direction:ltr;flex:none;width:42px;text-align:left;padding-block-start:3px}
+.row .rt b{display:block;font-size:.95rem;color:var(--console-fg);line-height:1.4}
+.row .rt span{display:block;font-size:.84rem;color:var(--console-dim);line-height:1.5;margin-block-start:1px}
+.row .rt em{font-style:normal;color:var(--live)}
+.console-ft{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;border-block-start:1px solid var(--console-line);background:var(--console-2)}
+.console-ft span{font-size:.85rem;color:var(--console-dim)}
+.console-ft b{font-family:var(--mono);font-size:.95rem;color:var(--live);direction:ltr}
+
+/* =========================================================
+   כרטיסי הכאב — חתיכות ממשק אמיתיות, לא אייקונים
+
+   ניסיון קודם היה דיאגרמות מופשטות (node/rail/pulse). הן נכשלו:
+   אייקון שצריך הסבר הוא לא אייקון. בעל עסק ראה קווים כתומים.
+
+   מה שכן עובד באתר הזה זו הקונסולה — כי היא מראה דברים אמיתיים:
+   הודעה, שעה, סטטוס. אז כל כרטיס כאב מקבל חתיכת ממשק אמיתית
+   מהעולם של הלקוח, לא ציור שלה:
+
+     .art--wait    הודעת וואטסאפ שלא נענתה, וטיימר שמטפס.
+     .art--repeat  רשימת משימות שמסמנת את עצמה — וחוזרת מההתחלה.
+     .art--queue   תור אישורים שנערם עליך.
+     .art--burn    תקציב שמתרוקן, ובמקום התוצאה — סימן שאלה.
+   ========================================================= */
+/* גובה קבוע לכל ארבעתם — אחרת הכותרות שמתחתיהם קופצות משורה לשורה */
+.art{
+  background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-md);
+  padding:13px 14px;margin-block-end:20px;height:134px;
+  display:flex;flex-direction:column;justify-content:center;gap:9px;
+}
+.art-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.8rem;color:var(--ink-faint)}
+.art-meta b{font-family:var(--mono);font-size:.9rem;color:var(--signal-ink);direction:ltr;font-variant-numeric:tabular-nums}
+
+/* --- 1. ההודעה שאף אחד לא ענה עליה --- */
+.art--wait .bubble{
+  align-self:flex-start;max-width:92%;
+  background:var(--card);border:1px solid var(--rule-strong);
+  border-radius:12px;border-end-start-radius:var(--r-sm);
+  padding:8px 11px;font-size:.86rem;color:var(--ink-soft);line-height:1.4;
+}
+.art--wait .bubble em{display:block;font-style:normal;font-family:var(--mono);font-size:.66rem;color:var(--ink-faint);margin-block-start:3px;direction:ltr}
+.art--wait .waited{color:var(--signal);animation:blink 1.6s steps(1) infinite}
+@keyframes blink{0%,60%{opacity:1}61%,100%{opacity:.45}}
+
+/* --- 2. הרשימה שמסמנת את עצמה, וחוזרת מההתחלה --- */
+.art--repeat .task{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--ink-mute)}
+.art--repeat .box{
+  width:14px;height:14px;flex:none;border-radius:3px;
+  border:1.5px solid var(--rule-strong);background:var(--card);position:relative;
+}
+.art--repeat .box::after{
+  content:"";position:absolute;inset-block-start:2px;inset-inline-start:3px;
+  width:5px;height:8px;border:solid var(--card);border-width:0 1.6px 1.6px 0;
+  transform:rotate(45deg) scale(0);transform-origin:center;
+}
+/* המשימות מסומנות אחת-אחת, ואז הכול נמחק וחוזר. לנצח. */
+.js .in .art--repeat .task .box{animation:check 5.4s infinite}
+.js .in .art--repeat .task:nth-child(2) .box{animation-delay:.9s}
+.js .in .art--repeat .task:nth-child(3) .box{animation-delay:1.8s}
+@keyframes check{
+  0%,12%   {background:var(--card);border-color:var(--rule-strong)}
+  18%,74%  {background:var(--signal);border-color:var(--signal)}
+  80%,100% {background:var(--card);border-color:var(--rule-strong)}
+}
+.js .in .art--repeat .task .box::after{animation:check-mark 5.4s infinite}
+.js .in .art--repeat .task:nth-child(2) .box::after{animation-delay:.9s}
+.js .in .art--repeat .task:nth-child(3) .box::after{animation-delay:1.8s}
+@keyframes check-mark{
+  0%,14%   {transform:rotate(45deg) scale(0)}
+  20%,74%  {transform:rotate(45deg) scale(1)}
+  80%,100% {transform:rotate(45deg) scale(0)}
+}
+
+/* --- 3. התור שנערם עליך --- */
+.art--queue .stack{display:grid;gap:4px}
+.art--queue .item{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  background:var(--card);border:1px solid var(--rule);border-radius:6px;
+  padding:4px 9px;font-size:.77rem;color:var(--ink-mute);line-height:1.5;
+}
+.art--queue .item span{font-family:var(--mono);font-size:.66rem;color:var(--ink-faint);direction:ltr}
+.js .art--queue .item{opacity:0;transform:translateY(-6px)}
+.js .in .art--queue .item{animation:stack-in .5s cubic-bezier(.22,1,.36,1) forwards}
+.js .in .art--queue .item:nth-child(1){animation-delay:.3s}
+.js .in .art--queue .item:nth-child(2){animation-delay:.9s}
+.js .in .art--queue .item:nth-child(3){animation-delay:1.5s}
+@keyframes stack-in{to{opacity:1;transform:none}}
+.art--queue .waiting{color:var(--signal-ink)}
+
+/* --- 4. התקציב שנשרף, והתוצאה שאף אחד לא רואה --- */
+.art--burn .bar{height:7px;border-radius:99px;background:var(--rule);overflow:hidden}
+.art--burn .bar i{display:block;height:100%;width:100%;border-radius:99px;background:var(--signal)}
+.js .in .art--burn .bar i{animation:drain 4.5s cubic-bezier(.4,0,.6,1) infinite}
+@keyframes drain{0%,6%{width:100%}80%,100%{width:4%}}
+.art--burn .q{
+  font-size:1.05rem;color:var(--signal);
+  animation:blink 1.4s steps(1) infinite;
+}
+/* ---------- pains ---------- */
+.pains{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.pain{background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg);padding:26px 24px;transition:border-color .25s,transform .25s,box-shadow .25s}
+.pain:hover{border-color:var(--rule-strong);transform:translateY(-3px);box-shadow:var(--shadow)}
+.pain h3{font-size:1.1rem;color:var(--ink);margin-block-end:7px}
+.pain p{font-size:.96rem;color:var(--ink-mute);line-height:1.65}
+
+/* ---------- solutions ---------- */
+.sol{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,56px);align-items:center;padding:clamp(26px,3.4vw,46px);background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg)}
+.sol + .sol{margin-block-start:24px}
 .sol--flip .sol-visual{order:-1}
-.sol .tag{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.8rem;letter-spacing:.02em;color:var(--brand-600);background:rgba(56,189,248,.1);padding:6px 13px;border-radius:999px;margin-block-end:16px}
-.sol .tag svg{width:16px;height:16px}
-.sol h3{font-weight:800;font-size:clamp(1.5rem,2.6vw,2.05rem);line-height:1.15;color:var(--heading);letter-spacing:-.01em}
-.sol .sub{font-size:1.1rem;color:var(--brand-600);font-weight:600;margin-block-start:8px}
-.sol .body{margin-block-start:16px;color:var(--muted);font-size:1.02rem;line-height:1.7}
-.sol .whom{margin-block-start:16px;padding:14px 16px;background:var(--bg-subtle);border:1px solid var(--border-sky);border-radius:14px;font-size:.96rem;color:var(--text)}
-.sol .whom b{color:var(--heading)}
-.sol ul{list-style:none;padding:0;margin-block-start:20px;display:grid;gap:11px}
-.sol li{display:flex;align-items:flex-start;gap:11px;font-size:1rem;color:var(--text)}
-.sol li svg{width:20px;height:20px;color:var(--brand);flex:none;margin-block-start:3px}
-.sol-visual{position:relative}
+.sol .tag{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;color:var(--signal-ink);background:var(--signal-wash);padding:6px 13px;border-radius:999px}
+.sol .tag svg{width:15px;height:15px;flex:none}
+.sol h3{font-size:clamp(1.5rem,2.5vw,2rem);line-height:1.18;color:var(--ink);letter-spacing:-.01em;margin-block-start:16px}
+.sol .sub{font-size:1.08rem;color:var(--signal-ink);margin-block-start:8px}
+.sol .body{margin-block-start:14px;color:var(--ink-mute);line-height:1.75}
+.sol .whom{margin-block-start:16px;padding:14px 16px;background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-md);font-size:.95rem;color:var(--ink-soft)}
+.sol .whom b{color:var(--ink)}
+.sol ul{list-style:none;padding:0;margin-block-start:18px;display:grid;gap:10px}
+.sol li{display:flex;align-items:flex-start;gap:10px;font-size:1rem;color:var(--ink-soft)}
+.sol li svg{width:18px;height:18px;color:var(--signal);flex:none;margin-block-start:5px}
 
-/* telegram phone mock */
-.phone{width:min(300px,88%);margin-inline:auto;background:#fff;border:1px solid var(--border);border-radius:30px;box-shadow:var(--shadow-lg);padding:14px 12px 18px;position:relative}
-.phone::before{content:"";position:absolute;inset-block-start:11px;inset-inline:50%;transform:translateX(50%);width:80px;height:5px;border-radius:99px;background:#E4EDF4}
-.tg-head{display:flex;align-items:center;gap:10px;padding:14px 8px 12px;border-block-end:1px solid var(--border)}
-.tg-ava{width:38px;height:38px;border-radius:999px;background:var(--ombre-cta);display:grid;place-items:center;color:#fff;flex:none}
-.tg-ava svg{width:20px;height:20px}
-.tg-name{font-weight:700;font-size:.98rem;color:var(--heading);line-height:1.1}
-.tg-status{font-size:.76rem;color:var(--brand)}
-.tg-body{padding:16px 6px 4px;display:flex;flex-direction:column;gap:10px;min-height:230px}
-.bub{max-width:82%;padding:10px 13px;border-radius:16px;font-size:.9rem;line-height:1.5;opacity:0;transform:translateY(8px);box-shadow:var(--shadow-sm)}
-.bub.show{opacity:1;transform:none;transition:opacity .4s,transform .4s}
-.bub-out{align-self:flex-start;background:#F1F6FA;color:var(--text);border-end-start-radius:5px}
-.bub-in{align-self:flex-end;background:var(--ombre-cta);color:#fff;border-end-end-radius:5px}
+/* טלפון הטלגרם */
+.phone{width:min(310px,92%);margin-inline:auto;background:var(--console);border-radius:22px;box-shadow:var(--shadow-dark);padding:10px 10px 16px;overflow:hidden}
+.tg-hd{display:flex;align-items:center;gap:10px;padding:12px 8px;border-block-end:1px solid var(--console-line)}
+.tg-av{width:36px;height:36px;border-radius:99px;background:var(--signal);display:grid;place-items:center;color:#200C02;flex:none}
+.tg-av svg{width:18px;height:18px}
+.tg-hd b{display:block;font-size:.94rem;color:var(--console-fg);line-height:1.25}
+.tg-hd i{display:block;font-style:normal;font-family:var(--mono);font-size:.7rem;color:var(--live);direction:ltr}
+.tg-body{padding:16px 6px 2px;display:flex;flex-direction:column;gap:9px;min-height:224px}
+.bub{max-width:84%;padding:10px 13px;border-radius:14px;font-size:.88rem;line-height:1.55}
+.bub-out{align-self:flex-start;background:var(--console-2);color:var(--console-fg);border-end-start-radius:var(--r-sm)}
+.bub-in{align-self:flex-end;background:var(--signal);color:#200C02;border-end-end-radius:var(--r-sm)}
 
-/* ops flow mock (solution 2) */
-.flow{width:min(360px,100%);margin-inline:auto;background:#fff;border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow-lg);padding:22px}
-.flow-row{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg-subtle);border:1px solid var(--border-sky);opacity:0;transform:translateY(10px)}
-.flow-row.show{opacity:1;transform:none;transition:opacity .45s,transform .45s}
-.flow-row + .flow-row{margin-block-start:10px}
-.flow-ic{width:38px;height:38px;border-radius:11px;background:#fff;border:1px solid var(--border-sky);display:grid;place-items:center;color:var(--brand-600);flex:none}
-.flow-ic svg{width:19px;height:19px}
-.flow-tx b{display:block;color:var(--heading);font-size:.96rem;font-weight:700}
-.flow-tx span{font-size:.84rem;color:var(--muted)}
-.flow-arrow{display:grid;place-items:center;color:var(--brand-400);margin-block:2px}
-.flow-arrow svg{width:18px;height:18px;transform:rotate(90deg)}
+/* דיאגרמת הזרימה */
+.flow{width:min(370px,100%);margin-inline:auto;display:grid;gap:8px}
+.flow-row{display:flex;align-items:center;gap:12px;padding:14px 15px;background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-md)}
+/* רחב ולא ריבועי — לדיאגרמה צריך מקום לזרום, לא קופסה להצטופף בה */
+.flow-ic{width:66px;height:42px;padding:3px;border-radius:var(--r-sm);background:var(--card);border:1px solid var(--rule);flex:none}
+.flow-tx b{display:block;font-size:.95rem;color:var(--ink);line-height:1.35}
+.flow-tx span{display:block;font-size:.83rem;color:var(--ink-mute)}
+.flow-arrow{display:grid;place-items:center;color:var(--signal);height:14px}
+.flow-arrow svg{width:16px;height:16px}
 
-/* ---- broader fit ---- */
-.fit{background:var(--bg);border:1px solid var(--border-sky);border-radius:26px;padding:clamp(30px,4vw,52px);text-align:center;box-shadow:var(--shadow-md);position:relative;overflow:hidden}
-.fit .glow{position:absolute;inset-block-start:-40%;inset-inline-start:50%;transform:translateX(50%);width:600px;height:400px;background:radial-gradient(circle,rgba(56,189,248,.16),transparent 68%);pointer-events:none}
-.fit-in{position:relative;z-index:1;max-width:760px;margin-inline:auto}
-.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-block:26px}
-.chip{background:var(--bg-subtle);border:1px solid var(--border-sky);color:var(--heading);font-weight:600;font-size:.94rem;padding:9px 16px;border-radius:999px}
-.fit .close{font-weight:700;color:var(--brand-600);font-size:1.05rem;margin-block-start:4px}
+/* ---------- fit ---------- */
+.fit{text-align:center;max-width:800px;margin-inline:auto}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-block:26px}
+.chip{background:var(--card);border:1px solid var(--rule);color:var(--ink);font-size:.93rem;padding:8px 15px;border-radius:999px}
+.fit .close{color:var(--signal-ink);font-size:1.05rem}
 
-/* ---- how (steps) ---- */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:step}
-.step{position:relative;padding-block-start:14px}
-.step .num{font-weight:800;font-size:2.4rem;line-height:1;background:var(--ombre-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-.step .bar{height:2px;background:linear-gradient(90deg,var(--brand-400),transparent);border-radius:2px;margin-block:16px}
-.step h3{font-weight:700;font-size:1.16rem;color:var(--heading);margin-block-end:8px}
-.step p{color:var(--muted);font-size:.98rem;line-height:1.6}
+/* ---------- how (רצף אמיתי — לכן ממוספר) ----------
+   ארבעת האייקונים הם סיפור אחד, לפי הסדר:
+   הפער נמצא → נמדד → מגושר → זורם ונמדד. */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.step{border-block-start:2px solid var(--rule-strong);padding-block-start:18px;transition:border-color .3s}
+.step:hover{border-block-start-color:var(--signal)}
+.step .num{font-family:var(--mono);font-size:.82rem;letter-spacing:.14em;color:var(--signal);direction:ltr;text-align:right}
+.step h3{font-size:1.14rem;color:var(--ink);margin-block:10px 7px}
+.step p{color:var(--ink-mute);font-size:.97rem;line-height:1.65}
 
-/* ---- proof ---- */
-.proof{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px;align-items:stretch}
-.stat-card{background:var(--ombre-cta);border-radius:26px;padding:clamp(30px,4vw,46px);color:#fff;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
-.stat-card::after{content:"";position:absolute;inset-block-end:-30%;inset-inline-start:-10%;width:320px;height:320px;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 65%)}
-.stat-num{font-weight:800;font-size:clamp(4.4rem,10vw,6.6rem);line-height:.9;letter-spacing:-.03em;position:relative;font-variant-numeric:tabular-nums}
-.stat-label{font-weight:700;font-size:1.3rem;margin-block-start:6px;position:relative}
-.stat-sub{margin-block-start:16px;font-size:1rem;opacity:.92;line-height:1.6;position:relative;max-width:36ch}
-.proof-side{display:flex;flex-direction:column;gap:18px}
-.case{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:28px;box-shadow:var(--shadow-sm);flex:1}
-.case .k{font-weight:700;color:var(--brand-600);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
-.case h3{font-weight:800;font-size:1.4rem;color:var(--heading);margin-block:10px 8px}
-.case p{color:var(--muted);line-height:1.65}
-.founding{display:flex;gap:12px;align-items:center;background:var(--bg-subtle);border:1px solid var(--border-sky);border-radius:16px;padding:18px 22px;color:var(--heading);font-weight:600}
-.founding svg{width:24px;height:24px;color:var(--brand);flex:none}
 
-/* ---- tools ---- */
-.tools-row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-block-start:34px}
-.tool{display:inline-flex;align-items:center;gap:9px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:12px 20px;font-weight:600;color:var(--text);box-shadow:var(--shadow-sm);transition:transform .25s,box-shadow .25s}
-.tool:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
-.tool .d{width:9px;height:9px;border-radius:999px;background:var(--brand-400)}
-.tool span[dir]{direction:ltr}
 
-/* ---- faq ---- */
-.faq{max-width:820px;margin-inline:auto;display:flex;flex-direction:column;gap:12px}
-.qa{background:var(--bg);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color .25s,box-shadow .25s}
-.qa[open]{border-color:var(--border-sky);box-shadow:var(--shadow-md)}
-.qa summary{list-style:none;cursor:pointer;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-weight:700;color:var(--heading);font-size:1.08rem}
+/* ---------- ה"וי" — משרטט את עצמו כשהרשימה נכנסת לפריים ---------- */
+.tick{width:19px;height:19px;flex:none;color:var(--signal);overflow:visible}
+.tick circle{fill:currentColor;opacity:.14}
+.tick path{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.js .tick path{stroke-dasharray:1;stroke-dashoffset:1}
+.js .in .tick path{animation:draw-tick .5s cubic-bezier(.65,0,.35,1) forwards}
+@keyframes draw-tick{to{stroke-dashoffset:0}}
+
+/* ---------- אייקוני ה-flow: צורות מוכרות. המטרה כאן היא בהירות, לא מקוריות. ---------- */
+.gi{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- פס ההתקדמות — הסיגנל שיורד עם הגלילה ---------- */
+.scrollrail{position:fixed;inset-block-start:0;inset-inline-end:0;width:2px;height:100vh;z-index:90;background:rgba(21,20,25,.07);pointer-events:none}
+.scrollrail i{display:block;width:100%;height:0;background:linear-gradient(180deg,#FFB088,var(--signal));position:relative}
+.scrollrail i::after{
+  content:"";position:absolute;inset-block-end:-3px;inset-inline-end:-3px;
+  width:8px;height:8px;border-radius:99px;background:var(--signal);
+  box-shadow:0 0 10px 2px rgba(255,107,53,.55);
+}
+
+/* ---------- הקונסולה: השורות נופלות פנימה כשהיא נכנסת לפריים ---------- */
+.js .console .row{opacity:0;transform:translateY(9px)}
+.js .console.in .row{animation:row-in .5s cubic-bezier(.22,1,.36,1) forwards}
+.js .console.in .row:nth-child(1){animation-delay:.35s}
+.js .console.in .row:nth-child(2){animation-delay:.95s}
+.js .console.in .row:nth-child(3){animation-delay:1.55s}
+.js .console.in .row:nth-child(4){animation-delay:2.15s}
+@keyframes row-in{to{opacity:1;transform:none}}
+
+/* ---------- הטלפון: הבועות נכנסות ברצף ---------- */
+.js .phone .bub{opacity:0;transform:translateY(7px)}
+.js .sol.in .phone .bub{animation:row-in .45s cubic-bezier(.22,1,.36,1) forwards}
+.js .sol.in .phone .bub:nth-child(1){animation-delay:.3s}
+.js .sol.in .phone .bub:nth-child(2){animation-delay:.9s}
+.js .sol.in .phone .bub:nth-child(3){animation-delay:1.5s}
+.js .sol.in .phone .bub:nth-child(4){animation-delay:2.1s}
+
+/* ---------- צ׳יפים וכלים: נפתחים ברצף ---------- */
+.js .chips .chip,.js .tools .tool{opacity:0;transform:translateY(8px) scale(.97)}
+.js .in .chip,.js .in .tool{animation:row-in .45s cubic-bezier(.22,1,.36,1) forwards}
+.js .in .chip:nth-child(n){animation-delay:calc(var(--i,0) * 45ms)}
+.js .in .tool:nth-child(n){animation-delay:calc(var(--i,0) * 55ms)}
+.tool{transition:transform .25s,border-color .25s}
+.tool:hover{transform:translateY(-3px);border-color:var(--signal)}
+.chip{transition:transform .25s,border-color .25s}
+.chip:hover{transform:translateY(-2px);border-color:var(--signal)}
+
+/* ---------- proof (הפאנל הכהה השני) ---------- */
+.proof{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3vw,40px);align-items:stretch}
+.stat{display:flex;flex-direction:column;justify-content:center}
+.stat-num{font-family:'Assistant',sans-serif;font-weight:700;font-size:clamp(5rem,11vw,8rem);line-height:.88;letter-spacing:-.04em;color:var(--signal);font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
+.stat-label{font-size:1.25rem;color:var(--console-fg);margin-block-start:10px}
+.stat-sub{margin-block-start:14px;color:var(--console-dim);line-height:1.7;max-width:38ch}
+.proof-side{display:flex;flex-direction:column;gap:16px;justify-content:center}
+.case{background:var(--console-2);border:1px solid var(--console-line);border-radius:var(--r-lg);padding:26px}
+.case .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;color:var(--signal);text-transform:uppercase;direction:ltr}
+.case h3{font-size:1.35rem;color:var(--console-fg);margin-block:9px 8px}
+.case p{color:var(--console-dim);line-height:1.7}
+.founding{display:flex;gap:11px;align-items:center;padding:16px 20px;border:1px dashed var(--console-line);border-radius:var(--r-md);color:var(--console-fg);font-size:.97rem}
+.founding svg{width:20px;height:20px;color:var(--signal);flex:none}
+.section--dark .h{color:var(--console-fg)}
+.section--dark .eyebrow{color:var(--signal)}
+.section--dark .eyebrow::before{background:var(--signal)}
+
+/* ---------- tools ---------- */
+.tools{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-block-start:32px}
+.tool{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--rule);border-radius:var(--r-md);padding:10px 17px;color:var(--ink);font-family:'Assistant',sans-serif;font-weight:600;direction:ltr}
+.tool i{width:6px;height:6px;border-radius:99px;background:var(--signal);flex:none}
+
+/* ---------- faq ---------- */
+.faq{max-width:820px;margin-inline:auto;border-block-start:1px solid var(--rule)}
+.qa{border-block-end:1px solid var(--rule)}
+.qa summary{list-style:none;cursor:pointer;padding:22px 4px;display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--ink);font-size:1.08rem;transition:color .2s}
+.qa summary:hover{color:var(--signal-ink)}
 .qa summary::-webkit-details-marker{display:none}
-.qa summary .ch{width:24px;height:24px;flex:none;color:var(--brand);transition:transform .3s}
-.qa[open] summary .ch{transform:rotate(180deg)}
-.qa .ans{padding:0 24px 22px;color:var(--muted);line-height:1.7}
+.qa summary svg{width:20px;height:20px;flex:none;color:var(--signal);transition:transform .3s}
+.qa[open] summary svg{transform:rotate(45deg)}
+.qa .ans{padding:0 4px 24px;color:var(--ink-mute);line-height:1.8;max-width:68ch}
 
-/* ---- final cta ---- */
-.final{background:var(--ombre-cta);position:relative;overflow:hidden;text-align:center}
-.final::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.28),transparent 60%)}
-.final-in{position:relative;z-index:1;max-width:760px;margin-inline:auto}
-.final h2{color:#fff;font-weight:800;font-size:clamp(2rem,4vw,3rem);line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
-.final p{color:rgba(255,255,255,.92);font-size:1.15rem;margin-block-start:16px}
-.final .hero-ctas{justify-content:center}
-.final .btn-primary{background:#fff;color:var(--brand-600)}
-.final .btn-primary:hover{box-shadow:0 0 44px rgba(255,255,255,.5)}
-.final .btn-ghost{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.4)}
+/* ---------- final ---------- */
+.final{text-align:center}
+.final-in{max-width:740px;margin-inline:auto}
+.final .h{color:var(--console-fg)}
+.final p{color:var(--console-dim);font-size:1.12rem;margin-block-start:16px}
+.final .hero-ctas{justify-content:center;margin-block-start:32px}
 
-/* ---- footer ---- */
-.footer{background:#0B2A44;color:#B7CADB;padding-block:56px 34px}
-.footer a{color:#B7CADB;transition:color .2s}
-.footer a:hover{color:#fff}
-.footer-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:34px;padding-block-end:34px;border-block-end:1px solid rgba(255,255,255,.1)}
-.footer .brand .word{color:#fff}
-.footer .fdesc{margin-block-start:14px;max-width:34ch;color:#8FA6BA;font-size:.96rem;line-height:1.6}
+/* ---------- footer ---------- */
+.footer{background:var(--console);color:var(--console-dim);padding-block:52px 30px;border-block-start:1px solid var(--console-line)}
+.footer a{transition:color .2s}
+.footer a:hover{color:var(--console-fg)}
+.footer .brand{color:var(--console-fg)}
+.footer-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:36px;padding-block-end:32px;border-block-end:1px solid var(--console-line)}
+.fdesc{margin-block-start:14px;max-width:34ch;line-height:1.7;font-size:.96rem}
 .fcols{display:flex;gap:56px;flex-wrap:wrap}
-.fcol h4{color:#fff;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;margin-block-end:14px;font-weight:700}
-.fcol a{display:block;padding-block:5px;font-size:.98rem}
-.footer-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;padding-block-start:24px;font-size:.88rem;color:#7C93A8}
+.fcol h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;color:var(--console-fg);text-transform:uppercase;margin-block-end:12px;direction:ltr}
+.fcol a{display:block;padding-block:5px;font-size:.97rem}
+.footer-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block-start:22px;font-size:.87rem;color:#6E6579}
 
-/* ---- reveal ---- */
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
-.reveal.in{opacity:1;transform:none}
-.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+/* ---------- reveal ----------
+   ברירת המחדל היא נראוּת. רק כש-JS חי אנחנו מסתירים כדי לחשוף.
+   בלי זה — אתר בלי JS הוא אתר ריק. */
+.js .reveal{opacity:0;transform:translateY(20px)}
+.js .reveal.in{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.js .reveal.d1{transition-delay:.07s}
+.js .reveal.d2{transition-delay:.14s}
+.js .reveal.d3{transition-delay:.21s}
+.js .reveal.d4{transition-delay:.28s}
 
-/* ---- signal path anim ---- */
-.spath{fill:none;stroke-linecap:round}
-.spath.draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 3.4s cubic-bezier(.6,0,.2,1) forwards}
-@keyframes draw{to{stroke-dashoffset:0}}
-.pulse{fill:var(--cyan);filter:drop-shadow(0 0 6px rgba(31,199,230,.9))}
-
-/* ---- responsive ---- */
-@media (max-width:960px){
-  .values{grid-template-columns:repeat(2,1fr)}
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  /* במובייל הקונסולה יורדת מתחת לכותרת — קודם ההבטחה, אחר כך ההוכחה */
+  .hero-in{grid-template-columns:1fr}
   .pains{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:repeat(2,1fr);gap:28px}
-  .sol{grid-template-columns:1fr;gap:26px}
+  .sol,.proof{grid-template-columns:1fr}
   .sol--flip .sol-visual{order:0}
   .sol-visual{order:-1}
-  .proof{grid-template-columns:1fr}
   .nav-links{display:none}
+  .nav-links.open{
+    display:flex;flex-direction:column;align-items:stretch;
+    position:absolute;inset-inline-end:clamp(20px,5vw,44px);inset-block-start:66px;
+    background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg);
+    padding:8px;box-shadow:var(--shadow);min-width:190px;
+  }
+  .menu-btn{display:inline-flex}
 }
 @media (max-width:620px){
   .page{font-size:16px}
-  .values{grid-template-columns:1fr}
-  .pains{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr}
-  .fcols{gap:32px}
-  .menu-btn{display:inline-flex}
+  .pains,.steps{grid-template-columns:1fr}
+  .fcols{gap:30px}
   .hero-ctas .btn{flex:1 1 auto}
 }
+
+/* מי שביקש פחות תנועה מקבל את מצב הסיום, לא מסך ריק. */
 @media (prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none;transition:none}
-  .spath.draw{animation:none;stroke-dashoffset:0}
-  .pulse-move{animation:none!important;display:none}
-  .bub,.flow-row{opacity:1;transform:none}
-  *{scroll-behavior:auto!important}
+  html{scroll-behavior:auto}
+  .js .reveal,
+  .js .console .row,
+  .js .phone .bub,
+  .js .chips .chip,
+  .js .tools .tool,
+  .js .art--queue .item{opacity:1;transform:none;animation:none}
+  .js .tick path{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
+  /* חתיכות הממשק קופאות במצב הסופי, לא במסך ריק */
+  .js .in .art--repeat .box,
+  .js .in .art--repeat .box::after,
+  .js .in .art--burn .bar i,
+  .art--wait .waited,
+  .art--burn .q{animation:none}
+  .art--burn .bar i{width:16%}
+  .spine::after{display:none}
+  .status i{animation:none}
+  .scrollrail{display:none}
+  .btn:hover,.pain:hover,.tool:hover,.chip:hover{transform:none}
 }
-html{scroll-behavior:smooth}
