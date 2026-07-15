@@ -290,6 +290,63 @@ img,svg{display:block;max-width:100%}
 .sol ul{list-style:none;padding:0;margin-block-start:18px;display:grid;gap:10px}
 .sol li{display:flex;align-items:flex-start;gap:10px;font-size:1rem;color:var(--ink-soft)}
 .sol li svg{width:18px;height:18px;color:var(--signal);flex:none;margin-block-start:5px}
+.sol-content .btn{margin-block-start:20px}
+.sol-content .btn svg{width:16px;height:16px}
+
+/* ---------- טיזר הקמפיינר: מיני-צ'אט טלגרם שמתנגן לבד בלולאה ----------
+   CSS בלבד: לכל שורה חלון נראוּת משלה בתוך מחזור של 11 שניות, וכולן
+   מתאפסות יחד. בלי JS (או עם reduced-motion) הכל פשוט סטטי וקריא.
+   כל הכרטיס הוא קישור ל-/campaigner - ההצצה שמזמינה קליק. */
+.cgt{
+  position:relative;display:block;background:#0e1621;border:1px solid #22303f;
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-dark);
+  text-decoration:none;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s,border-color .3s;
+}
+.cgt:hover{transform:translateY(-4px);border-color:rgba(255,107,53,.45);box-shadow:0 22px 50px -18px rgba(0,0,0,.55)}
+.cgt-hd{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#17212b;border-block-end:1px solid #0e1621}
+.cgt-av{width:32px;height:32px;flex:none;border-radius:99px;background:var(--signal);display:grid;place-items:center;color:#fff}
+.cgt-av svg{width:16px;height:16px}
+.cgt-who{display:flex;flex-direction:column;line-height:1.3;min-width:0}
+.cgt-who b{color:#eef3f8;font-family:'Assistant',sans-serif;font-weight:700;font-size:.9rem}
+.cgt-who i{font-style:normal;font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;color:#4fd964;direction:ltr}
+.cgt-tg{margin-inline-start:auto;width:18px;height:18px;color:#5c718a;flex:none}
+.cgt-body{display:flex;flex-direction:column;gap:8px;padding:16px 14px 44px;font-family:'Assistant',sans-serif}
+.cgt-m{max-width:88%;padding:8px 12px;border-radius:13px;font-size:.86rem;line-height:1.5;font-weight:500}
+/* צדדים במרג'ינים לוגיים (לא align-self) - זהים לעמוד המלא בכל דפדפן:
+   בעלת העסק (כחול) בצד שמאל, הסוכן (כהה) בצד ימין */
+.cgt-out{margin-inline-start:auto;background:#2b5278;color:#fff;border-end-end-radius:4px}
+.cgt-in{margin-inline-end:auto;background:#182533;color:#eef3f8;border-end-start-radius:4px}
+.cgt-typing{margin-inline-end:auto;background:#182533;border-radius:13px;border-end-start-radius:4px;padding:11px 13px;display:flex;gap:4px}
+.cgt-typing i{width:5px;height:5px;border-radius:99px;background:#6b8299;animation:cg-dots 1.2s ease-in-out infinite}
+.cgt-typing i:nth-child(2){animation-delay:.16s}
+.cgt-typing i:nth-child(3){animation-delay:.32s}
+@keyframes cg-dots{0%,60%,100%{opacity:.3}30%{opacity:1}}
+.cgt-ad{margin-inline-end:auto;width:78%;background:#182533;border:1px solid #22303f;border-radius:13px;border-end-start-radius:4px;overflow:hidden}
+.cgt-ad-shot{position:relative;display:block;height:64px;background:linear-gradient(150deg,#F7D9C6,#E7A7B0 55%,#C98BA8)}
+.cgt-ad-badge{position:absolute;inset-block-start:7px;inset-inline-end:8px;background:rgba(20,17,24,.55);color:#fff;font-size:.56rem;font-weight:600;padding:2px 7px;border-radius:99px}
+.cgt-ad-txt{display:block;padding:9px 11px;font-size:.78rem;line-height:1.45;color:#cfdae4}
+.cgt-live{align-self:center;display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:#4fd964;background:rgba(79,217,100,.09);border:1px solid rgba(79,217,100,.3);padding:5px 12px;border-radius:99px}
+.cgt-live svg{width:13px;height:13px}
+/* הרמז ללחיצה - תמיד נוכח, שקט; מתחזק ב-hover */
+.cgt-cue{
+  position:absolute;inset-inline:0;bottom:10px;display:flex;justify-content:center;align-items:center;gap:5px;
+  font-family:'Assistant',sans-serif;font-size:.78rem;font-weight:600;color:#FFB48F;opacity:.85;transition:opacity .25s;
+}
+.cgt-cue svg{width:13px;height:13px;transition:transform .25s}
+.cgt:hover .cgt-cue{opacity:1}
+.cgt:hover .cgt-cue svg{transform:translateX(-3px)}
+
+/* הלולאה: חלונות נראות על ציר של 11s. מופיע -> נשאר -> הכל נמוג יחד בסוף. */
+.js .cgt-e1{animation:cgt-k1 11s infinite}
+.js .cgt-e2{animation:cgt-k2 11s infinite}
+.js .cgt-e3{animation:cgt-k3 11s infinite}
+.js .cgt-e4{animation:cgt-k4 11s infinite}
+.js .cgt-e5{animation:cgt-k5 11s infinite}
+@keyframes cgt-k1{0%,3%{opacity:0;transform:translateY(7px)}8%,94%{opacity:1;transform:none}98%,100%{opacity:0}}
+@keyframes cgt-k2{0%,12%{opacity:0}16%,28%{opacity:1}32%,100%{opacity:0}}
+@keyframes cgt-k3{0%,30%{opacity:0;transform:translateY(7px)}35%,94%{opacity:1;transform:none}98%,100%{opacity:0}}
+@keyframes cgt-k4{0%,48%{opacity:0;transform:translateY(7px)}53%,94%{opacity:1;transform:none}98%,100%{opacity:0}}
+@keyframes cgt-k5{0%,70%{opacity:0;transform:scale(.92)}75%,94%{opacity:1;transform:none}98%,100%{opacity:0}}
 
 /* טלפון הטלגרם */
 
@@ -648,6 +705,16 @@ html:not(.js) .step-link .chev{color:var(--signal)}
 }
 .t:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--rule-strong)}
 .t img{width:100%;height:auto;border-radius:calc(var(--r-lg) - 6px)}
+/* כותרת ממסגרת לכל צילום: אייקון וואטסאפ ירוק + שורת התוצאה.
+   הצילום נשאר כמו שהוא - האותנטיות היא הנכס. */
+.t figcaption{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 8px 12px;
+  font-family:'Assistant',sans-serif;font-weight:700;font-size:.92rem;color:var(--console-fg);
+}
+.t-wa{display:grid;place-items:center;width:22px;height:22px;flex:none;color:#25D366}
+.t-wa svg{width:18px;height:18px}
+.tnote{margin-block-start:10px;font-size:.95rem;color:var(--ink-mute)}
 
 /* ---------- הרשת (tools) ----------
    פאנל קונסולה כהה עם גרף אחד. הקווים לא מקשטים - הם הצינור:
@@ -840,6 +907,33 @@ html:not(.js) .step-link .chev{color:var(--signal)}
   .ido-body .btn{width:100%;justify-content:center}
 }
 
+/* =========================================================
+   וואטסאפ צף — שקט ומכובד: עיגול זכוכית כהה עם הגליף הירוק,
+   בפינה השמאלית-תחתונה (לא מפריע לאגודל ולפס הגלילה).
+   מופיע רק אחרי ה-hero, נעלם מול סקשן היומן (js/main.js),
+   ומגלה תווית "דברו איתי" בריחוף.
+   ========================================================= */
+.wa-float{
+  position:fixed;z-index:150;
+  inset-inline-end:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));
+  display:flex;align-items:center;gap:0;
+  height:52px;padding-inline:14px;border-radius:99px;
+  background:rgba(21,17,24,.82);border:1px solid rgba(240,234,223,.14);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  color:#25D366;box-shadow:0 10px 30px -12px rgba(0,0,0,.5);
+  opacity:0;visibility:hidden;transform:translateY(14px);
+  transition:opacity .4s ease,transform .4s cubic-bezier(.22,1,.36,1),visibility .4s;
+}
+.wa-float.on{opacity:1;visibility:visible;transform:none}
+.wa-float svg{width:24px;height:24px;flex:none}
+.wa-float-tip{
+  max-width:0;overflow:hidden;white-space:nowrap;
+  font-family:'Assistant',sans-serif;font-weight:600;font-size:.88rem;color:var(--console-fg);
+  transition:max-width .35s cubic-bezier(.22,1,.36,1),margin .35s;
+}
+.wa-float:hover{border-color:rgba(37,211,102,.4)}
+.wa-float:hover .wa-float-tip,.wa-float:focus-visible .wa-float-tip{max-width:90px;margin-inline-end:9px}
+
 /* מי שביקש פחות תנועה מקבל את מצב הסיום, לא מסך ריק. */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -854,6 +948,12 @@ html:not(.js) .step-link .chev{color:var(--signal)}
   .ido-photo img{transition:none}
   .ido:hover .ido-photo img{transform:none}
   .ido-path li.now::before{box-shadow:none}
+  /* הדמו של הקמפיינר קופא במצב מלא וקריא */
+  .js .cgt-e1,.js .cgt-e2,.js .cgt-e3,.js .cgt-e4,.js .cgt-e5{animation:none}
+  .js .cgt-e2{display:none}
+  .cgt-typing i{animation:none}
+  .cgt,.wa-float{transition:none}
+  .cgt:hover{transform:none}
   /* הרשת: מצוירת במלואה, עם פעימה קפואה על כל קו. מעגל חי בלי תנועה.
      ה-.in חייב להופיע כאן: media query לא מוסיף specificity, ובלעדיו
      .js .mesh-wrap.in .mesh-fire path (4 מחלקות) גובר והפעימות ממשיכות לרוץ. */

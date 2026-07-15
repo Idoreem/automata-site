@@ -218,6 +218,35 @@
     });
   }
 
+  /* ============ וואטסאפ צף ============
+     שקט ולא דוחף: מופיע רק אחרי שעוברים את ה-hero, ונעלם כשסקשן
+     היומן על המסך - שם ה-CTA הראשי לבדו. */
+  var waFloat = document.getElementById('waFloat');
+  if (waFloat) {
+    var pastHero = false;
+    var nearBook = false;
+    var waSync = function () {
+      waFloat.classList.toggle('on', pastHero && !nearBook);
+    };
+    var heroEl = document.querySelector('.hero');
+    if (heroEl) {
+      new IntersectionObserver(function (entries) {
+        pastHero = !entries[0].isIntersecting;
+        waSync();
+      }, { threshold: 0.05 }).observe(heroEl);
+    } else {
+      pastHero = true;
+      waSync();
+    }
+    var bookEl = document.getElementById('book');
+    if (bookEl) {
+      new IntersectionObserver(function (entries) {
+        nearBook = entries[0].isIntersecting;
+        waSync();
+      }, { threshold: 0.12 }).observe(bookEl);
+    }
+  }
+
   /* חלון "מי אני" הוא :target טהור — נפתח ונסגר בלי JS.
      ה-JS רק משדרג: נועל את גלילת הרקע כשהוא פתוח, וסוגר ב-Esc. */
   var bio = document.getElementById('ido-bio');
