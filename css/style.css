@@ -411,36 +411,78 @@ html:not(.js) .step-link .chev{color:var(--signal)}
 
 
 /* =========================================================
-   מי אני — כרטיס כהה, החתימה של הקונסולה/CTA/פוטר.
-   תמונה בצד ההתחלה (ימין ב-RTL), טקסט קצר, וכפתור שפותח את
-   הביוגרפיה המלאה. הכל קומפקטי - הסיפור הארוך יושב בחלון.
+   מי אני — פריסה מגזינית: התמונה עמודה בגובה מלא שנמסה לתוך
+   הכרטיס, ציטוט עם פס כתום, והחתימה - "המסלול": תחנות הקריירה
+   כצינור עם חצים, אותו מוטיב pipeline של המותג. התחנה האחרונה
+   (אוטומטה) דולקת. הסיפור הארוך נשאר בחלון.
    ========================================================= */
 .ido{
-  display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(24px,4vw,52px);align-items:center;
-  max-width:940px;margin-inline:auto;
+  position:relative;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+  align-items:stretch;max-width:1000px;margin-inline:auto;
   background:var(--console);color:var(--console-fg);
   border-radius:var(--r-lg);box-shadow:var(--shadow-dark);
-  padding:clamp(26px,3.4vw,44px);
+  overflow:hidden;
 }
-/* התמונה: מסגרת מרובעת מעוגלת. עד שהיא מגיעה - placeholder עם ראשי התיבות. */
+/* התמונה: נושקת לקצוות הכרטיס, עם גרדיאנט שממיס אותה אל הרקע הכהה
+   בצד הטקסט. עד שהיא נטענת - placeholder עם השם. */
 .ido-photo{
-  position:relative;flex:none;
-  width:clamp(148px,20vw,208px);aspect-ratio:1;
-  border-radius:var(--r-lg);overflow:hidden;
+  position:relative;min-height:320px;
   background:linear-gradient(150deg,var(--console-2),#241d2c);
-  border:1px solid var(--console-line);
-  display:grid;place-items:center;
+  display:grid;place-items:center;overflow:hidden;
 }
-.ido-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ido-photo img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:80% 50%;
+  transition:transform 1.4s cubic-bezier(.22,1,.36,1);
+}
+.ido:hover .ido-photo img{transform:scale(1.045)}
+/* ההמסה אל הכרטיס: כהה בקצה שנושק לטקסט (שמאל ב-RTL) + עיגון תחתון עדין */
+.ido-photo::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(to left,transparent 58%,rgba(21,17,24,.4) 84%,var(--console)),
+    linear-gradient(to top,rgba(21,17,24,.42),transparent 30%);
+}
 .ido-ph{
   font-size:clamp(1.4rem,2.4vw,1.9rem);line-height:1.1;text-align:center;
   color:var(--console-dim);letter-spacing:-.01em;
 }
+.ido-body{padding:clamp(26px,3.8vw,50px)}
 .ido-body .eyebrow{color:var(--signal)}
-.ido-name{font-size:clamp(1.5rem,2.6vw,2rem);color:#fff;margin-block:12px 12px;letter-spacing:-.01em}
-.ido-role{color:var(--console-dim);font-size:.96rem;line-height:1.65;max-width:56ch}
-.ido-role + .ido-role{margin-block-start:10px}
-.ido-body .btn{margin-block-start:22px}
+.ido-name{font-size:clamp(1.9rem,3.4vw,2.6rem);color:#fff;margin-block:10px 12px;letter-spacing:-.015em}
+.ido-role{color:var(--console-dim);font-size:1rem;line-height:1.65;max-width:52ch}
+.ido-quote{
+  margin-block-start:16px;padding-inline-start:16px;
+  border-inline-start:3px solid var(--signal);
+  color:var(--console-fg);opacity:.92;font-size:1.05rem;line-height:1.7;max-width:52ch;
+}
+/* המסלול: צ'יפים עם חצים ביניהם, בכיוון הקריאה (ימין→שמאל).
+   רווח העמודות גדול מספיק כדי שהחץ יישב בו מבלי להידחס. */
+.ido-path-label{
+  display:block;margin-block-start:24px;
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.18em;color:var(--console-dim);
+}
+.ido-path{
+  list-style:none;display:flex;flex-wrap:wrap;align-items:center;
+  column-gap:24px;row-gap:9px;margin:10px 0 0;padding:0;
+}
+.ido-path li{
+  position:relative;display:inline-flex;align-items:center;gap:7px;
+  background:var(--console-2);border:1px solid var(--console-line);
+  color:var(--console-dim);font-size:.8rem;font-weight:600;
+  padding:5px 12px;border-radius:99px;white-space:nowrap;
+}
+.ido-path li:not(:last-child)::after{
+  content:"‹";position:absolute;inset-inline-end:-16px;inset-block-start:50%;
+  transform:translateY(-54%);color:var(--signal);opacity:.75;font-size:.95rem;
+}
+.ido-path li.now{
+  background:rgba(255,107,53,.13);border-color:rgba(255,107,53,.5);color:#FFB48F;
+}
+.ido-path li.now::before{
+  content:"";width:6px;height:6px;border-radius:99px;flex:none;
+  background:var(--signal);box-shadow:0 0 9px var(--signal);
+}
+.ido-body .btn{margin-block-start:26px}
 .ido-body .btn svg{width:16px;height:16px}
 
 /* ---------- החלון (:target) ---------- */
@@ -772,9 +814,20 @@ html:not(.js) .step-link .chev{color:var(--signal)}
   .tgrid{columns:1}
   .fcols{gap:30px}
   .hero-ctas .btn{flex:1 1 auto}
-  /* מי אני נערם: התמונה למעלה, הטקסט מתחת */
-  .ido{grid-template-columns:1fr;gap:22px}
-  .ido-photo{width:132px}
+  /* מי אני נערם: תמונה רחבה למעלה במלוא רוחב הכרטיס, הטקסט מתחת.
+     ההמסה עוברת מהצד אל מטה - אל גוף הטקסט. */
+  .ido{grid-template-columns:1fr}
+  .ido-photo{min-height:0;aspect-ratio:16/11}
+  /* המיקוד גבוה יותר - שהראש ייכנס לפריים בחיתוך הרוחבי */
+  .ido-photo img{object-position:78% 18%}
+  .ido-photo::after{
+    background:linear-gradient(to bottom,transparent 55%,rgba(21,17,24,.5) 85%,var(--console));
+  }
+  .ido-body{padding-block-start:18px}
+  .ido-path li{font-size:.76rem;padding:5px 10px}
+  .ido-path{column-gap:20px}
+  .ido-path li:not(:last-child)::after{inset-inline-end:-14px}
+  .ido-body .btn{width:100%;justify-content:center}
 }
 
 /* מי שביקש פחות תנועה מקבל את מצב הסיום, לא מסך ריק. */
@@ -788,6 +841,9 @@ html:not(.js) .step-link .chev{color:var(--signal)}
   .js .steps.in .step-link .chev{transition:none}
   /* החלון נפתח מיד, בלי החלקה */
   .bio,.bio-card{transition:none}
+  .ido-photo img{transition:none}
+  .ido:hover .ido-photo img{transform:none}
+  .ido-path li.now::before{box-shadow:none}
   /* הרשת: מצוירת במלואה, עם פעימה קפואה על כל קו. מעגל חי בלי תנועה.
      ה-.in חייב להופיע כאן: media query לא מוסיף specificity, ובלעדיו
      .js .mesh-wrap.in .mesh-fire path (4 מחלקות) גובר והפעימות ממשיכות לרוץ. */
