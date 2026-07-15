@@ -1,0 +1,318 @@
+- generic [ref=e2]:
+  - navigation [ref=e3]:
+    - generic [ref=e4]:
+      - link "Campaigner - דף הבית" [ref=e5] [cursor=pointer]:
+        - /url: "#top"
+        - img [ref=e6]
+        - generic [ref=e8]: Campaigner
+      - generic [ref=e9]:
+        - link "איך זה עובד" [ref=e10] [cursor=pointer]:
+          - /url: "#how"
+        - link "מה נשאר עליך" [ref=e11] [cursor=pointer]:
+          - /url: "#split"
+        - link "מה שולחים לו" [ref=e12] [cursor=pointer]:
+          - /url: "#says"
+        - link "שאלות" [ref=e13] [cursor=pointer]:
+          - /url: "#faq"
+        - link "Automata" [ref=e14] [cursor=pointer]:
+          - /url: /
+      - link "קביעת שיחה" [ref=e16] [cursor=pointer]:
+        - /url: https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A
+  - banner [ref=e17]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - 'heading "סוכן AI חכם שעובד בשבילך ומביא לך: לידים, מכירות, המרות" [level=1] [ref=e20]':
+          - text: "סוכן AI חכם שעובד בשבילך ומביא לך:"
+          - generic "לידים, מכירות, המרות" [ref=e21]
+        - paragraph [ref=e23]: מספרים לו על היעדים והמטרות העסקיות. הוא בונה, כותב, מעלה, מסנן - ומביא לקוחות חדשים לעסק.
+        - paragraph [ref=e24]: סוכן AI שמנהל לך את כל הפרסום במטא מתוך צ׳אט רגיל בטלגרם. בלי לנהל מודעות בעצמך, מבלי לשלם אלפי שקלים כל חודש ולחכות לקמפיינר שיחזור אליך. כותבים לו - הוא עונה מיד, ועובד בשבילך.
+        - generic [ref=e25]:
+          - link "קביעת שיחת אפיון" [ref=e26] [cursor=pointer]:
+            - /url: https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A
+            - img [ref=e27]
+            - text: קביעת שיחת אפיון
+          - link "וואטסאפ" [ref=e30] [cursor=pointer]:
+            - /url: https://wa.me/972544354411?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%90%D7%99%D7%AA%D7%99%20%D7%90%D7%AA%20Campaigner%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93
+            - img [ref=e31]
+            - text: וואטסאפ
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - img [ref=e36]
+          - generic [ref=e38]:
+            - generic [ref=e39]: Campaigner
+            - generic [ref=e40]: ONLINE
+          - img [ref=e42]
+        - generic [ref=e44]:
+          - generic [ref=e45]: TODAY
+          - generic [ref=e46]: היי, אני רוצה שתיצור לי קמפיין חדש לחנות פרחים חמודה בהוד השרון לכבוד ט״ו באב.
+          - generic [ref=e47]: אני על זה. תני לי לסרוק את המודעות שהכי מצליחות בתחום שלך, וליצור לך מודעה מנצחת.
+          - generic [ref=e48]: "מצאתי מה עובד. הנה המודעה שהכנתי לט״ו באב:"
+          - generic [ref=e49]:
+            - generic [ref=e50]:
+              - img "מודעת פרחים לט״ו באב — פרחי הוד, הוד השרון" [ref=e51]
+              - generic [ref=e52]: ממומן
+            - generic [ref=e53]:
+              - paragraph [ref=e54]: ט״ו באב מתקרב, והיא תזכור מי חשב עליה. עוד לא קנית לה פרחים? זר מעוצב מפרחי הוד, הוד השרון — מוכן היום ונמסר עד הדלת. אל תהיה זה שהגיע בידיים ריקות לחברה שלו.
+              - generic [ref=e55]:
+                - generic [ref=e56]:
+                  - generic [ref=e57]: פרחי הוד
+                  - generic [ref=e58]: הזמנה עד הבית · הוד השרון
+                - generic [ref=e59]: הזמנה עכשיו
+          - generic [ref=e60]: וואי נראה מעולה!
+          - generic [ref=e61]: מדהים! מה התקציב היומי שתרצי לשים למודעה?
+          - generic [ref=e62]: 70₪
+          - generic [ref=e63]: אין בעיה, 70₪ ליום, מעלה מיד את המודעה שלך.
+          - generic [ref=e64]: המודעה שלך באוויר! נתעדכן שוב בימים הקרובים?
+        - button "הפעל שוב" [ref=e66] [cursor=pointer]:
+          - img [ref=e67]
+          - text: הפעל שוב
+  - generic [ref=e71]:
+    - generic [ref=e72]:
+      - heading "פרסום ממומן היום גוזל יותר מהתקציב." [level=2] [ref=e73]
+      - paragraph [ref=e74]: מה שמעצבן היום בפרסום ממומן הוא תשלום הריטיינר הגבוה לקמפיינר, ההמתנה לכל שינוי, והלידים שמתבררים כלא רלוונטיים אחרי שכבר בזבזת עליהם שיחה.
+    - generic [ref=e75]:
+      - generic [ref=e76]:
+        - img [ref=e78]
+        - heading "כסף שנשרף בלי שליטה" [level=3] [ref=e88]
+        - paragraph [ref=e89]: ריטיינר חודשי יקר שמסתכם באלפי שקלים כל חודש מחדש, גם כשאין תוצאות ולפני התקציב לפייסבוק -
+      - generic [ref=e90]:
+        - img [ref=e92]
+        - heading "כל שינוי לוקח ימים" [level=3] [ref=e98]
+        - paragraph [ref=e99]: הכל קורה לאט, השיווק שלך תלוי באנשי צוות חיצוניים.
+      - generic [ref=e100]:
+        - img [ref=e102]
+        - heading "אתה מסנן לידים ידנית" [level=3] [ref=e113]
+        - paragraph [ref=e114]: כל פנייה נוחתת עליך ישירות. אתה מבזבז שיחות על סקרנים רק כדי לגלות מי מהם באמת רלוונטי.
+    - paragraph [ref=e115]: אנחנו הולכים לפתור את זה
+  - generic [ref=e117]:
+    - generic [ref=e118]:
+      - heading "רשימת המשימות שלך מתקצרת לשלוש שורות." [level=2] [ref=e119]
+      - paragraph [ref=e120]: פרסום ממומן דורש היום החלטות, כתיבה, עיצוב, בנייה בממשק, מעקב וסינון. Campaigner לוקח את כל זה. אצלך נשאר רק מה שבאמת רק אתה יכול לעשות.
+    - generic [ref=e121]:
+      - generic [ref=e122]:
+        - generic [ref=e123]: YOU
+        - heading "מה נשאר עליך" [level=3] [ref=e124]
+        - list [ref=e125]:
+          - listitem [ref=e126]:
+            - img [ref=e127]
+            - text: להגיד מה אתה רוצה. משפט אחד, בעברית.
+          - listitem [ref=e129]:
+            - img [ref=e130]
+            - text: לאשר לפני שזה עולה לאוויר. כלום לא רץ בלעדיך.
+          - listitem [ref=e132]:
+            - img [ref=e133]
+            - text: לענות ללידים שכבר רוצים לדבר איתך.
+        - paragraph [ref=e135]: זהו. זו כל הרשימה.
+      - generic [ref=e136]:
+        - generic [ref=e137]: CAMPAIGNER
+        - heading "מה הוא עושה" [level=3] [ref=e138]
+        - list [ref=e139]:
+          - listitem [ref=e140]:
+            - img [ref=e141]
+            - generic [ref=e143]: מתרגם את המשפט שלך ליעד קמפיין, קהל, גיל, אזור ותקציב
+          - listitem [ref=e144]:
+            - img [ref=e145]
+            - generic [ref=e147]: כותב קופי - כמה וריאציות, לא אחת
+          - listitem [ref=e148]:
+            - img [ref=e149]
+            - generic [ref=e151]: מייצר את הקריאייטיב - את הוויזואל של המודעה
+          - listitem [ref=e152]:
+            - img [ref=e153]
+            - generic [ref=e155]: בונה ומעלה את הקמפיין במטא
+          - listitem [ref=e156]:
+            - img [ref=e157]
+            - generic [ref=e159]: מסנן כל פונה בשאלון - רק הרציניים עוברים
+          - listitem [ref=e160]:
+            - img [ref=e161]
+            - generic [ref=e163]: שולח את הליד ל-CRM שלך, עם התשובות שלו
+          - listitem [ref=e164]:
+            - img [ref=e165]
+            - generic [ref=e167]: עוקב ומדווח - בצ׳אט, לא בדשבורד שלא תפתח
+  - generic [ref=e169]:
+    - generic [ref=e170]:
+      - generic [ref=e171]: מקצה לקצה
+      - heading "מהמשפט שלך ועד הליד ב-CRM." [level=2] [ref=e172]
+      - paragraph [ref=e173]: שבעה שלבים שהיום דורשים אדם, ממשק וזמן. כאן הם קורים ברצף אחד, מתוך הצ׳אט.
+    - list [ref=e174]:
+      - listitem [ref=e175]:
+        - generic [ref=e176]: "01"
+        - generic [ref=e177]:
+          - heading "מתרגם כוונה לאסטרטגיה" [level=3] [ref=e178]
+          - paragraph [ref=e179]: "\"רוצה עוד לידים השבוע, תקציב 80 ₪ ליום\" הוא לא בריף - זו משאלה. Campaigner הופך אותה להחלטות: איזה סוג קמפיין, איזה קהל, איזה טווח גילאים, איזה אזור, איך לחלק את התקציב. ההחלטות האלה הן בדיוק מה שאתה משלם עליו היום לקמפיינר."
+      - listitem [ref=e180]:
+        - generic [ref=e181]: "02"
+        - generic [ref=e182]:
+          - heading "כותב את הקופי" [level=3] [ref=e183]
+          - paragraph [ref=e184]: לא נוסח אחד - כמה וריאציות, כדי שיהיה מה להשוות. בשפה של העסק שלך ושל הקהל שלך, לא בתרגום מכונה מאנגלית. אתה רואה את כולן בצ׳אט לפני שמשהו עולה.
+      - listitem [ref=e185]:
+        - generic [ref=e186]: "03"
+        - generic [ref=e187]:
+          - heading "מייצר את הקריאייטיב" [level=3] [ref=e188]
+          - paragraph [ref=e189]: הוויזואל של המודעה נוצר אצלו. אתה לא צריך מעצב, לא צריך בנק תמונות ולא צריך לחכות שלושה ימים לסבב תיקונים. אם משהו לא מוצא חן בעיניך - אתה אומר, והוא מייצר מחדש.
+      - listitem [ref=e190]:
+        - generic [ref=e191]: "04"
+        - generic [ref=e192]:
+          - heading "בונה ומעלה למטא" [level=3] [ref=e193]
+          - paragraph [ref=e194]: "הוא נכנס לחשבון המודעות שלך ובונה שם את הקמפיין: מבנה, קהלים, תקציב, מודעות. אתה לא פותח את Ads Manager. אבל כלום לא עולה לאוויר בלי שאתה מאשר בצ׳אט - האישור הוא שלך תמיד."
+      - listitem [ref=e195]:
+        - generic [ref=e196]: "05"
+        - generic [ref=e197]:
+          - heading "מסנן את הפונים" [level=3] [ref=e198]
+          - paragraph [ref=e199]: כאן נגמר הכאב האמיתי של פרסום ממומן. כל מי שמשאיר פרטים עובר שאלון קצר - תקציב, לו״ז, אזור, כל מה שרלוונטי אצלך. מי שלא רציני נעצר שם. אתה לא מבזבז שיחה עליו.
+      - listitem [ref=e200]:
+        - generic [ref=e201]: "06"
+        - generic [ref=e202]:
+          - heading "מעביר את הליד ל-CRM" [level=3] [ref=e203]
+          - paragraph [ref=e204]: מי שעבר את הסינון נוחת אצלך במערכת כליד מוכן - עם התשובות שלו, בזמן אמת. לא רשימה שתעבור עליה בערב, לא אקסל. ליד שאפשר להרים אליו טלפון עכשיו ולדעת מראש מה הוא צריך.
+      - listitem [ref=e205]:
+        - generic [ref=e206]: "07"
+        - generic [ref=e207]:
+          - heading "עוקב, מדווח, משנה" [level=3] [ref=e208]
+          - paragraph [ref=e209]: הקמפיין ממשיך לרוץ והוא ממשיך להסתכל. הדיווח מגיע לצ׳אט שאתה כבר פתוח בו, לא לדשבורד שלא תיכנס אליו. רוצה לעצור קמפיין, להעלות תקציב או לנסות זווית אחרת? תכתוב לו.
+  - generic [ref=e211]:
+    - generic [ref=e212]:
+      - generic [ref=e213]: למה Campaigner
+      - heading "אותה מטרה. בלי הריטיינר, בלי ההמתנה." [level=2] [ref=e214]
+      - paragraph [ref=e215]: שלוש דרכים להביא לקוחות מפרסום ממומן. ההבדל הוא כמה זה עולה לך - בכסף, בזמן ובעצבים.
+    - table [ref=e217]:
+      - rowgroup [ref=e218]:
+        - row "Campaigner מדיה־באייר / סוכנות לבד ב-Ads Manager" [ref=e219]:
+          - cell [ref=e220]
+          - columnheader "Campaigner" [ref=e221]:
+            - img [ref=e223]
+            - text: Campaigner
+          - columnheader "מדיה־באייר / סוכנות" [ref=e225]
+          - columnheader "לבד ב-Ads Manager" [ref=e226]
+      - rowgroup [ref=e227]:
+        - row "זמינות תמיד, בתוך הצ׳אט שעות עבודה, לפי תור כשיש לך זמן" [ref=e228]:
+          - rowheader "זמינות" [ref=e229]
+          - cell "תמיד, בתוך הצ׳אט" [ref=e230]:
+            - img [ref=e231]
+            - text: תמיד, בתוך הצ׳אט
+          - cell "שעות עבודה, לפי תור" [ref=e233]
+          - cell "כשיש לך זמן" [ref=e234]
+        - row "מהירות שינוי מיידית ימים - בריף ותיקונים תלוי בך" [ref=e235]:
+          - rowheader "מהירות שינוי" [ref=e236]
+          - cell "מיידית" [ref=e237]:
+            - img [ref=e238]
+            - text: מיידית
+          - cell "ימים - בריף ותיקונים" [ref=e240]
+          - cell "תלוי בך" [ref=e241]
+        - row "קופי + קריאייטיב כלול, כמה וריאציות בתוספת / מעצב בנפרד עליך" [ref=e242]:
+          - rowheader "קופי + קריאייטיב" [ref=e243]
+          - cell "כלול, כמה וריאציות" [ref=e244]:
+            - img [ref=e245]
+            - text: כלול, כמה וריאציות
+          - cell "בתוספת / מעצב בנפרד" [ref=e247]
+          - cell "עליך" [ref=e248]
+        - row "סינון לידים אוטומטי, לכל פונה לרוב לא ידני" [ref=e249]:
+          - rowheader "סינון לידים" [ref=e250]
+          - cell "אוטומטי, לכל פונה" [ref=e251]:
+            - img [ref=e252]
+            - text: אוטומטי, לכל פונה
+          - cell "לרוב לא" [ref=e254]
+          - cell "ידני" [ref=e255]
+        - row "דיווח ושקיפות בצ׳אט, בזמן אמת דוח חודשי אתה נכנס לבדוק" [ref=e256]:
+          - rowheader "דיווח ושקיפות" [ref=e257]
+          - cell "בצ׳אט, בזמן אמת" [ref=e258]:
+            - img [ref=e259]
+            - text: בצ׳אט, בזמן אמת
+          - cell "דוח חודשי" [ref=e261]
+          - cell "אתה נכנס לבדוק" [ref=e262]
+        - row "עלות לפי היקף, מודל אחד ריטיינר חודשי קבוע הזמן שלך" [ref=e263]:
+          - rowheader "עלות" [ref=e264]
+          - cell "לפי היקף, מודל אחד" [ref=e265]
+          - cell "ריטיינר חודשי קבוע" [ref=e266]
+          - cell "הזמן שלך" [ref=e267]
+    - paragraph [ref=e268]: החשבון, הלידים וההיסטוריה נשארים שלך בכל הדרכים. ההבדל היחיד הוא כמה מהעבודה נופלת עליך.
+  - generic [ref=e270]:
+    - generic [ref=e271]:
+      - heading "זה כל מה שאתה צריך להקליד." [level=2] [ref=e272]
+      - paragraph [ref=e273]: אין פקודות, אין תחביר, אין מה ללמוד. כותבים בעברית, כמו להודעה לעובד.
+    - generic [ref=e274]:
+      - generic [ref=e275]: תעלה קמפיין לסוף השבוע, תקציב 100 ₪ ליום
+      - generic [ref=e276]: תעצור את הקמפיין של תל אביב
+      - generic [ref=e277]: כמה לידים נכנסו השבוע?
+      - generic [ref=e278]: הקופי לא עובד, תכתוב 3 חדשים
+      - generic [ref=e279]: תוסיף שאלת סינון על גודל הפרויקט
+      - generic [ref=e280]: תכפיל תקציב לקמפיין שהכי עובד
+  - generic [ref=e282]:
+    - generic [ref=e283]:
+      - generic [ref=e284]: שאלות נפוצות
+      - heading "מה שחשוב לדעת לפני שמתחילים." [level=2] [ref=e285]
+    - generic [ref=e286]:
+      - group [ref=e287]:
+        - generic "הוא יעלה מודעות בלי שאני יודע?" [ref=e288] [cursor=pointer]:
+          - text: הוא יעלה מודעות בלי שאני יודע?
+          - img [ref=e289]
+      - group [ref=e291]:
+        - generic "מי משלם על תקציב הפרסום?" [ref=e292] [cursor=pointer]:
+          - text: מי משלם על תקציב הפרסום?
+          - img [ref=e293]
+      - group [ref=e295]:
+        - generic "אני לא מבין כלום בפרסום. זו בעיה?" [ref=e296] [cursor=pointer]:
+          - text: אני לא מבין כלום בפרסום. זו בעיה?
+          - img [ref=e297]
+      - group [ref=e299]:
+        - generic "למי החשבון והנתונים שייכים?" [ref=e300] [cursor=pointer]:
+          - text: למי החשבון והנתונים שייכים?
+          - img [ref=e301]
+      - group [ref=e303]:
+        - generic "למי זה מתאים?" [ref=e304] [cursor=pointer]:
+          - text: למי זה מתאים?
+          - img [ref=e305]
+      - group [ref=e307]:
+        - generic "כמה זה עולה?" [ref=e308] [cursor=pointer]:
+          - text: כמה זה עולה?
+          - img [ref=e309]
+      - group [ref=e311]:
+        - generic "מה צריך כדי להתחיל?" [ref=e312] [cursor=pointer]:
+          - text: מה צריך כדי להתחיל?
+          - img [ref=e313]
+  - generic [ref=e316]:
+    - generic [ref=e317]:
+      - heading "בוא נראה איך זה נראה על העסק שלך." [level=2] [ref=e318]
+      - paragraph [ref=e319]: שיחת אפיון אחת. נבין מה נחשב אצלך ליד טוב, ונראה לך את Campaigner רץ על הקהל שלך - לפני שאתה מחליט משהו.
+    - link "קביעת שיחת אפיון" [ref=e322] [cursor=pointer]:
+      - /url: https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A
+      - img [ref=e323]
+      - text: קביעת שיחת אפיון
+    - paragraph [ref=e326]:
+      - text: מעדיף לכתוב?
+      - link "אפשר גם בוואטסאפ" [ref=e327] [cursor=pointer]:
+        - /url: https://wa.me/972544354411?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%90%D7%99%D7%AA%D7%99%20%D7%90%D7%AA%20Campaigner%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93
+  - contentinfo [ref=e328]:
+    - generic [ref=e329]:
+      - generic [ref=e330]:
+        - generic [ref=e331]:
+          - link "Automata - דף הבית" [ref=e332] [cursor=pointer]:
+            - /url: /
+            - img [ref=e333]
+            - generic [ref=e335]: Automata
+          - paragraph [ref=e336]: Campaigner הוא מוצר של Automata - פתרונות AI ואוטומציה לעסקים.
+        - generic [ref=e337]:
+          - generic [ref=e338]:
+            - heading "המוצר" [level=4] [ref=e339]
+            - link "איך זה עובד" [ref=e340] [cursor=pointer]:
+              - /url: "#how"
+            - link "מה נשאר עליך" [ref=e341] [cursor=pointer]:
+              - /url: "#split"
+            - link "שאלות נפוצות" [ref=e342] [cursor=pointer]:
+              - /url: "#faq"
+          - generic [ref=e343]:
+            - heading "Automata" [level=4] [ref=e344]
+            - link "האתר הראשי" [ref=e345] [cursor=pointer]:
+              - /url: /
+            - link "הפתרונות" [ref=e346] [cursor=pointer]:
+              - /url: /#solutions
+            - link "תוצאות" [ref=e347] [cursor=pointer]:
+              - /url: /#results
+          - generic [ref=e348]:
+            - heading "דברו איתנו" [level=4] [ref=e349]
+            - link "קביעת שיחה" [ref=e350] [cursor=pointer]:
+              - /url: https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A
+            - link "וואטסאפ" [ref=e351] [cursor=pointer]:
+              - /url: https://wa.me/972544354411
+      - generic [ref=e352]:
+        - generic [ref=e353]: © 2026 Automata
+        - generic [ref=e354]: נבנה כדי לעבוד, לא כדי להרשים.
