@@ -30,11 +30,14 @@
 
 /* position:relative — כדי ש-offsetTop של ההודעות יימדד ביחס לגוף הצ׳אט.
    js/campaigner.js מסתמך על זה כדי לגלול אל ההודעה האחרונה שהוצגה. */
-.cg-body{position:relative;height:430px;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin}
+/* Assistant (סאנס נקי, כמה משקלים) במקום Trashim (כותרות, 700 בלבד) - כדי
+   שהבועות ייראו כמו הודעות אמיתיות ולא ככותרת. חל על כל תוכן הצ'אט;
+   תוויות ה-mono (TODAY / 2 HOURS LATER) מגדירות var(--mono) בעצמן וגוברות. */
+.cg-body{position:relative;height:430px;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;font-family:'Assistant',sans-serif}
 .cg-body::-webkit-scrollbar{width:5px}
 .cg-body::-webkit-scrollbar-thumb{background:var(--console-line);border-radius:99px}
 
-.cg-m{max-width:82%;padding:11px 14px;border-radius:16px;font-size:.97rem;line-height:1.55}
+.cg-m{max-width:82%;padding:11px 14px;border-radius:16px;font-size:.97rem;line-height:1.55;font-weight:500}
 .cg-m.out{align-self:flex-start;background:var(--console-2);color:var(--console-fg);border-end-start-radius:5px}
 .cg-m.in{align-self:flex-end;background:var(--signal);color:#fff;border-end-end-radius:5px}
 .cg-m.sys{align-self:center;max-width:100%;background:none;color:var(--console-dim);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;direction:ltr;padding:2px}
