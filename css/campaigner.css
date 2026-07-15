@@ -177,7 +177,9 @@
 /* inline-block מבטל את display:block הגלובלי על svg - אחרת הצ'ק תופס שורה משלו */
 .cmp-ck{display:inline-block;width:15px;height:15px;color:var(--signal);margin-inline-end:7px;vertical-align:-2px}
 .cmp-cost .cmp-uscell{color:var(--signal-ink);font-weight:700}
-.cmp-foot{max-width:620px;margin:clamp(24px,3vw,32px) auto 0;text-align:center;color:var(--ink-faint);font-size:.96rem;line-height:1.65}
+/* הטבלה היא הרכיב האחרון בסקשן - בלי פסקת הסיכום שהייתה מתחתיה מצמצמים
+   את הריפוד התחתון כדי שלא יישאר פער ריק גדול לפני הסקשן הבא. */
+#compare{padding-block-end:clamp(40px,5.5vw,72px)}
 
 /* ---------- מה אתה בעצם שולח ---------- */
 .cg-says{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-block-start:34px}
