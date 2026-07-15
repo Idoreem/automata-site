@@ -90,21 +90,6 @@
 .js .cg-typing{display:none}
 .js .cg-typing.show{display:flex}
 
-/* ---------- מה נשאר עליך / מה הוא עושה ---------- */
-.cg-split{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-block-start:38px}
-.cg-col{border:1px solid var(--rule);border-radius:var(--r-lg);padding:26px 24px;background:var(--card)}
-.cg-col--them{background:var(--console);border-color:var(--console-line);box-shadow:var(--shadow-dark)}
-.cg-col h3{font-size:1.22rem;color:var(--ink)}
-.cg-col--them h3{color:var(--console-fg)}
-.cg-col .n{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;color:var(--ink-faint);margin-block-end:9px;direction:ltr}
-.cg-col--them .n{color:var(--signal)}
-.cg-col ul{list-style:none;margin-block-start:18px;display:flex;flex-direction:column;gap:11px}
-.cg-col li{display:flex;gap:10px;align-items:flex-start;color:var(--ink-soft);line-height:1.55}
-.cg-col--them li{color:var(--console-dim)}
-.cg-col li svg{width:19px;height:19px;flex:none;margin-block-start:3px;color:var(--signal)}
-.cg-col--them li b{color:var(--console-fg);font-weight:inherit}
-.cg-end{margin-block-start:22px;padding-block-start:18px;border-block-start:1px solid var(--rule);color:var(--ink-faint);font-size:.98rem}
-
 /* ---------- הצינור: טיימליין עם מסילה. רצף אמיתי, ולכן ממוספר. ----------
    --fp = הריווח האנכי בכל שלב (למעלה ולמטה). המסילה שמחברת נקודה לבאה
    אחריה מתחילה במרכז הנקודה הנוכחית (--fp + 23 מראש השלב) ונמשכת בדיוק
@@ -199,7 +184,6 @@
 
 /* ---------- רספונסיבי ---------- */
 @media (max-width:980px){
-  .cg-split{grid-template-columns:1fr}
   /* הכרטיס יורד מתחת לטקסט (כמו הקונסולה באתר הראשי) - אחרת הוא נמעך
      לעמודה צרה. הבסיס .hero-in עובר ל-1fr כאן, אבל .cg-hero .hero-in גובר
      בספציפיות, אז חייבים לחזור עליו במפורש. */
