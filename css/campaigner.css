@@ -87,6 +87,24 @@
 .cg-typing i:nth-child(3){animation-delay:.36s}
 @keyframes cg-blink{0%,60%,100%{opacity:.28;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
 
+/* ---------- שורת ההקלדה (Composer) בסגנון טלגרם ----------
+   ההודעות של בעלת העסק "מוקלדות" כאן אות-אות לפני שהן נשלחות לשיחה -
+   הדגמה חיה של המוצר: כותבים הודעה רגילה, הסוכן עושה את השאר. */
+.cg-composer{display:flex;align-items:center;gap:9px;padding:9px 12px;background:#17212b;border-block-start:1px solid #0e1621}
+.cg-input{flex:1;position:relative;min-width:0;min-height:38px;line-height:22px;background:#242f3d;border-radius:19px;padding:8px 15px;font-family:'Assistant',sans-serif;font-size:.94rem;color:#eef3f8;overflow:hidden;white-space:nowrap}
+.cg-ph{position:absolute;inset-inline-start:15px;inset-block-start:8px;color:#6b8299;transition:opacity .2s}
+.cg-composer.typing .cg-ph{opacity:0}
+.cg-txt{display:inline}
+.cg-caret2{display:inline-block;width:1.5px;height:1.05em;vertical-align:-.12em;background:#6ab3f3;margin-inline-start:1px;opacity:0}
+.cg-composer.typing .cg-caret2{opacity:1;animation:cg-caret2 .95s step-end infinite}
+@keyframes cg-caret2{50%{opacity:0}}
+/* כפתור השליחה: אפור כשהשורה ריקה, נדלק כחול-טלגרם תוך כדי הקלדה,
+   ומתכווץ רגע ב"שליחה". החץ מצביע לכיוון השיחה (שמאל ב-RTL). */
+.cg-send{flex:none;width:38px;height:38px;display:grid;place-items:center;color:#5c718a;transition:color .25s,transform .18s}
+.cg-send svg{width:21px;height:21px;transform:scaleX(-1)}
+.cg-composer.typing .cg-send{color:#5eb5f7}
+.cg-send.sent{transform:scale(.78)}
+
 .cg-ft{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;border-block-start:1px solid var(--console-line);background:var(--console-2)}
 .cg-ft span{color:var(--console-dim);font-size:.82rem}
 .cg-replay{background:none;border:1px solid var(--console-line);color:var(--console-dim);font:inherit;font-size:.82rem;padding:5px 12px;border-radius:99px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:color .2s,border-color .2s}
@@ -99,7 +117,7 @@
 
 /* רמז הגלילה — מופיע כשהנגינה מסתיימת והשיחה ארוכה מהחלון, ונעלם
    ברגע שמתחילים לגלול. pointer-events:none כדי לא לחסום את הצ'אט. */
-.cg-scrollhint{position:absolute;inset-inline:0;bottom:58px;display:flex;justify-content:center;pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease;z-index:2}
+.cg-scrollhint{position:absolute;inset-inline:0;bottom:114px;display:flex;justify-content:center;pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease;z-index:2}
 /* כשהרמז דולק, הגוף מקבל ריפוד תחתון כדי שהצ'יפ יצוף על שטח ריק
    ולא על ההודעה האחרונה. נשאר גם אחרי הכיבוי - מונע קפיצת תוכן. */
 .cg-body.hint-pad{padding-block-end:60px}
@@ -237,6 +255,7 @@
   .cg-typing i{animation:none}
   .cg-replay{display:none}
   .cg-scrollhint{display:none}
+  .cg-composer.typing .cg-caret2{animation:none;opacity:0}
   /* הטיימליין קופא במצב המוגמר: מסילה מלאה, נקודות דלוקות, בלי גל.
      חייבים להתאים ל-4 המחלקות (.js .cg-flow.in ...) כי media query
      לא מוסיף specificity והכלל שמריץ את הגל היה גובר אחרת. */

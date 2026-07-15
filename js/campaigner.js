@@ -14,6 +14,10 @@
   var items = Array.prototype.slice.call(body.children);
   var replay = document.getElementById('chatReplay');
   var hint = document.getElementById('chatHint');
+  var composer = document.getElementById('chatComposer');
+  var inputBox = document.getElementById('chatInput');
+  var inputTxt = document.getElementById('chatInputTxt');
+  var send = document.getElementById('chatSend');
   var timers = [];
   var playing = false;
 
@@ -31,6 +35,35 @@
     if (hint) hint.classList.remove('on');
   };
 
+  var resetComposer = function () {
+    if (!composer) return;
+    inputTxt.textContent = '';
+    composer.classList.remove('typing');
+  };
+
+  /* ההקלדה החיה: הטקסט של בעלת העסק נכתב אות-אות בשורת ההודעה,
+     עם קצב אנושי קטן (מהירות משתנה), ואז "נשלח". */
+  var typeInto = function (text, done) {
+    composer.classList.add('typing');
+    var j = 0;
+    var tick = function () {
+      j++;
+      inputTxt.textContent = text.slice(0, j);
+      /* שומרים את הסמן בקצה גם כשהטקסט ארוך מהשורה (RTL: שמאלה = שלילי) */
+      inputBox.scrollLeft = inputBox.scrollWidth;
+      inputBox.scrollLeft = -inputBox.scrollWidth;
+      if (j >= text.length) { timers.push(setTimeout(done, 240)); return; }
+      timers.push(setTimeout(tick, 30 + Math.random() * 42));
+    };
+    timers.push(setTimeout(tick, 160));
+  };
+
+  var sendNow = function () {
+    send.classList.add('sent');
+    timers.push(setTimeout(function () { send.classList.remove('sent'); }, 190));
+    resetComposer();
+  };
+
   /* רמז הגלילה נעלם ברגע שהמשתמש גולל בעצמו - הוא כבר הבין שאפשר */
   ['wheel', 'touchstart', 'pointerdown'].forEach(function (ev) {
     body.addEventListener(ev, hideHint, { passive: true });
@@ -39,6 +72,7 @@
   var play = function () {
     clear();
     hideHint();
+    resetComposer();
     playing = true;
     items.forEach(function (el) { el.classList.remove('show'); });
     body.scrollTop = 0;
@@ -57,21 +91,37 @@
         return;
       }
       var el = items[i++];
-      el.classList.add('show');
 
-      /* גוללים אל ההודעה האחרונה *שהוצגה*, ולא אל scrollHeight.
-         ההודעות שטרם הגיע תורן הן opacity:0 אבל עדיין תופסות מקום בפריסה,
-         אז scrollHeight כולל אותן - וגלילה אליו קופצת אל אזור ריק ומשאירה
-         את השיחה האמיתית מעל הקיפול. */
-      var bottom = el.offsetTop + el.offsetHeight;
-      body.scrollTo({ top: Math.max(0, bottom - body.clientHeight), behavior: 'smooth' });
+      var reveal = function () {
+        el.classList.add('show');
 
-      var wait = parseInt(el.getAttribute('data-t'), 10) || 700;
-      timers.push(setTimeout(function () {
-        /* מחוון ההקלדה מפנה את מקומו להודעה שהוא הקליד */
-        if (el.classList.contains('cg-typing')) el.classList.remove('show');
-        step();
-      }, wait));
+        /* גוללים אל ההודעה האחרונה *שהוצגה*, ולא אל scrollHeight.
+           ההודעות שטרם הגיע תורן הן opacity:0 אבל עדיין תופסות מקום בפריסה,
+           אז scrollHeight כולל אותן - וגלילה אליו קופצת אל אזור ריק ומשאירה
+           את השיחה האמיתית מעל הקיפול. */
+        var bottom = el.offsetTop + el.offsetHeight;
+        body.scrollTo({ top: Math.max(0, bottom - body.clientHeight), behavior: 'smooth' });
+
+        var wait = parseInt(el.getAttribute('data-t'), 10) || 700;
+        timers.push(setTimeout(function () {
+          /* מחוון ההקלדה מפנה את מקומו להודעה שהוא הקליד */
+          if (el.classList.contains('cg-typing')) el.classList.remove('show');
+          step();
+        }, wait));
+      };
+
+      /* הודעות בעלת העסק קודם מוקלדות חיות בשורת ההודעה ורק אז נשלחות.
+         הטקסט נלקח מהבועה עצמה (הצומת הראשון, לפני שעת ה-meta) -
+         אפס כפילות תוכן. */
+      if (composer && el.classList.contains('out')) {
+        var msg = (el.childNodes[0] && el.childNodes[0].textContent || '').trim();
+        typeInto(msg, function () {
+          sendNow();
+          timers.push(setTimeout(reveal, 120));
+        });
+      } else {
+        reveal();
+      }
     };
     step();
   };
