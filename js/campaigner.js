@@ -13,6 +13,7 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var items = Array.prototype.slice.call(body.children);
   var replay = document.getElementById('chatReplay');
+  var hint = document.getElementById('chatHint');
   var timers = [];
   var playing = false;
 
@@ -26,15 +27,35 @@
     timers = [];
   };
 
+  var hideHint = function () {
+    if (hint) hint.classList.remove('on');
+  };
+
+  /* רמז הגלילה נעלם ברגע שהמשתמש גולל בעצמו - הוא כבר הבין שאפשר */
+  ['wheel', 'touchstart', 'pointerdown'].forEach(function (ev) {
+    body.addEventListener(ev, hideHint, { passive: true });
+  });
+
   var play = function () {
     clear();
+    hideHint();
     playing = true;
     items.forEach(function (el) { el.classList.remove('show'); });
     body.scrollTop = 0;
 
     var i = 0;
     var step = function () {
-      if (i >= items.length) { playing = false; return; }
+      if (i >= items.length) {
+        playing = false;
+        /* השיחה הסתיימה והחלון מלא - מזמינים לגלול חזרה לקרוא את כולה.
+           הריפוד מרים את ההודעה האחרונה מעל הצ'יפ, והגלילה מציגה אותה. */
+        if (hint && body.scrollHeight > body.clientHeight + 10) {
+          hint.classList.add('on');
+          body.classList.add('hint-pad');
+          body.scrollTo({ top: body.scrollHeight, behavior: 'smooth' });
+        }
+        return;
+      }
       var el = items[i++];
       el.classList.add('show');
 
@@ -43,7 +64,7 @@
          אז scrollHeight כולל אותן - וגלילה אליו קופצת אל אזור ריק ומשאירה
          את השיחה האמיתית מעל הקיפול. */
       var bottom = el.offsetTop + el.offsetHeight;
-      body.scrollTop = Math.max(0, bottom - body.clientHeight);
+      body.scrollTo({ top: Math.max(0, bottom - body.clientHeight), behavior: 'smooth' });
 
       var wait = parseInt(el.getAttribute('data-t'), 10) || 700;
       timers.push(setTimeout(function () {

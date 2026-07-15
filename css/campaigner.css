@@ -27,7 +27,7 @@
 
 /* ---------- הצ׳אט ----------
    גובה קבוע + גלילה פנימית: ההודעות נערמות בלי להזיז את העמוד מתחת לאצבע. */
-.cg-chat{background:var(--console);border:1px solid var(--console-line);border-radius:20px;box-shadow:var(--shadow-dark);overflow:hidden;display:flex;flex-direction:column}
+.cg-chat{position:relative;background:var(--console);border:1px solid var(--console-line);border-radius:20px;box-shadow:var(--shadow-dark);overflow:hidden;display:flex;flex-direction:column}
 .cg-hd{display:flex;align-items:center;gap:11px;padding:14px 16px;border-block-end:1px solid var(--console-line);background:var(--console-2)}
 .cg-av{width:38px;height:38px;flex:none;border-radius:99px;background:var(--signal);display:grid;place-items:center;color:#fff}
 .cg-av svg{width:20px;height:20px}
@@ -42,38 +42,47 @@
 /* Assistant (סאנס נקי, כמה משקלים) במקום Trashim (כותרות, 700 בלבד) - כדי
    שהבועות ייראו כמו הודעות אמיתיות ולא ככותרת. חל על כל תוכן הצ'אט;
    תוויות ה-mono (TODAY / 2 HOURS LATER) מגדירות var(--mono) בעצמן וגוברות. */
-.cg-body{position:relative;height:430px;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;font-family:'Assistant',sans-serif}
+.cg-body{position:relative;height:430px;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;scrollbar-color:#33435a transparent;scrollbar-gutter:stable;font-family:'Assistant',sans-serif;background:#0e1621}
 /* הצ'אט הוא flex column בגובה קבוע - בלי זה הפריטים מתכווצים כדי להיכנס
    לגובה, וכרטיס המודעה (overflow:hidden) קורס לקו דק. flex-shrink:0 שומר
    על גובהם המלא, והגוף גולל במקום לכווץ. */
 .cg-body > *{flex-shrink:0}
-.cg-body::-webkit-scrollbar{width:5px}
-.cg-body::-webkit-scrollbar-thumb{background:var(--console-line);border-radius:99px}
+.cg-body::-webkit-scrollbar{width:7px}
+.cg-body::-webkit-scrollbar-thumb{background:#33435a;border-radius:99px}
+.cg-body::-webkit-scrollbar-thumb:hover{background:#43587a}
 
-.cg-m{max-width:82%;padding:11px 14px;border-radius:16px;font-size:.97rem;line-height:1.55;font-weight:500}
-.cg-m.out{align-self:flex-start;background:var(--console-2);color:var(--console-fg);border-end-start-radius:5px}
-.cg-m.in{align-self:flex-end;background:var(--signal);color:#fff;border-end-end-radius:5px}
-.cg-m.sys{align-self:center;max-width:100%;background:none;color:var(--console-dim);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;direction:ltr;padding:2px}
+/* צבעי טלגרם קלאסיים (dark) במקום לבן-על-כתום — לבקשת עידו.
+   בעלת העסק = "היוצאת" (שמאל ב-RTL, כחול #2b5278 + ✓✓ כמו בטלגרם);
+   הסוכן = "הנכנס" (ימין, אפור-כחול #182533). הכתום נשאר רק במבטאי
+   מותג: אווטאר הכותרת וכפתור המודעה. */
+.cg-m{max-width:82%;padding:9px 13px 7px;border-radius:15px;font-size:.97rem;line-height:1.55;font-weight:500}
+.cg-m.out{align-self:flex-end;background:#2b5278;color:#fff;border-end-end-radius:4px}
+.cg-m.in{align-self:flex-start;background:#182533;color:#eef3f8;border-end-start-radius:4px}
+.cg-m.sys{align-self:center;max-width:100%;background:rgba(255,255,255,.07);color:#9fb2c4;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;direction:ltr;padding:4px 12px;border-radius:99px}
+
+/* שעה + וי כפול בתוך הבועה, כמו בטלגרם. flex-end ב-RTL = הפינה השמאלית-תחתונה. */
+.cg-meta{display:flex;justify-content:flex-end;align-items:center;gap:4px;margin-block-start:3px;font-size:.66rem;line-height:1;opacity:.62;direction:ltr;font-family:'Assistant',sans-serif;font-weight:400}
+.cg-meta svg{width:15px;height:10px;color:#6ab3f3;flex:none}
 
 /* כרטיס המודעה שהסוכן שולח - תצוגה מקדימה של קריאטיב, כמו מודעת מטא:
    תמונה למעלה, קופי וכפתור מתחת. התמונה מסופקת ידנית ומופלת אל
    img/campaigner/ad-tuvav.jpg. עד שהיא נכנסת (או אם חסרה) - רקע הגרדיאנט
    של .cg-ad-shot מוצג, ו-onerror מסיר img שבור כדי שלא יופיע אייקון שבור. */
-.cg-ad{align-self:flex-end;max-width:90%;width:100%;background:var(--console-2);border:1px solid var(--console-line);border-radius:16px;border-end-end-radius:5px;overflow:hidden}
+.cg-ad{align-self:flex-start;max-width:90%;width:100%;background:#182533;border:1px solid #22303f;border-radius:15px;border-end-start-radius:4px;overflow:hidden}
 .cg-ad-shot{position:relative;aspect-ratio:1/1;background:linear-gradient(150deg,#F7D9C6,#E7A7B0 55%,#C98BA8)}
 .cg-ad-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .cg-ad-badge{position:absolute;inset-block-start:11px;inset-inline-end:11px;background:rgba(20,17,24,.5);color:#fff;font-family:'Assistant',sans-serif;font-weight:600;font-size:.62rem;padding:3px 9px;border-radius:99px;backdrop-filter:blur(3px)}
 .cg-ad-txt{padding:13px 15px 15px}
-.cg-ad-primary{font-family:'Assistant',sans-serif;font-weight:500;font-size:.9rem;line-height:1.5;color:var(--console-fg)}
+.cg-ad-primary{font-family:'Assistant',sans-serif;font-weight:500;font-size:.9rem;line-height:1.5;color:#eef3f8}
 .cg-ad-foot{margin-block-start:13px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .cg-ad-brand{display:flex;flex-direction:column;line-height:1.28;min-width:0}
-.cg-ad-brand b{font-family:'Assistant',sans-serif;font-weight:700;font-size:.82rem;color:var(--console-fg)}
-.cg-ad-brand span{font-size:.72rem;color:var(--console-dim)}
+.cg-ad-brand b{font-family:'Assistant',sans-serif;font-weight:700;font-size:.82rem;color:#eef3f8}
+.cg-ad-brand span{font-size:.72rem;color:#8ca3b8}
 .cg-ad-btn{flex:none;background:var(--signal);color:#fff;font-family:'Assistant',sans-serif;font-weight:600;font-size:.78rem;padding:8px 15px;border-radius:8px}
 
 /* מחוון ההקלדה */
-.cg-typing{align-self:flex-end;background:var(--console-2);border-radius:16px;border-end-end-radius:5px;padding:14px 16px;display:flex;gap:4px}
-.cg-typing i{width:6px;height:6px;border-radius:99px;background:var(--console-dim);animation:cg-blink 1.3s ease-in-out infinite}
+.cg-typing{align-self:flex-start;background:#182533;border-radius:15px;border-end-start-radius:4px;padding:14px 16px;display:flex;gap:4px}
+.cg-typing i{width:6px;height:6px;border-radius:99px;background:#6b8299;animation:cg-blink 1.3s ease-in-out infinite}
 .cg-typing i:nth-child(2){animation-delay:.18s}
 .cg-typing i:nth-child(3){animation-delay:.36s}
 @keyframes cg-blink{0%,60%,100%{opacity:.28;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
@@ -86,7 +95,18 @@
 
 /* הצ׳אט מתנגן: כל שורה נכנסת כשתורה מגיע. בלי JS - הכל פשוט שם. */
 .js .cg-body > *{opacity:0;transform:translateY(9px)}
-.js .cg-body > .show{opacity:1;transform:none;transition:opacity .32s ease,transform .32s cubic-bezier(.22,1,.36,1)}
+.js .cg-body > .show{opacity:1;transform:none;transition:opacity .45s ease,transform .45s cubic-bezier(.22,1,.36,1)}
+
+/* רמז הגלילה — מופיע כשהנגינה מסתיימת והשיחה ארוכה מהחלון, ונעלם
+   ברגע שמתחילים לגלול. pointer-events:none כדי לא לחסום את הצ'אט. */
+.cg-scrollhint{position:absolute;inset-inline:0;bottom:58px;display:flex;justify-content:center;pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease;z-index:2}
+/* כשהרמז דולק, הגוף מקבל ריפוד תחתון כדי שהצ'יפ יצוף על שטח ריק
+   ולא על ההודעה האחרונה. נשאר גם אחרי הכיבוי - מונע קפיצת תוכן. */
+.cg-body.hint-pad{padding-block-end:60px}
+.cg-scrollhint.on{opacity:1;transform:none}
+.cg-scrollhint span{display:inline-flex;align-items:center;gap:7px;background:rgba(14,22,33,.9);border:1px solid #2a3b4d;color:#bcd0e2;font-family:'Assistant',sans-serif;font-weight:600;font-size:.78rem;padding:7px 14px;border-radius:99px;backdrop-filter:blur(4px);box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.cg-scrollhint svg{width:13px;height:13px;animation:cg-nudge 1.6s ease-in-out infinite}
+@keyframes cg-nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 .js .cg-typing{display:none}
 .js .cg-typing.show{display:flex}
 
@@ -216,6 +236,7 @@
   .js .cg-typing,.js .cg-typing.show{display:none}
   .cg-typing i{animation:none}
   .cg-replay{display:none}
+  .cg-scrollhint{display:none}
   /* הטיימליין קופא במצב המוגמר: מסילה מלאה, נקודות דלוקות, בלי גל.
      חייבים להתאים ל-4 המחלקות (.js .cg-flow.in ...) כי media query
      לא מוסיף specificity והכלל שמריץ את הגל היה גובר אחרת. */
