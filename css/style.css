@@ -824,9 +824,12 @@ html:not(.js) .step-link .chev{color:var(--signal)}
   /* מי אני נערם: תמונה רחבה למעלה במלוא רוחב הכרטיס, הטקסט מתחת.
      ההמסה עוברת מהצד אל מטה - אל גוף הטקסט. */
   .ido{grid-template-columns:1fr}
-  /* המקור החתוך (1170x800) הוא כמעט בדיוק היחס הזה - הפריים המלא נכנס */
-  .ido-photo{min-height:0;aspect-ratio:16/11}
-  .ido-photo img{object-position:center}
+  /* גובה מפורש ולא aspect-ratio: בספארי-iOS, aspect-ratio על פריט grid
+     מבטל את המתיחה לרוחב והתמונה מתכווצת לגודל התוכן (באג WebKit ידוע -
+     עידו ראה אותה בגודל בול דואר בצד המסך). height+width מפורשים
+     מתנהגים זהה בכל דפדפן. */
+  .ido-photo{min-height:0;width:100%;height:min(62vw,300px)}
+  .ido-photo img{object-position:center 30%}
   .ido-photo::after{
     background:linear-gradient(to bottom,transparent 55%,rgba(21,17,24,.5) 85%,var(--console));
   }
