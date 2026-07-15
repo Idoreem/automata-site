@@ -431,7 +431,7 @@ html:not(.js) .step-link .chev{color:var(--signal)}
   display:grid;place-items:center;overflow:hidden;
 }
 .ido-photo img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:80% 50%;
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:82% 32%;
   transition:transform 1.4s cubic-bezier(.22,1,.36,1);
 }
 .ido:hover .ido-photo img{transform:scale(1.045)}
@@ -471,9 +471,14 @@ html:not(.js) .step-link .chev{color:var(--signal)}
   color:var(--console-dim);font-size:.8rem;font-weight:600;
   padding:5px 12px;border-radius:99px;white-space:nowrap;
 }
+/* החץ בין תחנות: שברון מצויר בגבולות פיזיים (border-left+bottom ברוטציה),
+   שמצביע שמאלה - כיוון ההתקדמות ב-RTL. גליף טקסט כמו ‹ מתהפך ב-bidi,
+   ולכן דווקא ציור. */
 .ido-path li:not(:last-child)::after{
-  content:"‹";position:absolute;inset-inline-end:-16px;inset-block-start:50%;
-  transform:translateY(-54%);color:var(--signal);opacity:.75;font-size:.95rem;
+  content:"";position:absolute;inset-inline-end:-16px;inset-block-start:50%;
+  width:7px;height:7px;
+  border-left:1.7px solid var(--signal);border-bottom:1.7px solid var(--signal);
+  transform:translateY(-50%) rotate(45deg);opacity:.8;
 }
 .ido-path li.now{
   background:rgba(255,107,53,.13);border-color:rgba(255,107,53,.5);color:#FFB48F;
@@ -743,6 +748,8 @@ html:not(.js) .step-link .chev{color:var(--signal)}
    עדיין לקבוע שיחה. .cal-ready מגיע מ-js/main.js. */
 .cal{max-width:1040px;margin:0 auto}
 .cal-inline{width:100%}
+/* בין הלחיצה לעליית היומן: הכפתור מעומעם ולא לחיץ - משוב שמשהו קורה */
+.cal-loading .cal-fallback .btn{opacity:.55;pointer-events:none}
 .cal-ready .cal-fallback{display:none}
 .cal-ready .cal-inline{margin-block-start:34px;min-height:560px;border:1px solid var(--console-line);border-radius:var(--r-lg);background:var(--console-2);overflow:hidden}
 /* הכל בכלל אחד: .final p הוא (0,1,1) וגובר על .cal-alt שהוא (0,1,0),
@@ -817,9 +824,9 @@ html:not(.js) .step-link .chev{color:var(--signal)}
   /* מי אני נערם: תמונה רחבה למעלה במלוא רוחב הכרטיס, הטקסט מתחת.
      ההמסה עוברת מהצד אל מטה - אל גוף הטקסט. */
   .ido{grid-template-columns:1fr}
+  /* המקור החתוך (1170x800) הוא כמעט בדיוק היחס הזה - הפריים המלא נכנס */
   .ido-photo{min-height:0;aspect-ratio:16/11}
-  /* המיקוד גבוה יותר - שהראש ייכנס לפריים בחיתוך הרוחבי */
-  .ido-photo img{object-position:78% 18%}
+  .ido-photo img{object-position:center}
   .ido-photo::after{
     background:linear-gradient(to bottom,transparent 55%,rgba(21,17,24,.5) 85%,var(--console));
   }

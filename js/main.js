@@ -191,12 +191,19 @@
       });
     };
 
-    var calObs = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting) return;
-      calObs.disconnect();
-      loadCal();
-    }, { rootMargin: '400px' });
-    calObs.observe(calBox);
+    /* היומן נטען אך ורק אחרי לחיצה מפורשת של הגולש (בקשת עידו) -
+       שום דבר לא נפתח לבד בגלילה. שני מסלולי הקליק:
+       1. כפתור "קביעת שיחת אפיון" שבסקשן היומן עצמו ([data-cal-out])
+       2. כל כפתורי היומן בעמוד ([data-cal]) - שגם גוללים לסקשן
+       ה-href החיצוני נשאר תמיד: בלי JS / קליק אמצעי - נפתח cal.com בטאב. */
+    document.querySelectorAll('[data-cal-out]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
+        document.querySelector('.cal').classList.add('cal-loading');
+        loadCal();
+      });
+    });
 
     /* כפתורי היומן בעמוד גוללים ליומן במקום להעיף את המשתמש לאתר אחר.
        פותחים בטאב חדש רק אם המשתמש ביקש זאת במפורש (Cmd/Ctrl/גלגלת). */
@@ -204,6 +211,7 @@
       link.addEventListener('click', function (e) {
         if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         e.preventDefault();
+        document.querySelector('.cal').classList.add('cal-loading');
         loadCal();
         book.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
       });

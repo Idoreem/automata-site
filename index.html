@@ -377,7 +377,8 @@
     <div class="wrap">
       <div class="ido on-dark reveal">
         <div class="ido-photo">
-          <img src="/img/ido.jpg" width="1170" height="1081" alt="עידו ראם מרצה מול קהל, מייסד ושותף באוטומטה" onerror="this.remove()">
+          <!-- ido-stage.jpg = חיתוך מוכן של ido.jpg (בלי שולחן עמוס למטה) + הארה עדינה -->
+          <img src="/img/ido-stage.jpg" width="1170" height="800" loading="lazy" decoding="async" alt="עידו ראם מרצה מול קהל, מייסד ושותף באוטומטה" onerror="this.remove()">
           <span class="ido-ph" aria-hidden="true">עידו<br>ראם</span>
         </div>
         <div class="ido-body">
@@ -711,8 +712,8 @@
   <!-- ================= FINAL CTA / היומן =================
        העמוד נגמר ביומן חי, לא בכפתור שמעיף החוצה.
        שתי הערות למי שנוגע כאן:
-       1. ה-embed של Cal הוא 79 בקשות. הוא נטען עצלנית מ-js/main.js רק כשהסקשן
-          מתקרב לפריים - מי שלא מגיע לתחתית לא משלם עליו כלום.
+       1. ה-embed של Cal הוא 79 בקשות. הוא נטען אך ורק אחרי לחיצה על כפתור
+          יומן (בקשת עידו: שום דבר לא נפתח לבד בגלילה) - js/main.js.
        2. הכפתור למטה הוא ה-fallback האמיתי, עם href חיצוני שעובד בלי JS.
           הוא נעלם רק אחרי ש-Cal מדווח שהיומן עלה (.cal-ready). אל תמחק אותו. -->
   <section class="section section--dark final on-dark" id="book">
