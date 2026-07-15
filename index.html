@@ -12,6 +12,9 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FF6B35' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M12 3 20 21M12 3 4 21M6 17q6-3 12 0'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="/css/fonts.css">
 <link rel="stylesheet" href="/css/style.css">
+<!-- סגנונות הצ'אט של הקמפיינר - הדמו המלא מוטמע בסקשן הפתרונות,
+     אחד-לאחד עם /campaigner (אותו CSS, אותו JS, אותו HTML) -->
+<link rel="stylesheet" href="/css/campaigner.css">
 <script>document.documentElement.className+=" js"</script>
 </head>
 <body>
@@ -315,34 +318,79 @@
           <p class="body">כותבים לו הודעה רגילה בטלגרם והוא עושה את השאר: קופי, קריאייטיב, קהלים, שאלון סינון - והלידים נכנסים ישר ל-CRM. אתה מאשר, הוא מריץ.</p>
           <div class="whom"><b>למי זה:</b> עסקים שרוצים יותר לקוחות מהפרסום הממומן - בלי להסתבך איתו ובלי לשלם ריטיינר יקר בנוסף לתקציב.</div>
           <a class="btn btn-primary" href="/campaigner">
-            להצצה בסוכן
+            לעמוד המלא של הקמפיינר
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
           </a>
         </div>
         <div class="sol-visual">
-          <a class="cgt" href="/campaigner" aria-label="הצצה לעמוד הקמפיינר - סוכן ה-AI לפרסום">
-            <span class="cgt-hd">
-              <span class="cgt-av" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3 20 21M12 3 4 21M6 17q6-3 12 0"/></svg>
+          <!-- הדמו המלא, אחד-לאחד עם /campaigner: אותם IDs, אותו נגן
+               (js/campaigner.js), אותם סגנונות (css/campaigner.css).
+               שינוי שם - חל אוטומטית גם כאן. -->
+          <div class="cg-chat">
+            <div class="cg-hd">
+              <span class="cg-av">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3 20 21M12 3 4 21M6 17q6-3 12 0"/></svg>
               </span>
-              <span class="cgt-who"><b>Campaigner</b><i>ONLINE</i></span>
-              <svg class="cgt-tg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.9 2a10 10 0 1 0 .2 20 10 10 0 0 0-.2-20zm4.6 6.9-1.5 7.3c-.1.5-.4.6-.9.4l-2.4-1.8-1.2 1.1c-.1.1-.2.2-.5.2l.2-2.5 4.5-4.1c.2-.2 0-.3-.3-.1l-5.6 3.5-2.4-.7c-.5-.2-.5-.5.1-.8l9.4-3.6c.4-.2.8.1.6.9z"/></svg>
-            </span>
-            <span class="cgt-body" aria-hidden="true">
-              <span class="cgt-m cgt-out cgt-e1">תיצור לי קמפיין לחנות הפרחים לקראת ט״ו באב?</span>
-              <span class="cgt-typing cgt-e2"><i></i><i></i><i></i></span>
-              <span class="cgt-m cgt-in cgt-e3">על זה. סורק את המודעות המצליחות בתחום ובונה לך מודעה מנצחת.</span>
-              <span class="cgt-ad cgt-e4">
-                <span class="cgt-ad-shot"><span class="cgt-ad-badge">ממומן</span></span>
-                <span class="cgt-ad-txt">ט״ו באב מתקרב - זר מעוצב עד הדלת 🌹</span>
+              <span class="cg-who"><b>Campaigner</b><i>ONLINE</i></span>
+              <span class="cg-tg" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.9 2a10 10 0 1 0 .2 20 10 10 0 0 0-.2-20zm4.6 6.9-1.5 7.3c-.1.5-.4.6-.9.4l-2.4-1.8-1.2 1.1c-.1.1-.2.2-.5.2l.2-2.5 4.5-4.1c.2-.2 0-.3-.3-.1l-5.6 3.5-2.4-.7c-.5-.2-.5-.5.1-.8l9.4-3.6c.4-.2.8.1.6.9z"/></svg>
               </span>
-              <span class="cgt-live cgt-e5">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                המודעה שלך באוויר
+            </div>
+
+            <div class="cg-body" id="chatBody">
+              <div class="cg-m sys" data-t="500">TODAY</div>
+              <div class="cg-m out" data-t="800">היי, אני רוצה שתיצור לי קמפיין חדש לחנות פרחים חמודה בהוד השרון לכבוד ט״ו באב.<span class="cg-meta">09:41 <svg viewBox="0 0 19 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m1.5 6.5 3.5 4L11.5 2"/><path d="m8 6.5 3.5 4L18 2"/></svg></span></div>
+              <div class="cg-typing" data-t="1000" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="cg-m in" data-t="2000">אני על זה. תני לי לסרוק את המודעות שהכי מצליחות בתחום שלך, וליצור לך מודעה מנצחת.<span class="cg-meta">09:41</span></div>
+              <div class="cg-typing" data-t="1000" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="cg-m in" data-t="1500">מצאתי מה עובד. הנה המודעה שהכנתי לט״ו באב:<span class="cg-meta">09:42</span></div>
+              <div class="cg-ad" data-t="2600">
+                <div class="cg-ad-shot">
+                  <img class="cg-ad-img" src="/img/campaigner/ad-tuvav.webp" alt="מודעת פרחים לט״ו באב — פרחי הוד, הוד השרון" onerror="this.remove()">
+                  <span class="cg-ad-badge">ממומן</span>
+                </div>
+                <div class="cg-ad-txt">
+                  <p class="cg-ad-primary">ט״ו באב מתקרב, והיא תזכור מי חשב עליה. עוד לא קנית לה פרחים? זר מעוצב מפרחי הוד, הוד השרון — מוכן היום ונמסר עד הדלת. אל תהיה זה שהגיע בידיים ריקות לחברה שלו.</p>
+                  <div class="cg-ad-foot">
+                    <div class="cg-ad-brand"><b>פרחי הוד</b><span>הזמנה עד הבית · הוד השרון</span></div>
+                    <span class="cg-ad-btn">הזמנה עכשיו</span>
+                  </div>
+                </div>
+              </div>
+              <div class="cg-m out" data-t="700">וואי נראה מעולה!<span class="cg-meta">09:42 <svg viewBox="0 0 19 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m1.5 6.5 3.5 4L11.5 2"/><path d="m8 6.5 3.5 4L18 2"/></svg></span></div>
+              <div class="cg-typing" data-t="900" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="cg-m in" data-t="1500">מדהים! מה התקציב היומי שתרצי לשים למודעה?<span class="cg-meta">09:42</span></div>
+              <div class="cg-m out" data-t="600">70₪<span class="cg-meta">09:43 <svg viewBox="0 0 19 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m1.5 6.5 3.5 4L11.5 2"/><path d="m8 6.5 3.5 4L18 2"/></svg></span></div>
+              <div class="cg-typing" data-t="800" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="cg-m in" data-t="1500">אין בעיה, 70₪ ליום, מעלה מיד את המודעה שלך.<span class="cg-meta">09:43</span></div>
+              <div class="cg-typing" data-t="900" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="cg-m in" data-t="1200">המודעה שלך באוויר! נתעדכן שוב בימים הקרובים?<span class="cg-meta">09:44</span></div>
+            </div>
+
+            <div class="cg-scrollhint" id="chatHint" aria-hidden="true">
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+                גללו לקרוא את כל השיחה
               </span>
-            </span>
-            <span class="cgt-cue">לחצו לדמו המלא<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></span>
-          </a>
+            </div>
+
+            <div class="cg-composer" id="chatComposer" aria-hidden="true">
+              <span class="cg-input" id="chatInput">
+                <span class="cg-ph">הודעה</span>
+                <span class="cg-txt" id="chatInputTxt"></span><i class="cg-caret2" id="chatCaret"></i>
+              </span>
+              <span class="cg-send" id="chatSend">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.3 20.6 22.5 12 2.3 3.4l-.01 6.7L16 12 2.3 13.9z"/></svg>
+              </span>
+            </div>
+
+            <div class="cg-ft">
+              <button class="cg-replay" id="chatReplay" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+                הפעל שוב
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -833,5 +881,7 @@
 
 </div>
 <script src="/js/main.js" defer></script>
+<!-- נגן הדמו של הקמפיינר - אותו קובץ בדיוק כמו ב-/campaigner -->
+<script src="/js/campaigner.js" defer></script>
 </body>
 </html>
