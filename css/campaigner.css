@@ -12,6 +12,15 @@
 .cg-hero .display{font-size:clamp(2.2rem,4.4vw,3.6rem)}
 .cg-tagline{color:var(--signal-ink);font-size:1.18rem;margin-block-start:14px}
 
+/* המילה המתחלפת בכותרת - הקלדה ומחיקה (js/campaigner.js מזין את הטקסט).
+   בלי JS נשארת המילה הסטטית שב-HTML; הסמן מופיע רק כש-JS פעיל. */
+.cg-rotate{display:inline-block}
+.cg-rotate__word{white-space:nowrap}
+.cg-rotate__caret{display:inline-block;width:2px;height:.9em;margin-inline-start:.08em;vertical-align:-.08em;background:currentColor;opacity:0}
+.js .cg-rotate__caret{opacity:1;animation:cg-caret 1.05s step-end infinite}
+@keyframes cg-caret{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.js .cg-rotate__caret{animation:none;opacity:0}}
+
 /* שורת המעבר מהכאב לפתרון - הצהרה בולטת אחת שמסמנת את הפניית הכיוון.
    גופן הכותרות (Trashim) נירש מברירת המחדל; כאן רק גודל, מרכוז וצבע. */
 .pain-turn{margin-block-start:clamp(40px,5.5vw,64px);text-align:center;font-size:clamp(1.7rem,3.3vw,2.6rem);line-height:1.2;letter-spacing:-.01em;color:var(--signal);text-wrap:balance}

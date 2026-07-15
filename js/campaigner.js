@@ -70,3 +70,53 @@
     });
   }
 })();
+
+/* כותרת ה-hero: מילה מתחלפת עם אנימציית הקלדה ומחיקה.
+   השורה הראשונה קבועה; המילה שמתחתיה מוקלדת אות-אות, נעצרת, נמחקת -
+   והמילה הבאה נכנסת. שיפור בלבד: בלי JS או עם reduced-motion נשארת המילה
+   הסטטית שב-HTML (ראה css/campaigner.css). */
+(function () {
+  'use strict';
+
+  var el = document.getElementById('cgRotateWord');
+  if (!el) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var words = ['לידים', 'מכירות', 'המרות'];
+  var typeSpeed = 95;   // הקלדת אות
+  var eraseSpeed = 55;  // מחיקת אות
+  var holdFull = 1600;  // השהיה כשהמילה שלמה
+  var holdEmpty = 320;  // השהיה לפני המילה הבאה
+  var startDelay = 900; // מתחיל אחרי אנימציית הכניסה של ה-hero
+
+  var wi = 0;        // אינדקס המילה הנוכחית
+  var ci = 0;        // כמה אותיות מוצגות
+  var erasing = false;
+
+  el.textContent = '';
+
+  var tick = function () {
+    var word = words[wi];
+
+    if (!erasing) {
+      el.textContent = word.slice(0, ++ci);
+      if (ci === word.length) {
+        erasing = true;
+        setTimeout(tick, holdFull);
+        return;
+      }
+      setTimeout(tick, typeSpeed);
+    } else {
+      el.textContent = word.slice(0, --ci);
+      if (ci === 0) {
+        erasing = false;
+        wi = (wi + 1) % words.length;
+        setTimeout(tick, holdEmpty);
+        return;
+      }
+      setTimeout(tick, eraseSpeed);
+    }
+  };
+
+  setTimeout(tick, startDelay);
+})();
