@@ -42,14 +42,21 @@
 .cg-m.in{align-self:flex-end;background:var(--signal);color:#fff;border-end-end-radius:5px}
 .cg-m.sys{align-self:center;max-width:100%;background:none;color:var(--console-dim);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;direction:ltr;padding:2px}
 
-/* הכרטיס שהסוכן שולח. לא תמונה מזויפת של מודעה - נתונים מובנים,
-   כמו שסוכן אמיתי היה שולח. */
-.cg-card{align-self:flex-end;max-width:88%;background:var(--console-2);border:1px solid var(--console-line);border-radius:16px;border-end-end-radius:5px;padding:14px 16px;width:100%}
-.cg-card h4{color:var(--console-fg);font-family:'Assistant',sans-serif;font-weight:700;font-size:.9rem;margin-block-end:11px;display:flex;align-items:center;gap:7px}
-.cg-card h4::before{content:'';width:6px;height:6px;border-radius:99px;background:var(--live);flex:none}
-.cg-card dl{display:grid;grid-template-columns:auto 1fr;gap:7px 14px;margin:0}
-.cg-card dt{color:var(--console-dim);font-size:.85rem}
-.cg-card dd{color:var(--console-fg);font-size:.85rem;margin:0}
+/* כרטיס המודעה שהסוכן שולח - תצוגה מקדימה של קריאטיב, כמו מודעת מטא:
+   תמונה למעלה, קופי וכפתור מתחת. התמונה מסופקת ידנית ומופלת אל
+   img/campaigner/ad-tuvav.jpg. עד שהיא נכנסת (או אם חסרה) - רקע הגרדיאנט
+   של .cg-ad-shot מוצג, ו-onerror מסיר img שבור כדי שלא יופיע אייקון שבור. */
+.cg-ad{align-self:flex-end;max-width:90%;width:100%;background:var(--console-2);border:1px solid var(--console-line);border-radius:16px;border-end-end-radius:5px;overflow:hidden}
+.cg-ad-shot{position:relative;aspect-ratio:1/1;background:linear-gradient(150deg,#F7D9C6,#E7A7B0 55%,#C98BA8)}
+.cg-ad-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.cg-ad-badge{position:absolute;inset-block-start:11px;inset-inline-end:11px;background:rgba(20,17,24,.5);color:#fff;font-family:'Assistant',sans-serif;font-weight:600;font-size:.62rem;padding:3px 9px;border-radius:99px;backdrop-filter:blur(3px)}
+.cg-ad-txt{padding:13px 15px 15px}
+.cg-ad-primary{font-family:'Assistant',sans-serif;font-weight:500;font-size:.9rem;line-height:1.5;color:var(--console-fg)}
+.cg-ad-foot{margin-block-start:13px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cg-ad-brand{display:flex;flex-direction:column;line-height:1.28;min-width:0}
+.cg-ad-brand b{font-family:'Assistant',sans-serif;font-weight:700;font-size:.82rem;color:var(--console-fg)}
+.cg-ad-brand span{font-size:.72rem;color:var(--console-dim)}
+.cg-ad-btn{flex:none;background:var(--signal);color:#fff;font-family:'Assistant',sans-serif;font-weight:600;font-size:.78rem;padding:8px 15px;border-radius:8px}
 
 /* מחוון ההקלדה */
 .cg-typing{align-self:flex-end;background:var(--console-2);border-radius:16px;border-end-end-radius:5px;padding:14px 16px;display:flex;gap:4px}
