@@ -49,9 +49,8 @@
     var tick = function () {
       j++;
       inputTxt.textContent = text.slice(0, j);
-      /* שומרים את הסמן בקצה גם כשהטקסט ארוך מהשורה (RTL: שמאלה = שלילי) */
-      inputBox.scrollLeft = inputBox.scrollWidth;
-      inputBox.scrollLeft = -inputBox.scrollWidth;
+      /* אין גלילה אופקית: התיבה עוטפת לשורה חדשה (ראה .cg-input ב-CSS),
+         כך שהטקסט נשאר בתוכה במקום להימשך שמאלה. */
       if (j >= text.length) { timers.push(setTimeout(done, 240)); return; }
       timers.push(setTimeout(tick, 30 + Math.random() * 42));
     };

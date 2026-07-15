@@ -90,8 +90,12 @@
 /* ---------- שורת ההקלדה (Composer) בסגנון טלגרם ----------
    ההודעות של בעלת העסק "מוקלדות" כאן אות-אות לפני שהן נשלחות לשיחה -
    הדגמה חיה של המוצר: כותבים הודעה רגילה, הסוכן עושה את השאר. */
-.cg-composer{display:flex;align-items:center;gap:9px;padding:9px 12px;background:#17212b;border-block-start:1px solid #0e1621}
-.cg-input{flex:1;position:relative;min-width:0;min-height:38px;line-height:22px;background:#242f3d;border-radius:19px;padding:8px 15px;font-family:'Assistant',sans-serif;font-size:.94rem;color:#eef3f8;overflow:hidden;white-space:nowrap}
+/* align-items:flex-end — כשהתיבה גדלה לשתי שורות, כפתור השליחה נשאר
+   מיושר לתחתית (כמו טלגרם/וואטסאפ), לא באמצע. */
+.cg-composer{display:flex;align-items:flex-end;gap:9px;padding:9px 12px;background:#17212b;border-block-start:1px solid #0e1621}
+/* הטקסט עוטף לשורה חדשה ונשאר בתוך התיבה - התיבה גדלה לגובה במקום
+   שהתוכן ייגלל אופקית וימשוך את התצוגה. word-break שובר גם מילה ארוכה. */
+.cg-input{flex:1;position:relative;min-width:0;min-height:38px;line-height:22px;background:#242f3d;border-radius:19px;padding:8px 15px;font-family:'Assistant',sans-serif;font-size:.94rem;color:#eef3f8;white-space:normal;overflow-wrap:break-word;word-break:break-word}
 .cg-ph{position:absolute;inset-inline-start:15px;inset-block-start:8px;color:#6b8299;transition:opacity .2s}
 .cg-composer.typing .cg-ph{opacity:0}
 .cg-txt{display:inline}
