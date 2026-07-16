@@ -23,7 +23,7 @@
 
 /* שורת המעבר מהכאב לפתרון - הצהרה בולטת אחת שמסמנת את הפניית הכיוון.
    גופן הכותרות (Trashim) נירש מברירת המחדל; כאן רק גודל, מרכוז וצבע. */
-.pain-turn{margin-block-start:clamp(40px,5.5vw,64px);text-align:center;font-size:clamp(1.7rem,3.3vw,2.6rem);line-height:1.2;letter-spacing:-.01em;color:var(--signal);text-wrap:balance}
+.pain-turn{margin-block-start:clamp(40px,5.5vw,64px);text-align:center;font-size:clamp(1.7rem,3.3vw,2.6rem);line-height:1.2;letter-spacing:-.01em;color:var(--signal-text);text-wrap:balance}
 
 /* ---------- הצ׳אט ----------
    גובה קבוע + גלילה פנימית: ההודעות נערמות בלי להזיז את העמוד מתחת לאצבע. */
@@ -82,7 +82,7 @@
 
 /* מחוון ההקלדה */
 .cg-typing{align-self:flex-start;background:#182533;border-radius:15px;border-end-start-radius:4px;padding:14px 16px;display:flex;gap:4px}
-.cg-typing i{width:6px;height:6px;border-radius:99px;background:#52708C;animation:cg-blink 1.3s ease-in-out infinite}
+.cg-typing i{width:6px;height:6px;border-radius:99px;background:#93ABC4;animation:cg-blink 1.3s ease-in-out infinite}
 .cg-typing i:nth-child(2){animation-delay:.18s}
 .cg-typing i:nth-child(3){animation-delay:.36s}
 @keyframes cg-blink{0%,60%,100%{opacity:.28;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
@@ -96,7 +96,7 @@
 /* הטקסט עוטף לשורה חדשה ונשאר בתוך התיבה - התיבה גדלה לגובה במקום
    שהתוכן ייגלל אופקית וימשוך את התצוגה. word-break שובר גם מילה ארוכה. */
 .cg-input{flex:1;position:relative;min-width:0;min-height:38px;line-height:22px;background:#242f3d;border-radius:19px;padding:8px 15px;font-family:'Assistant',sans-serif;font-size:.94rem;color:#eef3f8;white-space:normal;overflow-wrap:break-word;word-break:break-word}
-.cg-ph{position:absolute;inset-inline-start:15px;inset-block-start:8px;color:#52708C;  /* was #6b8299 — placeholder failed AA on white */transition:opacity .2s}
+.cg-ph{position:absolute;inset-inline-start:15px;inset-block-start:8px;color:#93ABC4;  /* light on the dark Telegram input (#242f3d) — ~5.7:1 */transition:opacity .2s}
 .cg-composer.typing .cg-ph{opacity:0}
 .cg-txt{display:inline}
 .cg-caret2{display:inline-block;width:1.5px;height:1.05em;vertical-align:-.12em;background:#6ab3f3;margin-inline-start:1px;opacity:0}
