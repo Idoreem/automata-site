@@ -784,7 +784,7 @@ html:not(.js) .step-link .chev{color:var(--signal)}
 .fcols{display:flex;gap:56px;flex-wrap:wrap}
 .fcol h3{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;color:var(--console-fg);text-transform:uppercase;margin-block-end:12px;direction:ltr}
 .fcol a{display:block;padding-block:5px;font-size:.97rem}
-.footer-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block-start:22px;font-size:.87rem;color:#6E6579}
+.footer-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block-start:22px;font-size:.87rem;color:#948CA2}  /* was #6E6579 — 3.4:1 on the dark console; now ~5.7:1 */
 
 /* ---------- reveal ----------
    ברירת המחדל היא נראוּת. רק כש-JS חי אנחנו מסתירים כדי לחשוף.
