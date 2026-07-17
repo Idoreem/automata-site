@@ -375,9 +375,42 @@
     return data[key] || '-';
   };
 
+  /* שולח את הליד ל-CRM דרך /api/lead (route בצד שרת שמזריק את הטוקן הסודי,
+     כך שהוא לא נחשף בדפדפן). fire-and-forget: לא חוסם ולא משבש את המעבר
+     ליומן, וכשל בשליחה לא שובר את חוויית המשתמש. */
+  function sendLead() {
+    if (!data.phone) return;   // בלי טלפון לא שולחים
+
+    var answers = [];
+    if (data.active) answers.push({ question: 'יש קמפיין פעיל?', answer: data.active === 'כן' });
+    if (branch === 'yes') answers.push({ question: 'מי מנהל את הקמפיין?', answer: answer('who') });
+    if (branch === 'no') answers.push({ question: 'למה אין קמפיין פעיל?', answer: answer('why') });
+    if (data.reason) answers.push({ question: 'למה AI?', answer: data.reason });
+
+    var ref = 'campaigner';
+    try { ref = new URLSearchParams(location.search).get('ref') || 'campaigner'; } catch (e) {}
+
+    try {
+      fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: JSON.stringify({
+          firstName: data.firstName || '',
+          phone: data.phone,
+          source: 'אתר קמפיינר',
+          ref: ref,
+          answers: answers
+        })
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
   function finish() {
     if (done) return;
     done = true;
+
+    sendLead();
 
     var name = data.firstName || '';
     var lines = [
