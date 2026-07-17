@@ -223,6 +223,9 @@
 .cg-says{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-block-start:34px}
 .cg-say{background:var(--console);color:var(--console-fg);border-radius:16px;border-end-start-radius:5px;padding:12px 17px;font-size:.98rem;box-shadow:var(--shadow-dark)}
 
+/* CTA ממורכז בתחתית סקשן — פותח את השאלון (data-lead) כמו שאר הכפתורים */
+.cg-cta{display:flex;justify-content:center;margin-block-start:clamp(30px,4.5vw,46px)}
+
 /* ---------- שאלון הלידים (סקשן היומן) ----------
    כרטיס בהיר במרכז הסקשן הכהה: שאלה אחת בכל פעם, פס התקדמות למעלה.
    כל השאלון הוא שיפור JS. בלי JS הוא מוסתר (.lead) והיומן (.cal) מוצג
