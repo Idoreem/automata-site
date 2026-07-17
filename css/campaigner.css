@@ -229,11 +229,13 @@
 /* ---------- למי זה מתאים ----------
    שבע נקודות זיהוי בשתי עמודות (עמודה אחת במובייל), כל אחת עם וי כתום. */
 .fit-list{max-width:940px;margin:clamp(28px,4vw,44px) auto 0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fit-item{display:flex;align-items:flex-start;gap:13px;background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg);padding:18px 20px;transition:border-color .25s,transform .25s,box-shadow .25s}
-.fit-item:hover{border-color:var(--rule-strong);transform:translateY(-2px);box-shadow:var(--shadow)}
-.fit-mark{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--signal-wash);color:var(--signal);margin-block-start:2px}
-.fit-mark svg{width:15px;height:15px}
-.fit-item p{color:var(--ink-soft);line-height:1.6;font-size:1rem}
+.fit-item{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg);padding:18px 20px;transition:border-color .25s,transform .25s,box-shadow .25s}
+.fit-item:hover{border-color:var(--signal);transform:translateY(-3px);box-shadow:var(--shadow)}
+/* אריח אייקון ייחודי לכל שורה - נצבע כתום מלא במעבר עכבר */
+.fit-ic{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--signal-wash);color:var(--signal);transition:background .25s ease,color .25s ease,transform .25s ease}
+.fit-ic svg{width:25px;height:25px}
+.fit-item:hover .fit-ic{background:var(--signal);color:#fff;transform:scale(1.05)}
+.fit-item p{color:var(--ink-soft);line-height:1.55;font-size:1.01rem}
 .fit-turn{margin-block-start:clamp(30px,4vw,44px);text-align:center;font-size:clamp(1.4rem,2.6vw,2.1rem);line-height:1.3;color:var(--ink);letter-spacing:-.01em;text-wrap:balance}
 @media (max-width:720px){.fit-list{grid-template-columns:1fr}}
 
