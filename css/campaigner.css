@@ -228,19 +228,27 @@
 
 /* ---------- למי זה מתאים ----------
    שבע נקודות זיהוי בשתי עמודות (עמודה אחת במובייל), כל אחת עם וי כתום. */
-/* עמודה אחת, ממורכזת: כרטיס אחד ושורות מופרדות בקו דק - במקום שבעה
-   כרטיסים בשתי עמודות שמעמיסים על העין ומשאירים כרטיס יתום. האייקונים
-   מיושרים בטור אחד בקצה ההתחלה (ימין ב-RTL), והעין גולשת מלמעלה למטה. */
-.fit-list{max-width:680px;margin:clamp(28px,4vw,44px) auto 0;padding:0;list-style:none;background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
-.fit-item{display:flex;align-items:center;gap:16px;padding:clamp(15px,2vw,19px) clamp(18px,2.4vw,24px);transition:background .2s ease}
+/* רשימה אווררית בעמודה אחת: לכל שורה וו קצר ומודגש (סריקה מהירה) מעל
+   המשפט המלא בגוון מרוכך - כך שטקסט "עמוס" נקרא בלי להעמיס. אייקון ייחודי
+   כעוגן, קווי הפרדה דקים, והרבה אוויר. השורות נחשפות בהדרגה בגלילה
+   (js/campaigner.js מוסיף .in במדרגות) - לא הכל בבת אחת. */
+.fit-list{max-width:720px;margin:clamp(32px,4.5vw,52px) auto 0;padding:0;list-style:none}
+.fit-item{display:flex;align-items:flex-start;gap:18px;padding:clamp(18px,2.6vw,26px) clamp(6px,1.6vw,16px);border-radius:16px}
 .fit-item + .fit-item{border-block-start:1px solid var(--rule)}
-.fit-item:hover{background:var(--signal-wash)}
 /* אריח אייקון ייחודי לכל שורה - נצבע כתום מלא במעבר עכבר */
-.fit-ic{flex:none;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:var(--signal-wash);color:var(--signal);transition:background .2s ease,color .2s ease}
-.fit-ic svg{width:24px;height:24px}
-.fit-item:hover .fit-ic{background:var(--signal);color:#fff}
-.fit-item p{color:var(--ink-soft);line-height:1.55;font-size:1.02rem}
-.fit-turn{margin-block-start:clamp(30px,4vw,44px);text-align:center;font-size:clamp(1.4rem,2.6vw,2.1rem);line-height:1.3;color:var(--ink);letter-spacing:-.01em;text-wrap:balance}
+.fit-ic{flex:none;width:50px;height:50px;border-radius:14px;display:grid;place-items:center;background:var(--signal-wash);color:var(--signal);transition:background .25s ease,color .25s ease,transform .25s ease}
+.fit-ic svg{width:26px;height:26px}
+.fit-item:hover .fit-ic{background:var(--signal);color:#fff;transform:scale(1.06)}
+.fit-tx{min-width:0;padding-block-start:3px}
+.fit-hook{display:block;font-family:'Assistant',sans-serif;font-weight:700;font-size:clamp(1.08rem,1.6vw,1.24rem);color:var(--ink);line-height:1.28;letter-spacing:-.01em;transition:color .25s ease}
+.fit-item:hover .fit-hook{color:var(--signal-ink)}
+.fit-desc{display:block;margin-block-start:6px;color:var(--ink-mute);font-size:.97rem;line-height:1.62}
+.fit-turn{margin-block-start:clamp(34px,4.5vw,52px);text-align:center;font-size:clamp(1.4rem,2.6vw,2.1rem);line-height:1.3;color:var(--ink);letter-spacing:-.01em;text-wrap:balance}
+
+/* חשיפה מדורגת בגלילה - מופעל רק עם JS; בלי JS הכל גלוי (fallback). */
+.js .fit-item{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.js .fit-item.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .fit-item{opacity:1;transform:none;transition:none}}
 
 /* ---------- שאלון הלידים (סקשן היומן) ----------
    כרטיס בהיר במרכז הסקשן הכהה: שאלה אחת בכל פעם, פס התקדמות למעלה.
