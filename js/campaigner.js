@@ -432,3 +432,34 @@
 
   show(0, false);
 })();
+
+/* ============ חשיפה מדורגת: רשימת "למי מתאים" ============
+   כל שורה נכנסת כשהיא מגיעה לפריים, ושורות שמופיעות יחד נכנסות במדרגות
+   (מלמעלה למטה) - כדי שזה לא ייפול הכל בבת אחת. בלי JS / reduced-motion
+   הכל פשוט גלוי (ראה css/campaigner.css). */
+(function () {
+  'use strict';
+
+  var items = Array.prototype.slice.call(document.querySelectorAll('.fit-item'));
+  if (!items.length) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function (el) { el.classList.add('in'); });
+    return;
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    /* שורות שנחשפות באותו רגע - ממיינים לפי מיקום אנכי ומדרגים ביניהן.
+       שורה שנכנסת לבדה (בגלילה) נחשפת מיד, בלי השהיה. */
+    var vis = entries.filter(function (e) { return e.isIntersecting; })
+                     .sort(function (a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
+    vis.forEach(function (e, i) {
+      var el = e.target;
+      io.unobserve(el);
+      setTimeout(function () { el.classList.add('in'); }, i * 95);
+    });
+  }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+
+  items.forEach(function (el) { io.observe(el); });
+})();
