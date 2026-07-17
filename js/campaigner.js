@@ -190,3 +190,245 @@
 
   setTimeout(tick, startDelay);
 })();
+
+/* ============ שאלון הלידים ============
+   נפתח מכל כפתור "קביעת שיחה" (data-lead), שואל שאלה אחרי שאלה, ורק בסיומו
+   חושף את היומן. השם וסיכום התשובות מועברים ל-js/main.js כ-prefill ונכנסים
+   להזמנה ב-Cal. כולו שיפור JS: בלי JS השאלון מוסתר והיומן מוצג ישירות
+   (ראה css/campaigner.css), כך שתמיד אפשר לקבוע שיחה. */
+(function () {
+  'use strict';
+
+  var form = document.getElementById('leadForm');
+  if (!form) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var section = document.getElementById('book');
+
+  var backBtn = document.getElementById('lfBack');
+  var nextBtn = document.getElementById('lfNext');
+  var progFill = document.getElementById('lfProgFill');
+  var counter = document.getElementById('lfCount');
+  var greet = document.getElementById('lfGreet');
+  var nameInput = document.getElementById('lfName');
+  var reasonInput = document.getElementById('lfReason');
+  var phoneInput = document.getElementById('lfPhone');
+  var phoneErr = document.getElementById('lfPhoneErr');
+  var thanks = document.getElementById('leadThanks');
+
+  /* 'pick' נפתר ל-'who' (ענף "כן") או 'why' (ענף "לא"). התהליך תמיד 5 שלבים. */
+  var FLOW = ['name', 'active', 'pick', 'reason', 'phone'];
+  var pos = 0;
+  var branch = null;   // 'yes' | 'no'
+  var done = false;
+  var data = {};       // firstName, active, who/whoOther, why/whyOther, reason, phone
+
+  var digits = function (s) { return (s || '').replace(/\D/g, ''); };
+  var stepKey = function (p) {
+    var k = FLOW[p];
+    return k === 'pick' ? (branch === 'no' ? 'why' : 'who') : k;
+  };
+  var stepEl = function (key) { return form.querySelector('.lf-step[data-step="' + key + '"]'); };
+
+  /* ----- ולידציה לכל שלב ----- */
+  var valid = function (key) {
+    if (key === 'name') return nameInput.value.trim().length > 0;
+    if (key === 'active') return !!data.active;
+    if (key === 'who' || key === 'why') {
+      var v = data[key];
+      if (!v) return false;
+      return v === 'אחר' ? (data[key + 'Other'] || '').trim().length > 0 : true;
+    }
+    if (key === 'reason') return reasonInput.value.trim().length > 0;
+    if (key === 'phone') { var d = digits(phoneInput.value); return d.length >= 9 && d.length <= 10; }
+    return true;
+  };
+
+  var refreshNext = function () { nextBtn.disabled = !valid(stepKey(pos)); };
+
+  var focusStep = function (key) {
+    var el = stepEl(key);
+    if (!el) return;
+    var target = el.querySelector('.lf-input:not([hidden])') || el.querySelector('.lf-opt');
+    if (!target) return;
+    try { target.focus({ preventScroll: true }); } catch (e) { target.focus(); }
+  };
+
+  var show = function (p, focus) {
+    pos = Math.max(0, Math.min(p, FLOW.length - 1));
+    var key = stepKey(pos);
+    Array.prototype.forEach.call(form.querySelectorAll('.lf-step'), function (s) {
+      s.classList.toggle('on', s.getAttribute('data-step') === key);
+    });
+    progFill.style.width = ((pos + 1) / FLOW.length * 100) + '%';
+    counter.textContent = (pos + 1) + ' / ' + FLOW.length;
+    backBtn.hidden = pos === 0;
+    nextBtn.textContent = key === 'phone' ? 'קביעת פגישה' : 'המשך';
+    if (data.firstName && pos > 0) {
+      greet.textContent = 'נעים להכיר, ' + data.firstName + ' 👋';
+      greet.hidden = false;
+    } else {
+      greet.hidden = true;
+    }
+    refreshNext();
+    if (focus) setTimeout(function () { focusStep(key); }, 50);
+  };
+
+  /* מנקה את שלב "מי מריץ / למה לא" כשמחליפים בין כן/לא */
+  var clearPick = function () {
+    ['who', 'why'].forEach(function (k) {
+      delete data[k];
+      delete data[k + 'Other'];
+      var el = stepEl(k);
+      if (!el) return;
+      Array.prototype.forEach.call(el.querySelectorAll('.lf-opt'), function (o) { o.classList.remove('sel'); });
+      var of = el.querySelector('.lf-otherfield');
+      if (of) { of.hidden = true; of.value = ''; }
+    });
+  };
+
+  var goNext = function () {
+    var key = stepKey(pos);
+    if (!valid(key)) {
+      if (key === 'phone') { phoneErr.hidden = false; phoneInput.focus(); }
+      return;
+    }
+    if (key === 'name') data.firstName = nameInput.value.trim();
+    if (key === 'reason') data.reason = reasonInput.value.trim();
+    if (key === 'phone') { data.phone = digits(phoneInput.value); finish(); return; }
+    show(pos + 1, true);
+  };
+
+  var goBack = function () {
+    if (pos === 0) return;
+    phoneErr.hidden = true;
+    show(pos - 1, true);
+  };
+
+  /* בחירה מרשימת אפשרויות: בחירה רגילה מקדמת אוטומטית; "אחר" פותח שדה טקסט */
+  Array.prototype.forEach.call(form.querySelectorAll('.lf-opts'), function (group) {
+    var stepDiv = group.closest('.lf-step');
+    var key = stepDiv.getAttribute('data-step');
+    var other = stepDiv.querySelector('.lf-otherfield');
+
+    group.addEventListener('click', function (e) {
+      var opt = e.target.closest('.lf-opt');
+      if (!opt) return;
+      Array.prototype.forEach.call(group.querySelectorAll('.lf-opt'), function (o) {
+        o.classList.toggle('sel', o === opt);
+      });
+      var val = opt.getAttribute('data-value');
+      var isOther = opt.hasAttribute('data-other');
+
+      if (key === 'active') {
+        var nb = opt.getAttribute('data-branch');
+        if (nb !== branch) { branch = nb; clearPick(); }
+        data.active = val;
+      } else {
+        data[key] = val;
+      }
+
+      if (other) {
+        if (isOther) {
+          other.hidden = false;
+          data[key + 'Other'] = other.value.trim();
+          refreshNext();
+          setTimeout(function () { other.focus(); }, 40);
+          return;   // מחכים לטקסט + "המשך", בלי קידום אוטומטי
+        }
+        other.hidden = true;
+        other.value = '';
+        delete data[key + 'Other'];
+      }
+
+      refreshNext();
+      if (reduce) show(pos + 1, true);
+      else setTimeout(function () { show(pos + 1, true); }, 220);
+    });
+  });
+
+  /* שדות ה"אחר" */
+  Array.prototype.forEach.call(form.querySelectorAll('.lf-otherfield'), function (of) {
+    var key = of.closest('.lf-step').getAttribute('data-step');
+    of.addEventListener('input', function () { data[key + 'Other'] = of.value.trim(); refreshNext(); });
+    of.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); goNext(); } });
+  });
+
+  /* שדות טקסט */
+  nameInput.addEventListener('input', refreshNext);
+  nameInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); goNext(); } });
+  reasonInput.addEventListener('input', refreshNext);
+  phoneInput.addEventListener('input', function () {
+    var d = digits(phoneInput.value);
+    if (phoneInput.value !== d) phoneInput.value = d;   // ספרות בלבד
+    phoneErr.hidden = true;
+    refreshNext();
+  });
+  phoneInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); goNext(); } });
+
+  nextBtn.addEventListener('click', goNext);
+  backBtn.addEventListener('click', goBack);
+
+  /* סיום: בונים סיכום, חושפים את היומן וגוללים אליו */
+  var answer = function (key) {
+    if (data[key] === 'אחר') return (data[key + 'Other'] || 'אחר').trim();
+    return data[key] || '-';
+  };
+
+  function finish() {
+    if (done) return;
+    done = true;
+
+    var name = data.firstName || '';
+    var lines = [
+      'שם: ' + name,
+      'קמפיין ממומן פעיל היום: ' + (data.active || '-')
+    ];
+    if (branch === 'yes') lines.push('מי מריץ את הקמפיין: ' + answer('who'));
+    if (branch === 'no') lines.push('למה אין קמפיין פעיל: ' + answer('why'));
+    lines.push('למה רוצה סוכן AI: ' + (data.reason || '-'));
+    lines.push('טלפון: ' + (data.phone || '-'));
+
+    if (section) section.classList.add('lead-done');
+
+    if (thanks) {
+      /* בונים עם DOM (ולא innerHTML) כדי שהשם — קלט משתמש — לא יורץ כ-HTML */
+      thanks.textContent = '';
+      thanks.appendChild(document.createTextNode(name ? 'תודה, ' : 'תודה! '));
+      if (name) {
+        var b = document.createElement('b');
+        b.textContent = name;
+        thanks.appendChild(b);
+        thanks.appendChild(document.createTextNode('! '));
+      }
+      thanks.appendChild(document.createTextNode('נשאר רק לבחור מועד שנוח לך.'));
+      thanks.hidden = false;
+      thanks.classList.add('in');
+    }
+
+    var calBox = document.querySelector('.cal');
+    if (calBox) calBox.classList.add('cal-loading');   // מעמעם את כפתור ה-fallback בזמן שהיומן נטען
+    if (window.loadCalInline) window.loadCalInline({ name: name, notes: lines.join('\n') });
+
+    var target = calBox || section;
+    if (target) {
+      requestAnimationFrame(function () {
+        target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      });
+    }
+  }
+
+  /* כפתורי "קביעת שיחה" (data-lead) גוללים לשאלון ופותחים אותו.
+     טאב חדש רק אם המשתמש ביקש במפורש (Cmd/Ctrl/גלגלת) — אז ה-href הרגיל
+     (היומן החיצוני) עדיין עובד כ-fallback. */
+  document.querySelectorAll('[data-lead]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      if (section) section.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      if (!done) setTimeout(function () { focusStep(stepKey(pos)); }, reduce ? 0 : 480);
+    });
+  });
+
+  show(0, false);
+})();

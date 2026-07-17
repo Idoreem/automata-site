@@ -148,7 +148,12 @@
   if (calBox && book) {
     var calLoaded = false;
 
-    var loadCal = function () {
+    /* היומן יכול להיות גדור מאחורי שאלון (data-cal-gated): אז הוא לא נטען
+       בגלילה אלא רק כשהשאלון נשלח — js/campaigner.js קורא ל-loadCal עם
+       prefill (שם + סיכום התשובות שנכנסים להזמנה). */
+    var gated = calBox.hasAttribute('data-cal-gated');
+
+    var loadCal = function (prefill) {
       if (calLoaded) return;
       calLoaded = true;
 
@@ -175,7 +180,8 @@
       Cal.ns.book('inline', {
         elementOrSelector: '#calInline',
         calLink: 'ido-reem/שיחת-אפיון-לעסק-שלך',
-        config: { layout: 'month_view' }
+        /* prefill (שם, notes) מוזרק מהשאלון ונכנס להזמנה יחד עם ה-layout */
+        config: Object.assign({ layout: 'month_view' }, prefill || {})
       });
       /* היומן יושב על משטח הקונסולה, אז הוא לובש את אותם צבעים */
       Cal.ns.book('ui', {
@@ -191,31 +197,36 @@
       });
     };
 
-    /* היומן נטען אך ורק אחרי לחיצה מפורשת של הגולש (בקשת עידו) -
-       שום דבר לא נפתח לבד בגלילה. שני מסלולי הקליק:
-       1. כפתור "קביעת שיחת אפיון" שבסקשן היומן עצמו ([data-cal-out])
-       2. כל כפתורי היומן בעמוד ([data-cal]) - שגם גוללים לסקשן
-       ה-href החיצוני נשאר תמיד: בלי JS / קליק אמצעי - נפתח cal.com בטאב. */
-    document.querySelectorAll('[data-cal-out]').forEach(function (link) {
-      link.addEventListener('click', function (e) {
-        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-        e.preventDefault();
-        document.querySelector('.cal').classList.add('cal-loading');
-        loadCal();
-      });
-    });
+    /* כשהיומן גדור מאחורי שאלון (data-cal-gated), js/campaigner.js אחראי
+       לטעון אותו בסיום השאלון - עם prefill של השם וסיכום התשובות. */
+    window.loadCalInline = loadCal;
 
-    /* כפתורי היומן בעמוד גוללים ליומן במקום להעיף את המשתמש לאתר אחר.
-       פותחים בטאב חדש רק אם המשתמש ביקש זאת במפורש (Cmd/Ctrl/גלגלת). */
-    document.querySelectorAll('[data-cal]').forEach(function (link) {
-      link.addEventListener('click', function (e) {
-        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-        e.preventDefault();
-        document.querySelector('.cal').classList.add('cal-loading');
-        loadCal();
-        book.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    /* היומן נטען אך ורק אחרי לחיצה מפורשת של הגולש (בקשת עידו) - שום דבר
+       לא נפתח לבד בגלילה. בעמוד שבו היומן גדור מאחורי שאלון אין כפתורי
+       [data-cal] כלל (הם [data-lead]), אז מדלגים כאן על החיווטים.
+       ה-href החיצוני נשאר תמיד: בלי JS / קליק אמצעי - נפתח cal.com בטאב. */
+    if (!gated) {
+      /* 1. כפתור "קביעת שיחת אפיון" שבסקשן היומן עצמו ([data-cal-out]) */
+      document.querySelectorAll('[data-cal-out]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+          e.preventDefault();
+          document.querySelector('.cal').classList.add('cal-loading');
+          loadCal();
+        });
       });
-    });
+
+      /* 2. כל כפתורי היומן בעמוד ([data-cal]) - טוענים וגם גוללים לסקשן */
+      document.querySelectorAll('[data-cal]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+          e.preventDefault();
+          document.querySelector('.cal').classList.add('cal-loading');
+          loadCal();
+          book.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+        });
+      });
+    }
   }
 
   /* ============ וואטסאפ צף ============

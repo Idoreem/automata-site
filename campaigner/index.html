@@ -37,7 +37,7 @@
         <a href="#faq">שאלות</a>
       </div>
       <div class="nav-cta">
-        <a class="btn btn-primary" data-cal href="https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A" target="_blank" rel="noopener">קביעת שיחה</a>
+        <a class="btn btn-primary" data-lead href="https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A" target="_blank" rel="noopener">קביעת שיחה</a>
         <button class="menu-btn" id="menuBtn" aria-label="תפריט" aria-expanded="false" aria-controls="navLinks">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
@@ -54,7 +54,7 @@
         <p class="cg-tagline reveal d2">מספרים לו על היעדים והמטרות העסקיות. הוא בונה, כותב, מעלה, מסנן - ומביא לקוחות חדשים לעסק.</p>
         <p class="lead reveal d2">סוכן AI שמנהל לך את כל הפרסום במטא מתוך צ׳אט רגיל בטלגרם. בלי לנהל מודעות בעצמך, מבלי לשלם אלפי שקלים כל חודש ולחכות לקמפיינר שיחזור אליך. כותבים לו - הוא עונה מיד, ועובד בשבילך.</p>
         <div class="hero-ctas reveal d3">
-          <a class="btn btn-primary btn-lg" data-cal href="https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A" target="_blank" rel="noopener">
+          <a class="btn btn-primary btn-lg" data-lead href="https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
             אני רוצה סוכן כזה לעסק שלי
           </a>
@@ -385,17 +385,99 @@
     <div class="wrap">
       <div class="final-in">
         <h2 class="h reveal">בוא נראה איך זה נראה על העסק שלך.</h2>
-        <p class="reveal d1">שיחת אפיון אחת. נבין מה נחשב אצלך ליד טוב, ונראה לך את Campaigner רץ על הקהל שלך - לפני שאתה מחליט משהו.</p>
+        <p class="reveal d1" id="bookLead">שיחת אפיון אחת. נבין מה נחשב אצלך ליד טוב, ונראה לך את Campaigner רץ על הקהל שלך - לפני שאתה מחליט משהו.</p>
       </div>
 
-      <div class="cal reveal d2">
+      <!-- ================= שאלון הלידים =================
+           טופס אינטרקטיבי שנפתח מכל כפתור "קביעת שיחה" (data-lead). שואל שאלה
+           אחרי שאלה, ורק בסיומו נחשף היומן. כולו שיפור JS: בלי JS הוא מוסתר
+           והיומן שמתחתיו מוצג ישירות (fallback), כך שאפשר לקבוע שיחה תמיד.
+           js/campaigner.js מנהל את הצעדים; js/main.js טוען את היומן בסיום. -->
+      <form class="lead reveal d2" id="leadForm" novalidate aria-label="שאלון קצר לפני קביעת פגישה">
+        <div class="lf-head">
+          <span class="lf-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3 20 21M12 3 4 21M6 17q6-3 12 0"/></svg>
+            Campaigner
+          </span>
+          <span class="lf-count" id="lfCount" aria-live="polite">1 / 5</span>
+        </div>
+        <div class="lf-track" aria-hidden="true"><span class="lf-track-fill" id="lfProgFill"></span></div>
+
+        <p class="lf-greet" id="lfGreet" hidden></p>
+
+        <div class="lf-body">
+          <!-- 1 · שם פרטי -->
+          <div class="lf-step" data-step="name">
+            <p class="lf-q">רגע לפני שנקבע — איך קוראים לך?</p>
+            <input class="lf-input" id="lfName" type="text" name="firstName" placeholder="השם הפרטי שלך" autocomplete="given-name" enterkeyhint="next" required>
+          </div>
+
+          <!-- 2 · קמפיין פעיל? -->
+          <div class="lf-step" data-step="active">
+            <p class="lf-q">האם יש לך קמפיין ממומן פעיל היום?</p>
+            <div class="lf-opts lf-opts--row" data-single>
+              <button type="button" class="lf-opt" data-value="כן" data-branch="yes">כן</button>
+              <button type="button" class="lf-opt" data-value="לא" data-branch="no">לא</button>
+            </div>
+          </div>
+
+          <!-- 3א · מי מריץ (ענף "כן") -->
+          <div class="lf-step" data-step="who">
+            <p class="lf-q">מי מריץ לך את הקמפיין?</p>
+            <div class="lf-opts" data-single>
+              <button type="button" class="lf-opt" data-value="אני">אני</button>
+              <button type="button" class="lf-opt" data-value="קמפיינר">קמפיינר</button>
+              <button type="button" class="lf-opt" data-value="סוכנות שיווק">סוכנות שיווק</button>
+              <button type="button" class="lf-opt" data-value="אחר" data-other>אחר</button>
+            </div>
+            <input class="lf-input lf-otherfield" type="text" placeholder="ספר/י לנו — מי?" enterkeyhint="next" hidden>
+          </div>
+
+          <!-- 3ב · למה לא (ענף "לא") -->
+          <div class="lf-step" data-step="why">
+            <p class="lf-q">למה לא?</p>
+            <div class="lf-opts" data-single>
+              <button type="button" class="lf-opt" data-value="רציתי להתחיל אבל לא ידעתי איך עושים את זה">רציתי להתחיל אבל לא ידעתי איך עושים את זה</button>
+              <button type="button" class="lf-opt" data-value="העלויות החודשיות לקמפיינר היו נראות לי יקרות מדיי">העלויות החודשיות לקמפיינר היו נראות לי יקרות מדיי</button>
+              <button type="button" class="lf-opt" data-value="הסתמכתי על שיווק אורגני ומפה לאוזן וזה הספיק">הסתמכתי על שיווק אורגני ומפה לאוזן וזה הספיק</button>
+              <button type="button" class="lf-opt" data-value="אחר" data-other>אחר</button>
+            </div>
+            <input class="lf-input lf-otherfield" type="text" placeholder="ספר/י לנו" enterkeyhint="next" hidden>
+          </div>
+
+          <!-- 4 · למה סוכן AI (טקסט חופשי) -->
+          <div class="lf-step" data-step="reason">
+            <p class="lf-q">למה אתה רוצה סוכן AI שינהל לך את הקמפיינים?</p>
+            <textarea class="lf-input lf-area" id="lfReason" rows="3" placeholder="כמה מילים משלך"></textarea>
+          </div>
+
+          <!-- 5 · טלפון (ספרות בלבד) -->
+          <div class="lf-step" data-step="phone">
+            <p class="lf-q">מעולה. לאן נחזור אליך?</p>
+            <input class="lf-input" id="lfPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="מספר טלפון נייד" enterkeyhint="done" maxlength="10">
+            <p class="lf-err" id="lfPhoneErr" hidden>נראה שחסרות ספרות — צריך מספר נייד מלא</p>
+          </div>
+        </div>
+
+        <div class="lf-nav">
+          <button type="button" class="lf-back" id="lfBack" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            חזרה
+          </button>
+          <button type="button" class="lf-next btn btn-primary" id="lfNext" disabled>המשך</button>
+        </div>
+      </form>
+
+      <p class="lead-thanks reveal" id="leadThanks" hidden></p>
+
+      <div class="cal">
         <div class="hero-ctas cal-fallback">
           <a class="btn btn-primary btn-lg" data-cal-out href="https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
             קביעת שיחת אפיון
           </a>
         </div>
-        <div class="cal-inline" id="calInline"></div>
+        <div class="cal-inline" id="calInline" data-cal-gated></div>
       </div>
 
       <p class="cal-alt reveal d3">מעדיף לכתוב? <a data-wa href="https://wa.me/972544354411?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%90%D7%99%D7%AA%D7%99%20%D7%90%D7%AA%20Campaigner%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93" target="_blank" rel="noopener">אפשר גם בוואטסאפ</a></p>
@@ -427,7 +509,7 @@
           </div>
           <div class="fcol">
             <h3>דברו איתנו</h3>
-            <a data-cal-out href="https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A" target="_blank" rel="noopener">קביעת שיחה</a>
+            <a data-lead href="https://cal.com/ido-reem/%D7%A9%D7%99%D7%97%D7%AA-%D7%90%D7%A4%D7%99%D7%95%D7%9F-%D7%9C%D7%A2%D7%A1%D7%A7-%D7%A9%D7%9C%D7%9A" target="_blank" rel="noopener">קביעת שיחה</a>
             <a data-wa href="https://wa.me/972544354411" target="_blank" rel="noopener">וואטסאפ</a>
           </div>
         </div>

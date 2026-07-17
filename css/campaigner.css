@@ -223,6 +223,73 @@
 .cg-says{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-block-start:34px}
 .cg-say{background:var(--console);color:var(--console-fg);border-radius:16px;border-end-start-radius:5px;padding:12px 17px;font-size:.98rem;box-shadow:var(--shadow-dark)}
 
+/* ---------- שאלון הלידים (סקשן היומן) ----------
+   כרטיס בהיר במרכז הסקשן הכהה: שאלה אחת בכל פעם, פס התקדמות למעלה.
+   כל השאלון הוא שיפור JS. בלי JS הוא מוסתר (.lead) והיומן (.cal) מוצג
+   ישירות כ-fallback. עם JS, היומן גדור עד ש-.final.lead-done נדלק. */
+.lead{max-width:560px;margin:clamp(28px,4vw,44px) auto 0;text-align:start;background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:clamp(22px,3.2vw,32px);display:none}
+.js .lead{display:block}
+.js .final .cal{display:none}
+.js .final.lead-done .lead{display:none}
+.js .final.lead-done .cal{display:block}
+
+/* פס עליון: מותג + מונה צעדים */
+.lf-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lf-brand{display:inline-flex;align-items:center;gap:8px;font-family:'Assistant',sans-serif;font-weight:700;color:var(--ink);font-size:.96rem}
+.lf-brand svg{width:20px;height:20px;color:var(--signal);flex:none}
+.lf-count{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--ink-faint);direction:ltr;flex:none}
+
+/* מד ההתקדמות */
+.lf-track{height:4px;border-radius:99px;background:var(--paper-2);overflow:hidden;margin-block-start:14px}
+.lf-track-fill{display:block;height:100%;width:20%;border-radius:99px;background:var(--signal);transition:width .42s cubic-bezier(.22,1,.36,1)}
+
+/* "נעים להכיר, [שם]" — נשאר גלוי משלב 2 והלאה */
+.lf-greet{margin-block-start:18px;font-family:'Assistant',sans-serif;font-weight:700;font-size:1.06rem;color:var(--signal-ink)}
+.lf-greet[hidden]{display:none}
+
+/* גובה מינימלי כדי שהניווט למטה לא יקפוץ בין שאלות בגבהים שונים */
+.lf-body{margin-block-start:16px;min-height:158px}
+.lf-step{display:none}
+.lf-step.on{display:block;animation:lf-in .3s ease}
+@keyframes lf-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.lf-q{font-size:clamp(1.14rem,2vw,1.34rem);font-weight:700;color:var(--ink);line-height:1.42;font-family:'Assistant',sans-serif}
+
+/* שדות טקסט */
+.lf-input{width:100%;margin-block-start:14px;padding:13px 15px;font-family:'Assistant',sans-serif;font-size:1.02rem;color:var(--ink);background:var(--paper);border:1.5px solid var(--rule-strong);border-radius:var(--r-md);transition:border-color .2s,box-shadow .2s}
+.lf-input::placeholder{color:var(--ink-faint)}
+.lf-input:focus{outline:none;border-color:var(--signal);box-shadow:0 0 0 3px var(--signal-wash)}
+.lf-area{resize:vertical;min-height:96px;line-height:1.6}
+.lf-otherfield[hidden]{display:none}
+
+/* אפשרויות בחירה */
+.lf-opts{margin-block-start:16px;display:flex;flex-direction:column;gap:10px}
+.lf-opt{display:flex;align-items:center;gap:11px;width:100%;text-align:start;font-family:'Assistant',sans-serif;font-size:1rem;color:var(--ink-soft);background:var(--paper);border:1.5px solid var(--rule-strong);border-radius:var(--r-md);padding:13px 16px;cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.lf-opt::before{content:"";width:18px;height:18px;flex:none;border-radius:50%;border:2px solid var(--rule-strong);transition:border-color .2s,background .2s,box-shadow .2s}
+.lf-opt:hover{border-color:var(--ink-faint)}
+.lf-opt.sel{border-color:var(--signal);background:var(--signal-wash);color:var(--signal-ink);font-weight:600}
+.lf-opt.sel::before{border-color:var(--signal);background:var(--signal);box-shadow:inset 0 0 0 3px var(--card)}
+/* כן/לא — שתי אפשרויות רחבות זו לצד זו, בלי סמן העיגול */
+.lf-opts--row{flex-direction:row}
+.lf-opts--row .lf-opt{justify-content:center;font-weight:600;font-size:1.05rem}
+.lf-opts--row .lf-opt::before{display:none}
+
+.lf-err{margin-block-start:10px;color:#C0392B;font-size:.9rem}
+.lf-err[hidden]{display:none}
+
+/* ניווט: "חזרה" מימין, "המשך" נדחף לקצה (שמאל ב-RTL) */
+.lf-nav{margin-block-start:22px;display:flex;align-items:center;gap:12px}
+.lf-back{display:inline-flex;align-items:center;gap:5px;background:none;border:none;color:var(--ink-mute);font-family:'Assistant',sans-serif;font-size:.95rem;cursor:pointer;padding:6px 4px;transition:color .2s}
+.lf-back:hover{color:var(--ink)}
+.lf-back svg{width:16px;height:16px}
+.lf-back[hidden]{display:none}
+.lf-next{margin-inline-start:auto;min-width:150px}
+.lf-next:disabled{opacity:.45;cursor:not-allowed;transform:none;pointer-events:none}
+
+/* שורת התודה שמעל היומן אחרי השליחה */
+.lead-thanks{max-width:560px;margin:clamp(22px,3vw,30px) auto 0;text-align:center;color:var(--console-fg);font-size:1.12rem}
+.lead-thanks[hidden]{display:none}
+.lead-thanks b{color:var(--signal)}
+
 /* ---------- רספונסיבי ---------- */
 @media (max-width:980px){
   /* הכרטיס יורד מתחת לטקסט (כמו הקונסולה באתר הראשי) - אחרת הוא נמעך
@@ -250,6 +317,8 @@
   .cmp-ck,.cmp-x{width:13px;height:13px;margin-inline-end:4px}
   .cmp-price{font-size:1rem}
   .cmp-sub{font-size:.66rem}
+  .lf-body{min-height:150px}
+  .lf-next{min-width:0;flex:1}
 }
 
 /* מי שביקש פחות תנועה מקבל שיחה מלאה וטיימליין צבוע - לא מסך ריק. */
@@ -266,4 +335,7 @@
   .js .cg-flow .cg-fnum{background:var(--signal-wash);border-color:var(--signal);color:var(--signal-ink);transition:none}
   .js .cg-flow .cg-fstep:not(:last-child)::after,
   .js .cg-flow.in .cg-fstep:not(:last-child)::after{animation:none;transform:scaleY(1)}
+  /* השאלון: בלי אנימציית כניסה בין שאלות, בלי מעבר על פס ההתקדמות */
+  .lf-step.on{animation:none}
+  .lf-track-fill{transition:none}
 }
