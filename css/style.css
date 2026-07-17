@@ -644,7 +644,11 @@ html:not(.js) .step-link .chev{color:var(--signal)}
    הם בגבהים שונים מאוד (202px עד 901px), ולכן פריסת עמודות
    (columns) ולא grid — הדפדפן מאזן את הגבהים בעצמו
    ואף צילום לא נחתך.
+   הסקשן עצמו הוא קומפוננטה משותפת (<results-section>) שמזריקה
+   את התוכן משני העמודים - ולכן צריך display:block כדי שמחלקות
+   ה-.section יתנהגו נכון על תגית מותאמת. ראה js/results-section.js.
    ========================================================= */
+results-section{display:block}
 .tgrid{columns:2;column-gap:16px}
 .t{
   break-inside:avoid;margin-block-end:16px;

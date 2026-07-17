@@ -411,6 +411,12 @@
     </div>
   </section>
 
+  <!-- ================= תוצאות (קומפוננטה משותפת) =================
+       אותו סקשן בדיוק כמו בעמוד הבית. התוכן חי במקום אחד בלבד -
+       js/results-section.js - כך שכל עריכה משנה את שני העמודים.
+       רקע רגיל (section) כדי להפריד מ-#says הבהיר שמעליו. -->
+  <results-section class="section" id="results"></results-section>
+
   <!-- ================= FAQ ================= -->
   <section class="section" id="faq">
     <div class="wrap">
@@ -576,6 +582,8 @@
 
 </div>
 
+<!-- קומפוננטה משותפת (סקשן התוצאות) - לפני main.js כדי שה-.reveal ייקלטו -->
+<script src="/js/results-section.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/campaigner.js"></script>
 </body>
