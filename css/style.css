@@ -658,11 +658,11 @@ results-section{display:block}
 }
 .t:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--rule-strong)}
 .t img{width:100%;height:auto;border-radius:calc(var(--r-lg) - 6px)}
-/* כרטיס הווידאו: הסרטון אנכי, אז מגבילים את גובהו וממרכזים אותו בכרטיס
-   (ברוחב עמודה מלא כמו השאר). aspect-ratio שומר את המקום מראש - כך שגם עם
-   preload="none" הדפדפן יודע את הגובה לפני הטעינה, בלי קפיצה או חפיפה על
-   שאר הכרטיסים. הרקע הכהה של הכרטיס ממלא את הצדדים. */
-.t--video{padding:6px;display:flex;justify-content:center;align-items:center}
+/* כרטיס הווידאו: הסרטון אנכי, אז מגבילים את גובהו. הכרטיס מתכווץ בדיוק
+   לרוחב הווידאו (fit-content) וממורכז בעמודה - כך אין רקע כהה בצדדים.
+   aspect-ratio שומר את המקום מראש, כך שגם עם preload="none" הדפדפן יודע
+   את הגודל לפני הטעינה, בלי קפיצה או חפיפה על שאר הכרטיסים. */
+.t--video{padding:6px;width:-moz-fit-content;width:fit-content;max-width:100%;margin-inline:auto}
 .t-video{display:block;aspect-ratio:9/16;height:min(68vh,440px);width:auto;max-width:100%;border-radius:calc(var(--r-lg) - 6px)}
 /* כותרת ממסגרת לכל צילום: אייקון וואטסאפ ירוק + שורת התוצאה.
    הצילום נשאר כמו שהוא - האותנטיות היא הנכס. */

@@ -24,7 +24,7 @@
      בשדה הראייה (ראה render) כדי לא למשוך את הקובץ עד שגוללים לסקשן. */
   function videoCard(delay, src, poster) {
     return '<figure class="t t--video reveal ' + delay + '">' +
-      '<video class="t-video" muted loop playsinline preload="none" poster="' + poster + '">' +
+      '<video class="t-video" muted loop playsinline controls controlslist="nodownload" preload="none" poster="' + poster + '">' +
         '<source src="' + src + '" type="video/mp4">' +
       '</video>' +
       '</figure>';
