@@ -17,7 +17,8 @@ module.exports = async (req, res) => {
     return res.status(405).json({ ok: false, error: 'method_not_allowed' });
   }
 
-  const token = process.env.CRM_LEAD_TOKEN;
+  // משתנה הסביבה הוגדר ב-Vercel בשם crm; תומכים גם בשמות חלופיים ליתר ביטחון.
+  const token = process.env.crm || process.env.CRM_LEAD_TOKEN || process.env.CRM;
   if (!token) {
     // הטוקן עוד לא הוגדר ב-Vercel. מחזירים שגיאה ברורה; הלקוח fire-and-forget
     // ולכן זה לא שובר את חוויית המשתמש.
