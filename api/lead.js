@@ -14,26 +14,14 @@ const CRM_ENDPOINT = 'https://maor-s-crm.vercel.app/api/webhooks/leads';
 module.exports = async (req, res) => {
   // אבחון זמני: GET מחזיר נוכחות משתני סביבה (בלי ערכים) כדי לוודא שהמשתנה
   // הגיע לסביבת Production. יוסר מיד אחרי הבדיקה.
-  if (req.method === 'GET') {
-    // מציג רק *שמות* של משתני סביבה מותאמים (לא ערכים) כדי לזהות את השם המדויק
-    // של הטוקן ואת הסביבה (production/preview). יוסר מיד אחרי האבחון.
-    const noise = /^(AWS_|VERCEL_|LAMBDA_|NODE_|X_|_|PATH$|LANG$|LD_|TZ$|PWD$|SHLVL$|HOME$|HOSTNAME$|NOW_|__|AWS$)/;
-    return res.status(200).json({
-      debug: true,
-      node: process.version,
-      vercelEnv: process.env.VERCEL_ENV || null,
-      vercelUrl: process.env.VERCEL_URL || null,
-      has_crm: !!process.env.crm,
-      customEnvKeys: Object.keys(process.env).filter(function (k) { return !noise.test(k); }).sort()
-    });
-  }
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ ok: false, error: 'method_not_allowed' });
   }
 
-  // משתנה הסביבה הוגדר ב-Vercel בשם crm; תומכים גם בשמות חלופיים ליתר ביטחון.
-  const token = process.env.crm || process.env.CRM_LEAD_TOKEN || process.env.CRM;
+  // משתנה הסביבה הוגדר ב-Vercel בשם Crm (רגיש לאותיות גדולות/קטנות);
+  // תומכים גם בשמות חלופיים ליתר ביטחון.
+  const token = process.env.Crm || process.env.crm || process.env.CRM_LEAD_TOKEN || process.env.CRM;
   if (!token) {
     // הטוקן עוד לא הוגדר ב-Vercel. מחזירים שגיאה ברורה; הלקוח fire-and-forget
     // ולכן זה לא שובר את חוויית המשתמש.
