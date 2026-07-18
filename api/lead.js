@@ -12,6 +12,18 @@
 const CRM_ENDPOINT = 'https://maor-s-crm.vercel.app/api/webhooks/leads';
 
 module.exports = async (req, res) => {
+  // אבחון זמני: GET מחזיר נוכחות משתני סביבה (בלי ערכים) כדי לוודא שהמשתנה
+  // הגיע לסביבת Production. יוסר מיד אחרי הבדיקה.
+  if (req.method === 'GET') {
+    return res.status(200).json({
+      debug: true,
+      node: process.version,
+      has_crm: !!process.env.crm,
+      has_CRM_LEAD_TOKEN: !!process.env.CRM_LEAD_TOKEN,
+      has_CRM: !!process.env.CRM,
+      crm_len: (process.env.crm || '').length
+    });
+  }
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ ok: false, error: 'method_not_allowed' });
