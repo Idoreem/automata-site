@@ -20,6 +20,16 @@
       '</figure>';
   }
 
+  /* כרטיס וידאו - המלצה מצולמת. בלי כותרת, מושתק ובלולאה, ומתנגן רק כשהוא
+     בשדה הראייה (ראה render) כדי לא למשוך את הקובץ עד שגוללים לסקשן. */
+  function videoCard(delay, src, poster) {
+    return '<figure class="t t--video reveal ' + delay + '">' +
+      '<video class="t-video" muted loop playsinline preload="none" poster="' + poster + '">' +
+        '<source src="' + src + '" type="video/mp4">' +
+      '</video>' +
+      '</figure>';
+  }
+
   var MARKUP =
     '<div class="wrap">' +
       '<div class="shead shead--center reveal">' +
@@ -27,11 +37,12 @@
         '<p class="tnote">צילומי מסך אמיתיים, כמו שהם. בלי עריכה.</p>' +
       '</div>' +
       '<div class="tgrid">' +
-        card('d1', 'ליווי צמוד עד לתוצאה', '/img/testimonials/thanks.jpg', 916, 202,
+        videoCard('d1', '/img/testimonials/testimonial-video.mp4', '/img/testimonials/testimonial-video.jpg') +
+        card('d2', 'ליווי צמוד עד לתוצאה', '/img/testimonials/thanks.jpg', 916, 202,
           'הודעת וואטסאפ מלקוח: ״תודה רבה על כל העזרה אחי לא הייתי מגיע לפה בלי שתכוון אותי״') +
-        card('d2', 'לידים חמים יותר, פגישות בקצב', '/img/testimonials/leads.jpg', 898, 423,
+        card('d3', 'לידים חמים יותר, פגישות בקצב', '/img/testimonials/leads.jpg', 898, 423,
           'הודעת וואטסאפ מלקוח: ״היי אלוף, חייב להגיד שעד עכשיו טפו טפו הכל הולך מעולה. מאז שהטמענו את ה-AI בעסק הלידים מגיעים הרבה יותר חמים, ומנהלת המשרד מתאמת פגישות בקצב״') +
-        card('d3', 'שירות שחוזרים אליו', '/img/testimonials/master.jpg', 926, 589,
+        card('d4', 'שירות שחוזרים אליו', '/img/testimonials/master.jpg', 926, 589,
           'הודעות וואטסאפ מלקוח: ״שמע עכשיו שלחתי אתה כוכב אחי תודה על הכל״, ״אם אני אצטרך עוד עזרה אני אדע למי לפנות את המאסטר אחי תודה רבה״') +
         card('d4', 'הערך המוסף בתוכנית', '/img/testimonials/value.jpg', 929, 389,
           'הודעת וואטסאפ מלקוח: ״שמע, אתה באמת עוזר לי כל כך אתה אולי לא מבין. אבל אתה ממש הערך המוסף בתכנית הזו. תודה רבה״') +
@@ -42,6 +53,20 @@
     if (el.getAttribute('data-rendered')) return;
     el.setAttribute('data-rendered', '1');
     el.innerHTML = MARKUP;
+
+    /* הווידאו מתנגן רק כשהוא גלוי - חוסך את הורדת הקובץ עד שגוללים לסקשן,
+       ועוצר כשיוצאים ממנו. preload="none" בתגית משלים את זה. */
+    var vid = el.querySelector('video');
+    if (!vid) return;
+    vid.muted = true; /* נדרש כדי שדפדפנים יאשרו הפעלה מושתקת אוטומטית */
+    var play = function () { var p = vid.play(); if (p && p.catch) p.catch(function () {}); };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { en.isIntersecting ? play() : vid.pause(); });
+      }, { threshold: 0.25 }).observe(vid);
+    } else {
+      play();
+    }
   }
 
   if ('customElements' in window) {
