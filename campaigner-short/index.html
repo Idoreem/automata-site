@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
 <title>Campaigner - סוכן הפרסום שלך בטלגרם | Automata</title>
 <meta name="description" content="Campaigner הוא סוכן AI שמנהל לך את הפרסום במטא מתוך צ׳אט בטלגרם. אומר לו מה אתה רוצה - הוא בונה את הקמפיין, כותב את הקופי, מייצר את הקריאייטיב, מסנן את הפונים ושולח לך רק לידים מוכנים.">
 <meta property="og:title" content="Campaigner - סוכן הפרסום שלך בטלגרם">
@@ -14,8 +15,8 @@
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/campaigner.css">
 <script>document.documentElement.className+=" js"</script>
-<link rel="canonical" href="https://automata-site.vercel.app/campaigner">
-<meta property="og:url" content="https://automata-site.vercel.app/campaigner">
+<link rel="canonical" href="https://automata-site.vercel.app/campaigner-short">
+<meta property="og:url" content="https://automata-site.vercel.app/campaigner-short">
 <meta property="og:image" content="https://automata-site.vercel.app/img/og.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -475,78 +476,30 @@
            אחרי שאלה, ורק בסיומו נחשף היומן. כולו שיפור JS: בלי JS הוא מוסתר
            והיומן שמתחתיו מוצג ישירות (fallback), כך שאפשר לקבוע שיחה תמיד.
            js/campaigner.js מנהל את הצעדים; js/main.js טוען את היומן בסיום. -->
-      <form class="lead reveal d2" id="leadForm" novalidate aria-label="שאלון קצר לפני קביעת פגישה">
+      <form class="lead reveal d2" id="leadFormShort" novalidate aria-label="השארת פרטים ליצירת קשר">
         <div class="lf-head">
           <span class="lf-brand">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3 20 21M12 3 4 21M6 17q6-3 12 0"/></svg>
             Campaigner
           </span>
-          <span class="lf-count" id="lfCount" aria-live="polite">1 / 5</span>
         </div>
-        <div class="lf-track" aria-hidden="true"><span class="lf-track-fill" id="lfProgFill"></span></div>
-
-        <p class="lf-greet" id="lfGreet" hidden></p>
 
         <div class="lf-body">
           <!-- 1 · שם פרטי -->
-          <div class="lf-step" data-step="name">
-            <p class="lf-q">רגע לפני שנקבע — איך קוראים לך?</p>
-            <input class="lf-input" id="lfName" type="text" name="firstName" placeholder="השם הפרטי שלך" autocomplete="given-name" enterkeyhint="next" required>
+          <div class="lf-step on" data-step="name">
+            <p class="lf-q">רגע לפני שנחזור אליך — איך קוראים לך?</p>
+            <input class="lf-input" id="lsName" type="text" name="firstName" placeholder="השם הפרטי שלך" autocomplete="given-name" enterkeyhint="next" required>
           </div>
-
-          <!-- 2 · קמפיין פעיל? -->
-          <div class="lf-step" data-step="active">
-            <p class="lf-q">האם יש לך קמפיין ממומן פעיל היום?</p>
-            <div class="lf-opts lf-opts--row" data-single>
-              <button type="button" class="lf-opt" data-value="כן" data-branch="yes">כן</button>
-              <button type="button" class="lf-opt" data-value="לא" data-branch="no">לא</button>
-            </div>
-          </div>
-
-          <!-- 3א · מי מריץ (ענף "כן") -->
-          <div class="lf-step" data-step="who">
-            <p class="lf-q">מי מריץ לך את הקמפיין?</p>
-            <div class="lf-opts" data-single>
-              <button type="button" class="lf-opt" data-value="אני">אני</button>
-              <button type="button" class="lf-opt" data-value="קמפיינר">קמפיינר</button>
-              <button type="button" class="lf-opt" data-value="סוכנות שיווק">סוכנות שיווק</button>
-              <button type="button" class="lf-opt" data-value="אחר" data-other>אחר</button>
-            </div>
-            <input class="lf-input lf-otherfield" type="text" placeholder="ספר/י לנו — מי?" enterkeyhint="next" hidden>
-          </div>
-
-          <!-- 3ב · למה לא (ענף "לא") -->
-          <div class="lf-step" data-step="why">
-            <p class="lf-q">למה לא?</p>
-            <div class="lf-opts" data-single>
-              <button type="button" class="lf-opt" data-value="רציתי להתחיל אבל לא ידעתי איך עושים את זה">רציתי להתחיל אבל לא ידעתי איך עושים את זה</button>
-              <button type="button" class="lf-opt" data-value="העלויות החודשיות לקמפיינר היו נראות לי יקרות מדיי">העלויות החודשיות לקמפיינר היו נראות לי יקרות מדיי</button>
-              <button type="button" class="lf-opt" data-value="הסתמכתי על שיווק אורגני ומפה לאוזן וזה הספיק">הסתמכתי על שיווק אורגני ומפה לאוזן וזה הספיק</button>
-              <button type="button" class="lf-opt" data-value="אחר" data-other>אחר</button>
-            </div>
-            <input class="lf-input lf-otherfield" type="text" placeholder="ספר/י לנו" enterkeyhint="next" hidden>
-          </div>
-
-          <!-- 4 · למה סוכן AI (טקסט חופשי) -->
-          <div class="lf-step" data-step="reason">
-            <p class="lf-q">למה אתה רוצה סוכן AI שינהל לך את הקמפיינים?</p>
-            <textarea class="lf-input lf-area" id="lfReason" rows="3" placeholder="כמה מילים משלך"></textarea>
-          </div>
-
-          <!-- 5 · טלפון (ספרות בלבד) -->
-          <div class="lf-step" data-step="phone">
-            <p class="lf-q">מעולה. לאן נחזור אליך?</p>
-            <input class="lf-input" id="lfPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="מספר טלפון נייד" enterkeyhint="done" maxlength="10">
-            <p class="lf-err" id="lfPhoneErr" hidden>נראה שחסרות ספרות — צריך מספר נייד מלא</p>
+          <!-- 2 · טלפון -->
+          <div class="lf-step on" data-step="phone">
+            <p class="lf-q" style="margin-block-start:20px">לאן נחזור אליך?</p>
+            <input class="lf-input" id="lsPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="מספר טלפון נייד" enterkeyhint="done" maxlength="10">
+            <p class="lf-err" id="lsPhoneErr" hidden>נראה שחסרות ספרות — צריך מספר נייד מלא</p>
           </div>
         </div>
 
         <div class="lf-nav">
-          <button type="button" class="lf-back" id="lfBack" hidden>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-            חזרה
-          </button>
-          <button type="button" class="lf-next btn btn-primary" id="lfNext" disabled>המשך</button>
+          <button type="submit" class="lf-next btn btn-primary" id="lsSubmit" disabled>שליחה</button>
         </div>
       </form>
 
@@ -610,5 +563,6 @@
 <script src="/js/main.js"></script>
 <script src="/js/lead-crm.js"></script>
 <script src="/js/campaigner.js"></script>
+<script src="/js/campaigner-short.js"></script>
 </body>
 </html>

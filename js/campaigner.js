@@ -422,6 +422,18 @@
     lines.push('למה רוצה סוכן AI: ' + (data.reason || '-'));
     lines.push('טלפון: ' + (data.phone || '-'));
 
+    /* שולח את הליד ל-CRM — קורה תמיד, בין אם ימשיך לקבוע פגישה ובין אם לא.
+       השאלות נשלחות כ-answers (השדות ש-ה-CRM לא מכיר). ref=campaigner-full. */
+    if (window.sendLeadToCRM) {
+      var crmAnswers = [
+        { question: 'האם יש לך קמפיין ממומן פעיל היום?', answer: data.active || '' }
+      ];
+      if (branch === 'yes') crmAnswers.push({ question: 'מי מריץ לך את הקמפיין?', answer: answer('who') });
+      if (branch === 'no')  crmAnswers.push({ question: 'למה לא?', answer: answer('why') });
+      crmAnswers.push({ question: 'למה אתה רוצה סוכן AI שינהל לך את הקמפיינים?', answer: data.reason || '' });
+      window.sendLeadToCRM({ firstName: name, phone: data.phone, answers: crmAnswers, ref: 'campaigner-full' });
+    }
+
     if (section) section.classList.add('lead-done');
 
     if (thanks) {
