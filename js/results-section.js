@@ -42,6 +42,7 @@
           'הודעת וואטסאפ מלקוח: ״תודה רבה על כל העזרה אחי לא הייתי מגיע לפה בלי שתכוון אותי״') +
         card('d3', 'לידים חמים יותר, פגישות בקצב', '/img/testimonials/leads.jpg', 898, 423,
           'הודעת וואטסאפ מלקוח: ״היי אלוף, חייב להגיד שעד עכשיו טפו טפו הכל הולך מעולה. מאז שהטמענו את ה-AI בעסק הלידים מגיעים הרבה יותר חמים, ומנהלת המשרד מתאמת פגישות בקצב״') +
+        videoCard('d4', '/img/testimonials/testimonial-video-2.mp4', '/img/testimonials/testimonial-video-2.jpg') +
         card('d4', 'שירות שחוזרים אליו', '/img/testimonials/master.jpg', 926, 589,
           'הודעות וואטסאפ מלקוח: ״שמע עכשיו שלחתי אתה כוכב אחי תודה על הכל״, ״אם אני אצטרך עוד עזרה אני אדע למי לפנות את המאסטר אחי תודה רבה״') +
         card('d4', 'הערך המוסף בתוכנית', '/img/testimonials/value.jpg', 929, 389,
@@ -54,19 +55,19 @@
     el.setAttribute('data-rendered', '1');
     el.innerHTML = MARKUP;
 
-    /* הווידאו מתנגן רק כשהוא גלוי - חוסך את הורדת הקובץ עד שגוללים לסקשן,
+    /* כל וידאו מתנגן רק כשהוא גלוי - חוסך את הורדת הקבצים עד שגוללים לסקשן,
        ועוצר כשיוצאים ממנו. preload="none" בתגית משלים את זה. */
-    var vid = el.querySelector('video');
-    if (!vid) return;
-    vid.muted = true; /* נדרש כדי שדפדפנים יאשרו הפעלה מושתקת אוטומטית */
-    var play = function () { var p = vid.play(); if (p && p.catch) p.catch(function () {}); };
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) { en.isIntersecting ? play() : vid.pause(); });
-      }, { threshold: 0.25 }).observe(vid);
-    } else {
-      play();
-    }
+    Array.prototype.forEach.call(el.querySelectorAll('video'), function (vid) {
+      vid.muted = true; /* נדרש כדי שדפדפנים יאשרו הפעלה מושתקת אוטומטית */
+      var play = function () { var p = vid.play(); if (p && p.catch) p.catch(function () {}); };
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { en.isIntersecting ? play() : vid.pause(); });
+        }, { threshold: 0.25 }).observe(vid);
+      } else {
+        play();
+      }
+    });
   }
 
   if ('customElements' in window) {
