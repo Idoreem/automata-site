@@ -664,6 +664,8 @@ results-section{display:block}
    את הגודל לפני הטעינה, בלי קפיצה או חפיפה על שאר הכרטיסים. */
 .t--video{padding:6px;width:-moz-fit-content;width:fit-content;max-width:100%;margin-inline:auto}
 .t-video{display:block;aspect-ratio:9/16;height:min(68vh,440px);width:auto;max-width:100%;border-radius:calc(var(--r-lg) - 6px)}
+/* וידאו ממורכז: פורש על שתי העמודות ויושב באמצע, בין השורות. */
+.t--video-center{column-span:all;margin-block:4px auto}
 /* כותרת ממסגרת לכל צילום: אייקון וואטסאפ ירוק + שורת התוצאה.
    הצילום נשאר כמו שהוא - האותנטיות היא הנכס. */
 .t figcaption{

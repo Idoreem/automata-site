@@ -22,8 +22,8 @@
 
   /* כרטיס וידאו - המלצה מצולמת. בלי כותרת, מושתק ובלולאה, ומתנגן רק כשהוא
      בשדה הראייה (ראה render) כדי לא למשוך את הקובץ עד שגוללים לסקשן. */
-  function videoCard(delay, src, poster) {
-    return '<figure class="t t--video reveal ' + delay + '">' +
+  function videoCard(delay, src, poster, extra) {
+    return '<figure class="t t--video ' + (extra ? extra + ' ' : '') + 'reveal ' + delay + '">' +
       '<video class="t-video" muted loop playsinline controls controlslist="nodownload" preload="none" poster="' + poster + '">' +
         '<source src="' + src + '" type="video/mp4">' +
       '</video>' +
@@ -38,12 +38,13 @@
       '</div>' +
       '<div class="tgrid">' +
         videoCard('d1', '/img/testimonials/testimonial-video.mp4', '/img/testimonials/testimonial-video.jpg') +
-        card('d2', 'ליווי צמוד עד לתוצאה', '/img/testimonials/thanks.jpg', 916, 202,
+        videoCard('d2', '/img/testimonials/testimonial-video-2.mp4', '/img/testimonials/testimonial-video-2.jpg') +
+        /* הסרטון השלישי במרכז - פורש על שתי העמודות וממורכז (ראה css/style.css) */
+        videoCard('d3', '/img/testimonials/testimonial-video-3.mp4', '/img/testimonials/testimonial-video-3.jpg', 't--video-center') +
+        card('d3', 'ליווי צמוד עד לתוצאה', '/img/testimonials/thanks.jpg', 916, 202,
           'הודעת וואטסאפ מלקוח: ״תודה רבה על כל העזרה אחי לא הייתי מגיע לפה בלי שתכוון אותי״') +
-        videoCard('d3', '/img/testimonials/testimonial-video-3.mp4', '/img/testimonials/testimonial-video-3.jpg') +
-        card('d3', 'לידים חמים יותר, פגישות בקצב', '/img/testimonials/leads.jpg', 898, 423,
+        card('d4', 'לידים חמים יותר, פגישות בקצב', '/img/testimonials/leads.jpg', 898, 423,
           'הודעת וואטסאפ מלקוח: ״היי אלוף, חייב להגיד שעד עכשיו טפו טפו הכל הולך מעולה. מאז שהטמענו את ה-AI בעסק הלידים מגיעים הרבה יותר חמים, ומנהלת המשרד מתאמת פגישות בקצב״') +
-        videoCard('d4', '/img/testimonials/testimonial-video-2.mp4', '/img/testimonials/testimonial-video-2.jpg') +
         card('d4', 'שירות שחוזרים אליו', '/img/testimonials/master.jpg', 926, 589,
           'הודעות וואטסאפ מלקוח: ״שמע עכשיו שלחתי אתה כוכב אחי תודה על הכל״, ״אם אני אצטרך עוד עזרה אני אדע למי לפנות את המאסטר אחי תודה רבה״') +
         card('d4', 'הערך המוסף בתוכנית', '/img/testimonials/value.jpg', 929, 389,
