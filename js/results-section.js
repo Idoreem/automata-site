@@ -36,16 +36,18 @@
         '<h2 class="h">תוצאות שהבאנו ללקוחות מרוצים</h2>' +
         '<p class="tnote">צילומי מסך אמיתיים, כמו שהם. בלי עריכה.</p>' +
       '</div>' +
-      '<div class="tgrid">' +
+      /* שלושת הסרטונים בשורה אחת, האמצעי (השלישי) במרכז. ראה css/style.css. */
+      '<div class="tvideos">' +
         videoCard('d1', '/img/testimonials/testimonial-video.mp4', '/img/testimonials/testimonial-video.jpg') +
-        videoCard('d2', '/img/testimonials/testimonial-video-2.mp4', '/img/testimonials/testimonial-video-2.jpg') +
-        /* הסרטון השלישי במרכז - פורש על שתי העמודות וממורכז (ראה css/style.css) */
-        videoCard('d3', '/img/testimonials/testimonial-video-3.mp4', '/img/testimonials/testimonial-video-3.jpg', 't--video-center') +
-        card('d3', 'ליווי צמוד עד לתוצאה', '/img/testimonials/thanks.jpg', 916, 202,
+        videoCard('d2', '/img/testimonials/testimonial-video-3.mp4', '/img/testimonials/testimonial-video-3.jpg') +
+        videoCard('d3', '/img/testimonials/testimonial-video-2.mp4', '/img/testimonials/testimonial-video-2.jpg') +
+      '</div>' +
+      '<div class="tgrid">' +
+        card('d1', 'ליווי צמוד עד לתוצאה', '/img/testimonials/thanks.jpg', 916, 202,
           'הודעת וואטסאפ מלקוח: ״תודה רבה על כל העזרה אחי לא הייתי מגיע לפה בלי שתכוון אותי״') +
-        card('d4', 'לידים חמים יותר, פגישות בקצב', '/img/testimonials/leads.jpg', 898, 423,
+        card('d2', 'לידים חמים יותר, פגישות בקצב', '/img/testimonials/leads.jpg', 898, 423,
           'הודעת וואטסאפ מלקוח: ״היי אלוף, חייב להגיד שעד עכשיו טפו טפו הכל הולך מעולה. מאז שהטמענו את ה-AI בעסק הלידים מגיעים הרבה יותר חמים, ומנהלת המשרד מתאמת פגישות בקצב״') +
-        card('d4', 'שירות שחוזרים אליו', '/img/testimonials/master.jpg', 926, 589,
+        card('d3', 'שירות שחוזרים אליו', '/img/testimonials/master.jpg', 926, 589,
           'הודעות וואטסאפ מלקוח: ״שמע עכשיו שלחתי אתה כוכב אחי תודה על הכל״, ״אם אני אצטרך עוד עזרה אני אדע למי לפנות את המאסטר אחי תודה רבה״') +
         card('d4', 'הערך המוסף בתוכנית', '/img/testimonials/value.jpg', 929, 389,
           'הודעת וואטסאפ מלקוח: ״שמע, אתה באמת עוזר לי כל כך אתה אולי לא מבין. אבל אתה ממש הערך המוסף בתכנית הזו. תודה רבה״') +
