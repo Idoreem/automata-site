@@ -40,6 +40,7 @@
         videoCard('d1', '/img/testimonials/testimonial-video.mp4', '/img/testimonials/testimonial-video.jpg') +
         card('d2', 'ליווי צמוד עד לתוצאה', '/img/testimonials/thanks.jpg', 916, 202,
           'הודעת וואטסאפ מלקוח: ״תודה רבה על כל העזרה אחי לא הייתי מגיע לפה בלי שתכוון אותי״') +
+        videoCard('d3', '/img/testimonials/testimonial-video-3.mp4', '/img/testimonials/testimonial-video-3.jpg') +
         card('d3', 'לידים חמים יותר, פגישות בקצב', '/img/testimonials/leads.jpg', 898, 423,
           'הודעת וואטסאפ מלקוח: ״היי אלוף, חייב להגיד שעד עכשיו טפו טפו הכל הולך מעולה. מאז שהטמענו את ה-AI בעסק הלידים מגיעים הרבה יותר חמים, ומנהלת המשרד מתאמת פגישות בקצב״') +
         videoCard('d4', '/img/testimonials/testimonial-video-2.mp4', '/img/testimonials/testimonial-video-2.jpg') +
