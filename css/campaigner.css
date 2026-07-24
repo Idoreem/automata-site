@@ -10,6 +10,9 @@
    אז העמודה מתרחבת והגופן קטן - אחרת היא נשברת לשלוש שורות. */
 .cg-hero .hero-in{align-items:center;grid-template-columns:1.15fr 1fr}
 .cg-hero .display{font-size:clamp(2.2rem,4.4vw,3.6rem)}
+/* פסקת ה-lead ב-hero נצמדת לימין (start) - שהקצה יתיישר עם הכותרת והכפתור,
+   במקום המרכוז (margin auto) שיורש מכלל .lead הכללי. */
+.cg-hero .lead{margin-inline:0}
 .cg-tagline{color:var(--signal-ink);font-size:1.18rem;margin-block-start:14px}
 
 /* המילה המתחלפת בכותרת - הקלדה ומחיקה (js/campaigner.js מזין את הטקסט).
