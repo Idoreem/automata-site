@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "100m-offers": {
+      "source": "getagentseal/founder-playbook",
+      "sourceType": "github",
+      "skillPath": "100m-offers/SKILL.md",
+      "computedHash": "2b3a287914af37d7a00588a6da22abb9251ad237c730d25b0d967bcdcb4bda8e"
+    }
+  }
+}
