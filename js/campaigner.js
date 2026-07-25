@@ -508,3 +508,46 @@
 
   items.forEach(function (el) { io.observe(el); });
 })();
+
+/* ============ ספירה עולה: מספרי ההוכחה (#proof) ============
+   שלושת המספרים בסקשן ההוכחה "עולים" מ-0 ליעד כשהם נכנסים לפריים -
+   כדי שהמספר יימשך את העין ויורגש כתוצאה חיה. שיפור בלבד: בלי JS או
+   עם reduced-motion מוצג היעד הסופי מיד (הערך כבר ב-HTML כ-fallback).
+   ה-₪ יושב ב-span נפרד (.pstat-cur), אז מונפש רק הטקסט המספרי. */
+(function () {
+  'use strict';
+
+  var nums = Array.prototype.slice.call(document.querySelectorAll('#proof .pstat-val'));
+  if (!nums.length) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) return;   // נשאר הערך הסטטי שב-HTML
+
+  var ease = function (t) { return 1 - Math.pow(1 - t, 3); };   // ease-out cubic
+
+  var run = function (el) {
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    if (isNaN(target)) return;
+    var dur = 1100;
+    var start = null;
+    el.textContent = '0';
+    var frame = function (ts) {
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      el.textContent = Math.round(ease(p) * target);
+      if (p < 1) requestAnimationFrame(frame);
+      else el.textContent = String(target);
+    };
+    requestAnimationFrame(frame);
+  };
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      run(e.target);
+    });
+  }, { threshold: 0.6 });
+
+  nums.forEach(function (el) { io.observe(el); });
+})();
