@@ -15,6 +15,16 @@
 .cg-hero .lead{margin-inline:0}
 .cg-tagline{color:var(--signal-ink);font-size:1.18rem;margin-block-start:14px}
 
+/* כפתור ה-CTA בנאבט: טקסט מלא בדסקטופ, תווית קצרה במובייל - אחרת
+   "בדוק אם זה מתאים לעסק שלך" גולש מעבר לרוחב, חונק את הלוגו ודוחף
+   את הכפתור אל מחוץ למסך (ראה צילום המובייל). */
+.ncta-short{display:none}
+@media (max-width:620px){
+  .nav-cta-btn{padding-inline:15px;font-size:.9rem}
+  .ncta-full{display:none}
+  .ncta-short{display:inline}
+}
+
 /* המילה המתחלפת בכותרת - הקלדה ומחיקה (js/campaigner.js מזין את הטקסט).
    בלי JS נשארת המילה הסטטית שב-HTML; הסמן מופיע רק כש-JS פעיל. */
 .cg-rotate{display:inline-block}
