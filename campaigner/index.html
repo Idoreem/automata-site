@@ -262,8 +262,8 @@
         <li class="cg-fstep">
           <span class="cg-fnum">05</span>
           <div class="cg-ftext">
-            <h3>לומד את העסק שלך — וכל חודש הלידים עולים לך פחות</h3>
-            <p>הסוכן לא רק מריץ, הוא לומד. כל יום הוא רואה איזו מודעה מביאה פניות בזול, מזרים לשם תקציב ועוצר את מה שמבזבז. התוצאה: יותר לידים על אותו תקציב, והמחיר לליד יורד חודש אחרי חודש — בלי שתעשה כלום. והדיווח מגיע לצ׳אט שאתה כבר בו, לא לדשבורד שלא תיכנס אליו.</p>
+            <h3>הסוכן לומד את העסק שלך - וכל חודש הלידים עולים לך פחות</h3>
+            <p>הסוכן לא רק מריץ, הוא לומד אותך ואת העסק שלך. כל יום הוא רואה איזו מודעה מביאה פניות בזול, מזרים לשם תקציב ועוצר את מה שמבזבז. התוצאה: יותר לידים על אותו תקציב, והמחיר לליד יורד חודש אחרי חודש בלי שתעשה כלום.</p>
           </div>
         </li>
       </ol>
@@ -433,10 +433,43 @@
     </div>
   </section>
 
+  <!-- ================= הוכחה: המספרים האמיתיים =================
+       Case Study קצר לפני ההמלצות: התוצאות שהסוכן הביא בחשבון שלנו,
+       כהוכחה קשיחה ל"לידים זולים" שהובטחו למעלה. באנר כהה שמבליט את
+       המספרים. צילום המסך מסופק ידנית אל img/campaigner/proof-results.jpg;
+       onerror מסיר את השדה כל עוד התמונה חסרה, כדי שלא יופיע אייקון שבור. -->
+  <section class="section section--dark on-dark" id="proof">
+    <div class="wrap">
+      <div class="shead shead--center reveal">
+        <span class="proof-kicker">לא הבטחה — מספרים</span>
+        <h2 class="h">אלה המספרים שהסוכן הביא — מהחשבון שלנו</h2>
+        <p class="proof-lead">תקציב מינימלי של 60 ₪ ליום. מספרים אמיתיים, בלי לייפות.</p>
+      </div>
+      <div class="proof-stats">
+        <div class="pstat reveal d1">
+          <b class="pstat-num">74</b>
+          <span class="pstat-label">לידים ב-14 יום</span>
+        </div>
+        <div class="pstat reveal d2">
+          <b class="pstat-num">13<span class="pstat-cur">₪</span></b>
+          <span class="pstat-label">עלות ממוצעת לליד</span>
+        </div>
+        <div class="pstat reveal d3">
+          <b class="pstat-num">60<span class="pstat-cur">₪</span></b>
+          <span class="pstat-label">תקציב יומי מינימלי</span>
+        </div>
+      </div>
+      <figure class="proof-shot reveal d1">
+        <img src="/img/campaigner/proof-results.jpg" alt="צילום מסך מחשבון המודעות: 74 לידים ב-14 יום בעלות ממוצעת של 13 ₪ לליד, בתקציב יומי של 60 ₪" loading="lazy" decoding="async" onerror="this.closest('.proof-shot').remove()">
+        <figcaption class="proof-cap">צילום מסך אמיתי מחשבון המודעות</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- ================= תוצאות (קומפוננטה משותפת) =================
        אותו סקשן בדיוק כמו בעמוד הבית. התוכן חי במקום אחד בלבד -
        js/results-section.js - כך שכל עריכה משנה את שני העמודים.
-       רקע רגיל (section) כדי להפריד מ-#says הבהיר שמעליו. -->
+       רקע בהיר (section) כדי להפריד מ-#proof הכהה שמעליו. -->
   <results-section class="section" id="results"></results-section>
 
   <!-- ================= FAQ ================= -->

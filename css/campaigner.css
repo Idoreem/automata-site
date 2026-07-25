@@ -229,6 +229,23 @@
 /* CTA ממורכז בתחתית סקשן — פותח את השאלון (data-lead) כמו שאר הכפתורים */
 .cg-cta{display:flex;justify-content:center;margin-block-start:clamp(30px,4.5vw,46px)}
 
+/* ---------- הוכחה: המספרים האמיתיים (Case Study) ----------
+   באנר כהה בין הפתרון להמלצות: המספרים מהחשבון שלנו כהוכחה ל"לידים
+   זולים", ואחריהם צילום מסך. ל-.h ניתן כאן צבע בהיר (כמו ב-#book),
+   כי ברירת המחדל שלו כהה והוא היה נעלם על רקע כהה. שדה .proof-shot
+   מסיר את עצמו אם התמונה עוד לא הועלתה (onerror) - בלי אייקון שבור. */
+#proof .h{color:var(--console-fg)}
+.proof-kicker{display:inline-block;font-family:'Assistant',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.02em;color:var(--signal)}
+.proof-lead{max-width:560px;margin:14px auto 0;text-align:center;color:var(--console-dim);font-size:clamp(1.02rem,1.6vw,1.16rem);line-height:1.6}
+.proof-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(14px,2.4vw,24px);margin-block-start:clamp(30px,4vw,46px)}
+.pstat{flex:1 1 200px;max-width:270px;background:var(--console-2);border:1px solid var(--console-line);border-radius:var(--r-lg);padding:clamp(24px,3.2vw,34px) 20px;text-align:center}
+.pstat-num{display:block;font-family:'Assistant',sans-serif;font-weight:800;font-size:clamp(2.7rem,6.5vw,4.2rem);line-height:1;letter-spacing:-.02em;color:var(--signal);direction:ltr}
+.pstat-cur{font-size:.46em;font-weight:700;margin-inline-start:3px;vertical-align:.12em}
+.pstat-label{display:block;margin-block-start:12px;color:var(--console-dim);font-family:'Assistant',sans-serif;font-weight:600;font-size:clamp(.94rem,1.4vw,1.04rem);line-height:1.4}
+.proof-shot{max-width:760px;margin:clamp(30px,4vw,44px) auto 0;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--console-line);box-shadow:var(--shadow-dark);background:var(--console-2)}
+.proof-shot img{display:block;width:100%;height:auto}
+.proof-cap{padding:11px 16px;text-align:center;color:var(--console-dim);font-family:'Assistant',sans-serif;font-size:.84rem}
+
 /* ---------- למי זה מתאים ----------
    שבע נקודות זיהוי בשתי עמודות (עמודה אחת במובייל), כל אחת עם וי כתום. */
 /* רשימה אווררית בעמודה אחת: לכל שורה וו קצר ומודגש (סריקה מהירה) מעל
